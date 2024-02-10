@@ -1,1 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Minecraft Vault</title>
+    <!-- Your existing styles here -->
+    <script src="mods.js"></script>
+</head>
+<body>
+    <header>
+        <h1>The Minecraft Vault</h1>
+    </header>
+    
+    <main>
+        <p>The Minecraft Vault's goal is to make it easy to find old and new Minecraft mods. We archive mods, and keep them publicly accessible even after their creators no longer distribute or support them.</p>
+        
+        <p>We provide downloads for mods which are no longer available elsewhere. Otherwise, we just link to the official download page.</p>
 
+        <div id="search-container">
+            <form onsubmit="searchMods(); return false;">
+                <input type="text" id="search-bar" name="search" placeholder="Search...">
+                
+                <select id="search-dropdown" name="category">
+                    <option value="all">All Versions</option>
+                    <option value="category1">1.7.10</option>
+                    <option value="category2">1.7.2</option>
+                    <!-- Add more options as needed -->
+                </select>
+                
+                <input type="submit" value="Search">
+            </form>
+        </div>
+
+        <div id="results">
+            <!-- Results will be displayed here -->
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024</p>
+    </footer>
+
+    <script>
+        function searchMods() {
+            var searchQuery = document.getElementById("search-bar").value.toLowerCase();
+            var category = document.getElementById("search-dropdown").value;
+
+            var filteredMods = modList.filter(function(mod) {
+                return (
+                    (category === "all" || mod.version === category) &&
+                    mod.name.toLowerCase().includes(searchQuery)
+                );
+            });
+
+            displayResults(filteredMods);
+        }
+
+        function displayResults(results) {
+            var resultsContainer = document.getElementById("results");
+            resultsContainer.innerHTML = "";
+
+            if (results.length === 0) {
+                resultsContainer.innerHTML = "<p>No results found.</p>";
+                return;
+            }
+
+            results.forEach(function(mod) {
+                var modElement = document.createElement("div");
+                modElement.innerHTML = "<strong>" + mod.name + "</strong> - Version: " + mod.version;
+                resultsContainer.appendChild(modElement);
+            });
+        }
+    </script>
+</body>
+</html>
