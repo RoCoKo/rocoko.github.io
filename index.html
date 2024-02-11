@@ -1,11 +1,85 @@
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Minecraft Vault</title>
-    <!-- Your existing styles here -->
-    <script src="mods.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles specific to index.html can be added here */
+        #search-container {
+            margin-top: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #search-bar,
+        #search-dropdown,
+        #search-btn {
+            margin-bottom: 10px;
+        }
+
+        #search-bar {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
+
+        #search-dropdown {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-right: 10px;
+            flex: 1;
+        }
+
+        #search-btn {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        #search-btn:hover {
+            background-color: #45a049;
+        }
+
+        #results {
+            margin-top: 20px;
+        }
+
+        .mod-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .mod-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .mod-author, .mod-description {
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -13,7 +87,7 @@
     </header>
     
     <main>
-        <p>The Minecraft Vault's goal is to make it easy to find old and new Minecraft mods. We archive mods, and keep them publicly accessible even after their creators no longer distribute or support them.</p>
+        <p>The Minecraft Vault's goal is to make it easy to find old and new Minecraft mods...</p>
         
         <p>We provide downloads for mods which are no longer available elsewhere. Otherwise, we just link to the official download page.</p>
 
@@ -23,12 +97,15 @@
                 
                 <select id="search-dropdown" name="category">
                     <option value="all">All Versions</option>
-                    <option value="category1">1.7.10</option>
-                    <option value="category2">1.7.2</option>
-                    <!-- Add more options as needed -->
+                    <option value="1.19.2">1.19.2</option>
+                    <option value="1.12.2">1.12.2</option>
+                    <option value="1.12.1">1.12.1</option>
+                    <option value="1.12">1.12</option>
+                    <option value="1.10.2">1.10.2</option>
+                    <option value="1.7.10">1.7.10</option>
                 </select>
                 
-                <input type="submit" value="Search">
+                <input type="submit" id="search-btn" value="Search">
             </form>
         </div>
 
@@ -36,41 +113,8 @@
             <!-- Results will be displayed here -->
         </div>
     </main>
-    
-    <footer>
-        <p>&copy; 2024</p>
-    </footer>
 
-    <script>
-        function searchMods() {
-            var searchQuery = document.getElementById("search-bar").value.toLowerCase();
-            var category = document.getElementById("search-dropdown").value;
-
-            var filteredMods = modList.filter(function(mod) {
-                return (
-                    (category === "all" || mod.version === category) &&
-                    mod.name.toLowerCase().includes(searchQuery)
-                );
-            });
-
-            displayResults(filteredMods);
-        }
-
-        function displayResults(results) {
-            var resultsContainer = document.getElementById("results");
-            resultsContainer.innerHTML = "";
-
-            if (results.length === 0) {
-                resultsContainer.innerHTML = "<p>No results found.</p>";
-                return;
-            }
-
-            results.forEach(function(mod) {
-                var modElement = document.createElement("div");
-                modElement.innerHTML = "<strong>" + mod.name + "</strong> - Version: " + mod.version;
-                resultsContainer.appendChild(modElement);
-            });
-        }
-    </script>
+    <script src="mods.js"></script>
+    <script src="search.js"></script>
 </body>
 </html>
