@@ -63,6 +63,7 @@ const locationMap = {
     2: 'Germany',
     3: 'Turkey',
     7: 'Italy',
+    13: 'France',
     21: 'Russia',
     12: 'Spain',
     14: 'The Netherlands',
