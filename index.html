@@ -6,13 +6,25 @@
     <title>Skyrama Leaderboard</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Existing styles... */
-
+        .pagination {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .pagination button {
+            margin: 0 5px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+        .pagination button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
         .page-size-buttons {
             text-align: center;
             margin: 20px 0;
         }
-
         .page-size-buttons button {
             margin: 0 5px;
             padding: 10px 15px;
@@ -21,7 +33,6 @@
             cursor: pointer;
             font-size: 16px;
         }
-
         .page-size-buttons button.active {
             background-color: #4CAF50;
             color: white;
@@ -44,118 +55,20 @@
             <!-- Rows will be inserted here by JavaScript -->
         </tbody>
     </table>
-
-    <div class="page-size-buttons">
-        <button id="pageSize10" class="active">10 per page</button>
-        <button id="pageSize20">20 per page</button>
-        <button id="pageSize50">50 per page</button>
-        <button id="pageSize100">100 per page</button>
-    </div>
-
+    
     <div class="pagination">
         <button id="prevPage" class="disabled">Previous</button>
         <span id="pageInfo">Page 1</span>
         <button id="nextPage">Next</button>
     </div>
 
-    <script>
-        // Constants for pagination
-        let PAGE_SIZE = 10;  // Default page size
-        let currentPage = 1;
-        let totalPages = 0;
-        let leaderboardData = [];
+    <div class="page-size-buttons">
+        <button id="pageSize10" class="active">10</button>
+        <button id="pageSize20">20</button>
+        <button id="pageSize50">50</button>
+        <button id="pageSize100">100</button>
+    </div>
 
-        // Existing constants and functions...
-
-        function updateTable(page) {
-            const tableBody = document.querySelector('#leaderboard tbody');
-            tableBody.innerHTML = '';
-
-            const start = (page - 1) * PAGE_SIZE;
-            const end = Math.min(start + PAGE_SIZE, leaderboardData.length);
-            const pageData = leaderboardData.slice(start, end);
-
-            pageData.forEach(player => {
-                const lastOnlineRelative = formatRelativeTime(player.last_ping_time);
-                const level = getLevel(player.xp);
-                const location = locationMap[player.location_id] || 'Unknown';
-
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${player.username}</td>
-                    <td>${player.hi_player_id}</td>
-                    <td>${lastOnlineRelative}</td>
-                    <td>${level}</td>
-                    <td>${location}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-
-            document.querySelector('#pageInfo').textContent = `Page ${page} of ${totalPages}`;
-            document.querySelector('#prevPage').classList.toggle('disabled', page === 1);
-            document.querySelector('#nextPage').classList.toggle('disabled', page === totalPages);
-        }
-
-        function changePageSize(newSize) {
-            PAGE_SIZE = newSize;
-            totalPages = Math.ceil(leaderboardData.length / PAGE_SIZE);
-            currentPage = 1;
-            updateTable(currentPage);
-        }
-
-        async function loadLeaderboard() {
-            try {
-                const response = await fetch('data.json');
-                leaderboardData = await response.json();
-                leaderboardData.sort((a, b) => b.xp - a.xp);
-
-                totalPages = Math.ceil(leaderboardData.length / PAGE_SIZE);
-                updateTable(currentPage);
-
-                document.querySelector('#prevPage').addEventListener('click', () => {
-                    if (currentPage > 1) {
-                        currentPage--;
-                        updateTable(currentPage);
-                    }
-                });
-
-                document.querySelector('#nextPage').addEventListener('click', () => {
-                    if (currentPage < totalPages) {
-                        currentPage++;
-                        updateTable(currentPage);
-                    }
-                });
-
-                // Event listeners for page size buttons
-                document.querySelector('#pageSize10').addEventListener('click', () => {
-                    changePageSize(10);
-                    document.querySelectorAll('.page-size-buttons button').forEach(btn => btn.classList.remove('active'));
-                    document.querySelector('#pageSize10').classList.add('active');
-                });
-
-                document.querySelector('#pageSize20').addEventListener('click', () => {
-                    changePageSize(20);
-                    document.querySelectorAll('.page-size-buttons button').forEach(btn => btn.classList.remove('active'));
-                    document.querySelector('#pageSize20').classList.add('active');
-                });
-
-                document.querySelector('#pageSize50').addEventListener('click', () => {
-                    changePageSize(50);
-                    document.querySelectorAll('.page-size-buttons button').forEach(btn => btn.classList.remove('active'));
-                    document.querySelector('#pageSize50').classList.add('active');
-                });
-
-                document.querySelector('#pageSize100').addEventListener('click', () => {
-                    changePageSize(100);
-                    document.querySelectorAll('.page-size-buttons button').forEach(btn => btn.classList.remove('active'));
-                    document.querySelector('#pageSize100').classList.add('active');
-                });
-            } catch (error) {
-                console.error('Error loading leaderboard data:', error);
-            }
-        }
-
-        window.onload = loadLeaderboard;
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
