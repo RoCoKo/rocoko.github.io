@@ -7,6 +7,48 @@
         "xp": 27149310
     },
     {
+        "hi_player_id": "92554",
+        "last_ping_time": 1705504622,
+        "location_id": 21,
+        "username": "LucaI11",
+        "xp": 74537
+    },
+    {
+        "hi_player_id": "791922",
+        "last_ping_time": 1722637637,
+        "location_id": 21,
+        "username": "mr.Seconds",
+        "xp": 56406177
+    },
+    {
+        "hi_player_id": "1496714",
+        "last_ping_time": 1697998382,
+        "location_id": 21,
+        "username": "dantaus",
+        "xp": 414542
+    },
+    {
+        "hi_player_id": "1582490",
+        "last_ping_time": 1719790222,
+        "location_id": 21,
+        "username": "Tomlepiloteexpert99",
+        "xp": 52734
+    },
+    {
+        "hi_player_id": "1724834",
+        "last_ping_time": 1705783693,
+        "location_id": 21,
+        "username": "szandi81",
+        "xp": 35872
+    },
+    {
+        "hi_player_id": "1838922",
+        "last_ping_time": 1703266397,
+        "location_id": 21,
+        "username": "thibodebrauwer",
+        "xp": 434891
+    },
+    {
         "hi_player_id": "1950448",
         "last_ping_time": 1722755939,
         "location_id": 2,
@@ -21,8 +63,22 @@
         "xp": 10784718
     },
     {
+        "hi_player_id": "2574746",
+        "last_ping_time": 1706189921,
+        "location_id": 21,
+        "username": "Alnester",
+        "xp": 65963
+    },
+    {
+        "hi_player_id": "3175194",
+        "last_ping_time": 1717877377,
+        "location_id": 21,
+        "username": "Bagasardianto123",
+        "xp": 3198449
+    },
+    {
         "hi_player_id": "3504152",
-        "last_ping_time": 1722776531,
+        "last_ping_time": 1722782996,
         "location_id": 2,
         "username": "Turmi57",
         "xp": 6697672
@@ -49,11 +105,25 @@
         "xp": 94124104
     },
     {
+        "hi_player_id": "4449690",
+        "last_ping_time": 1720361556,
+        "location_id": 21,
+        "username": "star26",
+        "xp": 193714
+    },
+    {
         "hi_player_id": "4490728",
         "last_ping_time": 1722772970,
         "location_id": 2,
         "username": "beno61",
         "xp": 640979276
+    },
+    {
+        "hi_player_id": "4498986",
+        "last_ping_time": 1722665924,
+        "location_id": 21,
+        "username": "Spire_83",
+        "xp": 3090620
     },
     {
         "hi_player_id": "5068352",
@@ -64,31 +134,38 @@
     },
     {
         "hi_player_id": "5169664",
-        "last_ping_time": 1722776555,
+        "last_ping_time": 1722783011,
         "location_id": 2,
         "username": "AlvinChipmunk",
-        "xp": 10136028239
+        "xp": 10136174537
     },
     {
         "hi_player_id": "6482048",
-        "last_ping_time": 1722776552,
+        "last_ping_time": 1722783009,
         "location_id": 2,
         "username": "rumpeldidumpel",
-        "xp": 94083230
+        "xp": 94099256
     },
     {
         "hi_player_id": "6773720",
-        "last_ping_time": 1722776548,
+        "last_ping_time": 1722783007,
         "location_id": 2,
         "username": "herzogenen",
-        "xp": 20863077841
+        "xp": 20863359022
     },
     {
         "hi_player_id": "6808368",
-        "last_ping_time": 1722776529,
+        "last_ping_time": 1722780873,
         "location_id": 2,
         "username": "ganni59",
         "xp": 368341158
+    },
+    {
+        "hi_player_id": "7236074",
+        "last_ping_time": 1704129165,
+        "location_id": 21,
+        "username": "oles72",
+        "xp": 86171
     },
     {
         "hi_player_id": "7515768",
@@ -99,10 +176,10 @@
     },
     {
         "hi_player_id": "7763672",
-        "last_ping_time": 1722776534,
+        "last_ping_time": 1722782980,
         "location_id": 2,
         "username": "OnkelTom65",
-        "xp": 137926284
+        "xp": 137999715
     },
     {
         "hi_player_id": "9584136",
@@ -113,10 +190,10 @@
     },
     {
         "hi_player_id": "10804096",
-        "last_ping_time": 1722775279,
+        "last_ping_time": 1722781485,
         "location_id": 2,
         "username": "enime03",
-        "xp": 600276603
+        "xp": 600499434
     },
     {
         "hi_player_id": "11173040",
@@ -134,24 +211,80 @@
     },
     {
         "hi_player_id": "11683680",
-        "last_ping_time": 1722776549,
+        "last_ping_time": 1722783003,
         "location_id": 2,
         "username": "eddi8050",
-        "xp": 131123609
+        "xp": 131211662
+    },
+    {
+        "hi_player_id": "11757946",
+        "last_ping_time": 1700516705,
+        "location_id": 21,
+        "username": "pleyer3000",
+        "xp": 207868
+    },
+    {
+        "hi_player_id": "12144538",
+        "last_ping_time": 1701888170,
+        "location_id": 21,
+        "username": "juuldetimmer",
+        "xp": 20495
+    },
+    {
+        "hi_player_id": "12372938",
+        "last_ping_time": 1720290642,
+        "location_id": 21,
+        "username": "sortilegus",
+        "xp": 3496977270
+    },
+    {
+        "hi_player_id": "12582384",
+        "last_ping_time": 1722783012,
+        "location_id": 3,
+        "username": "Emirhangg00",
+        "xp": 48749254
     },
     {
         "hi_player_id": "12582398",
-        "last_ping_time": 1722776553,
+        "last_ping_time": 1722783010,
         "location_id": 3,
         "username": "RoCoKo",
-        "xp": 581996
+        "xp": 724634
     },
     {
         "hi_player_id": "12793568",
         "last_ping_time": 1711997247,
         "location_id": 2,
-        "username": "Jürgen59",
+        "username": "J\u00fcrgen59",
         "xp": 22435855
+    },
+    {
+        "hi_player_id": "12975082",
+        "last_ping_time": 1697650253,
+        "location_id": 21,
+        "username": "den_vvc",
+        "xp": 83395
+    },
+    {
+        "hi_player_id": "12981514",
+        "last_ping_time": 1722453533,
+        "location_id": 21,
+        "username": "AbakanJenisseiAirpor",
+        "xp": 4661059
+    },
+    {
+        "hi_player_id": "13008834",
+        "last_ping_time": 1722782994,
+        "location_id": 21,
+        "username": "sps123",
+        "xp": 901285346
+    },
+    {
+        "hi_player_id": "13154570",
+        "last_ping_time": 1720894478,
+        "location_id": 21,
+        "username": "\u043a\u043b\u0443\u0431\u043d\u0438\u043a\u0430",
+        "xp": 2503913
     },
     {
         "hi_player_id": "13173136",
@@ -169,10 +302,10 @@
     },
     {
         "hi_player_id": "13234136",
-        "last_ping_time": 1722776555,
+        "last_ping_time": 1722783008,
         "location_id": 2,
         "username": "Flizzo",
-        "xp": 2502092222
+        "xp": 2503901207
     },
     {
         "hi_player_id": "13464336",
@@ -183,17 +316,38 @@
     },
     {
         "hi_player_id": "13489512",
-        "last_ping_time": 1722776535,
+        "last_ping_time": 1722782984,
         "location_id": 2,
         "username": "Dampfnudel",
-        "xp": 35693126
+        "xp": 35706728
+    },
+    {
+        "hi_player_id": "13532178",
+        "last_ping_time": 1722583027,
+        "location_id": 21,
+        "username": "\u0421\u044d\u043c\u041a\u0430\u0440\u0442\u0435\u0440",
+        "xp": 415827
+    },
+    {
+        "hi_player_id": "13701058",
+        "last_ping_time": 1706357108,
+        "location_id": 21,
+        "username": "tonia61",
+        "xp": 592215
     },
     {
         "hi_player_id": "13751744",
         "last_ping_time": 1714982394,
         "location_id": 2,
-        "username": "megalöwe009",
+        "username": "megal\u00f6we009",
         "xp": 2851148
+    },
+    {
+        "hi_player_id": "13795506",
+        "last_ping_time": 1708982539,
+        "location_id": 21,
+        "username": "FANNI2005FCS",
+        "xp": 5211
     },
     {
         "hi_player_id": "13839344",
@@ -203,11 +357,74 @@
         "xp": 255827
     },
     {
+        "hi_player_id": "13847786",
+        "last_ping_time": 1697222145,
+        "location_id": 21,
+        "username": "swk69",
+        "xp": 5
+    },
+    {
+        "hi_player_id": "13847858",
+        "last_ping_time": 1698056409,
+        "location_id": 21,
+        "username": "XPizzax10x",
+        "xp": 67707
+    },
+    {
+        "hi_player_id": "13854770",
+        "last_ping_time": 1719746648,
+        "location_id": 21,
+        "username": "MAOKYSH",
+        "xp": 492
+    },
+    {
+        "hi_player_id": "13857746",
+        "last_ping_time": 1706043913,
+        "location_id": 21,
+        "username": "Abfahrt0801",
+        "xp": 5981
+    },
+    {
+        "hi_player_id": "13858250",
+        "last_ping_time": 1706095500,
+        "location_id": 21,
+        "username": "zurab73",
+        "xp": 632
+    },
+    {
         "hi_player_id": "13859608",
         "last_ping_time": 1722468299,
         "location_id": 2,
         "username": "gertrud61",
         "xp": 214283
+    },
+    {
+        "hi_player_id": "13860274",
+        "last_ping_time": 1708963268,
+        "location_id": 21,
+        "username": "Knudsen4",
+        "xp": 16
+    },
+    {
+        "hi_player_id": "13860450",
+        "last_ping_time": 1709641041,
+        "location_id": 21,
+        "username": "RakaSlave",
+        "xp": 4038
+    },
+    {
+        "hi_player_id": "13861370",
+        "last_ping_time": 1710950216,
+        "location_id": 21,
+        "username": "Metryich",
+        "xp": 22
+    },
+    {
+        "hi_player_id": "13861586",
+        "last_ping_time": 1711224193,
+        "location_id": 21,
+        "username": "SevA65",
+        "xp": 5
     },
     {
         "hi_player_id": "13861680",
@@ -218,9 +435,9 @@
     },
     {
         "hi_player_id": "13891815",
-        "last_ping_time": 1722776550,
+        "last_ping_time": 1722783011,
         "location_id": 3,
         "username": "melissair",
-        "xp": 11263731
+        "xp": 11326956
     }
 ]
