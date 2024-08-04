@@ -188,18 +188,18 @@ function updateTable(page) {
         const location = locationMap[player.location_id] || 'Unknown';
 
         const row = document.createElement('tr');
-        row.innerHTML = 
+        row.innerHTML = `
             <td>${rank}</td>
             <td>${player.username}</td>
             <td>${player.hi_player_id}</td>
             <td>${lastOnlineRelative}</td>
             <td>${level}</td>
             <td>${location}</td>
-        ;
+        `;
         tableBody.appendChild(row);
     });
 
-    document.querySelector('#pageInfo').textContent = Page ${page} of ${totalPages};
+    document.querySelector('#pageInfo').textContent = `Page ${page} of ${totalPages}`;
     document.querySelector('#prevPage').classList.toggle('disabled', page === 1);
     document.querySelector('#nextPage').classList.toggle('disabled', page === totalPages);
 }
