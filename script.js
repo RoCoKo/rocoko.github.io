@@ -87,6 +87,7 @@ const locationMap = {
     143: 'West Australia',
     147: 'Tasmania',
     148: 'New South Wales',
+    149: 'New Zealand',
     167: 'Afghanistan',
     174: 'India',
     184: 'Philippines',
