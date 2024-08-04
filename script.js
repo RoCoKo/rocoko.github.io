@@ -67,7 +67,7 @@ const locationMap = {
     12: 'Spain',
     14: 'Netherlands',
     17: 'Hungary',
-    23: 'England',
+    23: 'United Kingdom',
     24: 'Portugal',
     34: 'Poland',
     46: 'Belarus',
