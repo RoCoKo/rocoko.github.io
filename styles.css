@@ -86,3 +86,23 @@ caption {
     line-height: 35px; /* To vertically center align with buttons */
     display: inline-block;
 }
+
+/* Page Size Buttons Styles */
+.page-size-buttons {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.page-size-buttons button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.page-size-buttons button.active {
+    background-color: #4CAF50;
+    color: white;
+}
