@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skyrama Leaderboard</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .pagination {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .pagination button {
+            margin: 0 5px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+        .pagination button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
 <body>
     <h1>Skyrama Leaderboard</h1>
@@ -22,8 +39,20 @@
             <!-- Rows will be inserted here by JavaScript -->
         </tbody>
     </table>
+    
+    <div class="pagination">
+        <button id="prevPage" class="disabled">Previous</button>
+        <span id="pageInfo">Page 1</span>
+        <button id="nextPage">Next</button>
+    </div>
 
     <script>
+        // Constants for pagination
+        const PAGE_SIZE = 10;
+        let currentPage = 1;
+        let totalPages = 0;
+        let leaderboardData = [];
+
         // XP required to advance from one level to the next
         const xpToNextLevel = [
             15, 20, 25, 40, 65, 100, 155, 225, 315, 435, 600, 800, 1075, 1415, 1835, 2345, 
@@ -85,43 +114,73 @@
             21: 'Russia'
         };
 
+        function updateTable(page) {
+            const tableBody = document.querySelector('#leaderboard tbody');
+            tableBody.innerHTML = '';
+
+            const start = (page - 1) * PAGE_SIZE;
+            const end = Math.min(start + PAGE_SIZE, leaderboardData.length);
+            const pageData = leaderboardData.slice(start, end);
+
+            pageData.forEach(player => {
+                // Convert timestamp to a relative time format
+                const lastOnlineRelative = formatRelativeTime(player.last_ping_time);
+
+                // Determine the player's level
+                const level = getLevel(player.xp);
+
+                // Get the location name from the locationMap
+                const location = locationMap[player.location_id] || 'Unknown';
+
+                // Create a new row
+                const row = document.createElement('tr');
+
+                // Insert cells into the row
+                row.innerHTML = `
+                    <td>${player.username}</td>
+                    <td>${player.hi_player_id}</td>
+                    <td>${lastOnlineRelative}</td>
+                    <td>${level}</td>
+                    <td>${location}</td>
+                `;
+
+                // Append the row to the table body
+                tableBody.appendChild(row);
+            });
+
+            document.querySelector('#pageInfo').textContent = `Page ${page} of ${totalPages}`;
+            document.querySelector('#prevPage').classList.toggle('disabled', page === 1);
+            document.querySelector('#nextPage').classList.toggle('disabled', page === totalPages);
+        }
+
         async function loadLeaderboard() {
             try {
                 // Fetch the JSON data
                 const response = await fetch('data.json');
-                const data = await response.json();
+                leaderboardData = await response.json();
 
                 // Sort data by XP in descending order
-                data.sort((a, b) => b.xp - a.xp);
+                leaderboardData.sort((a, b) => b.xp - a.xp);
 
-                // Reference to the table body
-                const tableBody = document.querySelector('#leaderboard tbody');
+                // Calculate total pages
+                totalPages = Math.ceil(leaderboardData.length / PAGE_SIZE);
 
-                // Iterate over the sorted data and create table rows
-                data.forEach(player => {
-                    // Convert timestamp to a relative time format
-                    const lastOnlineRelative = formatRelativeTime(player.last_ping_time);
+                // Initialize the table with the first page
+                updateTable(currentPage);
 
-                    // Determine the player's level
-                    const level = getLevel(player.xp);
+                // Set up event listeners for pagination buttons
+                document.querySelector('#prevPage').addEventListener('click', () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        updateTable(currentPage);
+                    }
+                });
 
-                    // Get the location name from the locationMap
-                    const location = locationMap[player.location_id] || 'Unknown';
-
-                    // Create a new row
-                    const row = document.createElement('tr');
-
-                    // Insert cells into the row
-                    row.innerHTML = `
-                        <td>${player.username}</td>
-                        <td>${player.hi_player_id}</td>
-                        <td>${lastOnlineRelative}</td>
-                        <td>${level}</td>
-                        <td>${location}</td>
-                    `;
-
-                    // Append the row to the table body
-                    tableBody.appendChild(row);
+                document.querySelector('#nextPage').addEventListener('click', () => {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        updateTable(currentPage);
+                    }
                 });
             } catch (error) {
                 console.error('Error loading leaderboard data:', error);
