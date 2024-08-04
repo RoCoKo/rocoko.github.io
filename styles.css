@@ -1,60 +1,60 @@
 /* styles.css */
 
+/* Global Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Arial', sans-serif;
+    background-color: #e0f7fa; /* Light cyan background for a fresh look */
     margin: 0;
     padding: 20px;
 }
 
+/* Header Styles */
 h1 {
     text-align: center;
-    color: #333;
+    color: #009688; /* Teal color for a vibrant feel */
     margin-bottom: 20px;
+    font-size: 2.5em;
 }
 
+/* Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* White background for the table */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Slightly more pronounced shadow */
+    border-radius: 8px; /* Rounded corners for a softer look */
 }
 
 th, td {
-    padding: 12px;
+    padding: 15px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #b2dfdb; /* Light teal border */
 }
 
 th {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #00796b; /* Darker teal for header */
+    color: #ffffff; /* White text */
+    font-size: 1.2em;
 }
 
 tr:hover {
-    background-color: #f5f5f5;
+    background-color: #b2dfdb; /* Light teal hover effect */
 }
 
 thead {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #00796b; /* Consistent header color */
+    color: #ffffff; /* White text */
 }
 
 caption {
-    font-size: 1.5em;
+    font-size: 1.6em;
     margin: 10px 0;
-}
-
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-caption {
     padding: 10px;
     caption-side: top;
     text-align: left;
     font-weight: bold;
+    color: #004d40; /* Darker teal for caption text */
 }
 
 /* Pagination Styles */
@@ -65,20 +65,24 @@ caption {
 
 .pagination button {
     margin: 0 5px;
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
+    padding: 12px 20px;
+    border: 1px solid #00796b; /* Teal border for buttons */
+    background-color: #ffffff; /* White background for buttons */
+    color: #00796b; /* Teal text */
     cursor: pointer;
     font-size: 16px;
+    border-radius: 5px; /* Rounded corners for buttons */
 }
 
 .pagination button:hover {
-    background-color: #e0e0e0;
+    background-color: #004d40; /* Darker teal on hover */
+    color: #ffffff; /* White text on hover */
 }
 
 .pagination button.disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    background-color: #e0f2f1; /* Light cyan for disabled state */
 }
 
 .pagination #pageInfo {
@@ -95,14 +99,16 @@ caption {
 
 .page-size-buttons button {
     margin: 0 5px;
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
+    padding: 12px 20px;
+    border: 1px solid #00796b; /* Teal border */
+    background-color: #ffffff; /* White background */
+    color: #00796b; /* Teal text */
     cursor: pointer;
     font-size: 16px;
+    border-radius: 5px; /* Rounded corners for buttons */
 }
 
 .page-size-buttons button.active {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #00796b; /* Darker teal for active state */
+    color: #ffffff; /* White text */
 }
