@@ -92,6 +92,7 @@ const locationMap = {
     174: 'India',
     178: 'Thailand',
     184: 'Philippines',
+    186: 'China',
     225: 'Belarus'
 };
 
