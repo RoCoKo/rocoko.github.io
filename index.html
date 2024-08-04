@@ -64,6 +64,12 @@
             return `${day}/${month}/${year}`;
         }
 
+        // Location mapping
+        const locationMap = {
+            2: 'Germany',
+            3: 'Turkey'
+        };
+
         async function loadLeaderboard() {
             try {
                 // Fetch the JSON data
@@ -84,6 +90,9 @@
                     // Determine the player's level
                     const level = getLevel(player.xp);
 
+                    // Get the location name from the locationMap
+                    const location = locationMap[player.location_id] || 'Unknown';
+
                     // Create a new row
                     const row = document.createElement('tr');
 
@@ -93,7 +102,7 @@
                         <td>${player.hi_player_id}</td>
                         <td>${lastOnlineDate}</td>
                         <td>${level}</td>
-                        <td>${player.location_id}</td>
+                        <td>${location}</td>
                     `;
 
                     // Append the row to the table body
