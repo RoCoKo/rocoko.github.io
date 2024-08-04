@@ -3,7 +3,7 @@
 /* Global Styles */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #e0f7fa; /* Light cyan background for a fresh look */
+    background-color: #e0f0ff; /* Light blue background for contrast */
     margin: 0;
     padding: 20px;
 }
@@ -11,7 +11,7 @@ body {
 /* Header Styles */
 h1 {
     text-align: center;
-    color: #009688; /* Teal color for a vibrant feel */
+    color: #254EAA; /* Deep blue for header */
     margin-bottom: 20px;
     font-size: 2.5em;
 }
@@ -29,21 +29,21 @@ table {
 th, td {
     padding: 15px;
     text-align: left;
-    border-bottom: 1px solid #b2dfdb; /* Light teal border */
+    border-bottom: 1px solid #c0d0ff; /* Light blue border */
 }
 
 th {
-    background-color: #00796b; /* Darker teal for header */
+    background-color: #254EAA; /* Deep blue for header */
     color: #ffffff; /* White text */
     font-size: 1.2em;
 }
 
 tr:hover {
-    background-color: #b2dfdb; /* Light teal hover effect */
+    background-color: #d0e0ff; /* Light blue hover effect */
 }
 
 thead {
-    background-color: #00796b; /* Consistent header color */
+    background-color: #254EAA; /* Consistent header color */
     color: #ffffff; /* White text */
 }
 
@@ -54,7 +54,7 @@ caption {
     caption-side: top;
     text-align: left;
     font-weight: bold;
-    color: #004d40; /* Darker teal for caption text */
+    color: #254EAA; /* Deep blue for caption text */
 }
 
 /* Pagination Styles */
@@ -66,23 +66,23 @@ caption {
 .pagination button {
     margin: 0 5px;
     padding: 12px 20px;
-    border: 1px solid #00796b; /* Teal border for buttons */
+    border: 1px solid #254EAA; /* Deep blue border for buttons */
     background-color: #ffffff; /* White background for buttons */
-    color: #00796b; /* Teal text */
+    color: #254EAA; /* Deep blue text */
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px; /* Rounded corners for buttons */
 }
 
 .pagination button:hover {
-    background-color: #004d40; /* Darker teal on hover */
+    background-color: #254EAA; /* Deep blue on hover */
     color: #ffffff; /* White text on hover */
 }
 
 .pagination button.disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    background-color: #e0f2f1; /* Light cyan for disabled state */
+    background-color: #e0e0e0; /* Light gray for disabled state */
 }
 
 .pagination #pageInfo {
@@ -100,15 +100,15 @@ caption {
 .page-size-buttons button {
     margin: 0 5px;
     padding: 12px 20px;
-    border: 1px solid #00796b; /* Teal border */
+    border: 1px solid #254EAA; /* Deep blue border */
     background-color: #ffffff; /* White background */
-    color: #00796b; /* Teal text */
+    color: #254EAA; /* Deep blue text */
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px; /* Rounded corners for buttons */
 }
 
 .page-size-buttons button.active {
-    background-color: #00796b; /* Darker teal for active state */
+    background-color: #254EAA; /* Deep blue for active state */
     color: #ffffff; /* White text */
 }
