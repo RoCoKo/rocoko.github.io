@@ -1,45 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skyrama Leaderboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Skyrama Leaderboard</h1>
-    <table>
+    <table id="leaderboard">
         <thead>
             <tr>
                 <th>Name</th>
@@ -50,30 +19,48 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Example data -->
-            <tr>
-                <td>PlayerOne</td>
-                <td>12345</td>
-                <td>2024-08-03</td>
-                <td>50</td>
-                <td>New York</td>
-            </tr>
-            <tr>
-                <td>PlayerTwo</td>
-                <td>67890</td>
-                <td>2024-08-01</td>
-                <td>45</td>
-                <td>Los Angeles</td>
-            </tr>
-            <tr>
-                <td>PlayerThree</td>
-                <td>11223</td>
-                <td>2024-07-30</td>
-                <td>55</td>
-                <td>Chicago</td>
-            </tr>
-            <!-- Add more rows as needed -->
+            <!-- Rows will be inserted here by JavaScript -->
         </tbody>
     </table>
+
+    <script>
+        // Function to fetch and display leaderboard data
+        async function loadLeaderboard() {
+            try {
+                // Fetch the JSON data
+                const response = await fetch('data.json');
+                const data = await response.json();
+
+                // Reference to the table body
+                const tableBody = document.querySelector('#leaderboard tbody');
+
+                // Iterate over the data and create table rows
+                data.forEach(player => {
+                    // Convert timestamp to a readable date format
+                    const lastOnlineDate = new Date(player.last_ping_time * 1000).toISOString().split('T')[0];
+
+                    // Create a new row
+                    const row = document.createElement('tr');
+
+                    // Insert cells into the row
+                    row.innerHTML = `
+                        <td>${player.username}</td>
+                        <td>${player.hi_player_id}</td>
+                        <td>${lastOnlineDate}</td>
+                        <td>${Math.floor(player.xp / 1000)}</td> <!-- Example level calculation -->
+                        <td>${player.location_id}</td>
+                    `;
+
+                    // Append the row to the table body
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error loading leaderboard data:', error);
+            }
+        }
+
+        // Load the leaderboard data when the page is loaded
+        window.onload = loadLeaderboard;
+    </script>
 </body>
 </html>
