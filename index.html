@@ -56,12 +56,31 @@
             return 0; // Level 0 if XP is below the first level's requirement
         }
 
-        function formatDate(timestamp) {
-            const date = new Date(timestamp * 1000);
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-            const year = date.getFullYear();
-            return `${day}/${month}/${year}`;
+        function formatRelativeTime(timestamp) {
+            const now = Date.now();
+            const lastOnlineDate = new Date(timestamp * 1000);
+            const diff = now - lastOnlineDate.getTime(); // Difference in milliseconds
+
+            const seconds = Math.floor(diff / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            const months = Math.floor(days / 30);
+            const years = Math.floor(days / 365);
+
+            if (years > 0) {
+                return `over ${years} year${years > 1 ? 's' : ''} ago`;
+            } else if (months > 0) {
+                return `in the last ${months} month${months > 1 ? 's' : ''}`;
+            } else if (days > 0) {
+                return `in the last ${days} day${days > 1 ? 's' : ''}`;
+            } else if (hours > 0) {
+                return `in the last ${hours} hour${hours > 1 ? 's' : ''}`;
+            } else if (minutes > 0) {
+                return `in the last ${minutes} minute${minutes > 1 ? 's' : ''}`;
+            } else {
+                return `just now`;
+            }
         }
 
         // Location mapping
@@ -84,8 +103,8 @@
 
                 // Iterate over the sorted data and create table rows
                 data.forEach(player => {
-                    // Convert timestamp to a readable date format
-                    const lastOnlineDate = formatDate(player.last_ping_time);
+                    // Convert timestamp to a relative time format
+                    const lastOnlineRelative = formatRelativeTime(player.last_ping_time);
 
                     // Determine the player's level
                     const level = getLevel(player.xp);
@@ -100,7 +119,7 @@
                     row.innerHTML = `
                         <td>${player.username}</td>
                         <td>${player.hi_player_id}</td>
-                        <td>${lastOnlineDate}</td>
+                        <td>${lastOnlineRelative}</td>
                         <td>${level}</td>
                         <td>${location}</td>
                     `;
