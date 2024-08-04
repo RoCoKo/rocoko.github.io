@@ -20,20 +20,20 @@ function updateTable(page) {
     tableBody.innerHTML = '';
 
     const start = (page - 1) * PAGE_SIZE;
-    const end = Math.min(start + PAGE_SIZE, filteredData.length);
-    const pageData = filteredData.slice(start, end);
+    const end = Math.min(start + PAGE_SIZE, leaderboardData.length);
+    const pageData = leaderboardData.slice(start, end);
 
     pageData.forEach((player, index) => {
         const rank = start + index + 1;
-        const lastOnlineRelative = formatRelativeTime(player.last_ping_time);
-        const level = getLevel(player.xp);
+        const lastOnlineRelative = player.last_ping_time ? formatRelativeTime(player.last_ping_time) : 'Unknown';
+        const level = player.xp ? getLevel(player.xp) : 'Unknown';
         const location = locationMap[player.location_id] || 'Unknown';
 
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${rank}</td>
-            <td>${player.username}</td>
-            <td>${player.hi_player_id}</td>
+            <td>${player.username || 'N/A'}</td>
+            <td>${player.hi_player_id || 'N/A'}</td>
             <td>${lastOnlineRelative}</td>
             <td>${level}</td>
             <td>${location}</td>
@@ -45,6 +45,7 @@ function updateTable(page) {
     document.querySelector('#prevPage').classList.toggle('disabled', page === 1);
     document.querySelector('#nextPage').classList.toggle('disabled', page === totalPages);
 }
+
 
 function filterData() {
     const searchTerm = document.querySelector('#searchBar').value.toLowerCase();
