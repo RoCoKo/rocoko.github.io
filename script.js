@@ -62,7 +62,33 @@ function formatRelativeTime(timestamp) {
 const locationMap = {
     2: 'Germany',
     3: 'Turkey',
-    21: 'Russia'
+    21: 'Russia',
+    12: 'Spain',
+    14: 'Netherlands',
+    17: 'Hungary',
+    23: 'England',
+    24: 'Portugal',
+    34: 'Poland',
+    46: 'Belarus',
+    47: 'Ukraine',
+    54: 'Azerbaijan',
+    61: 'Brazil',
+    62: 'Argentina',
+    64: 'Colombia',
+    73: 'Chile',
+    92: 'Oklahoma',
+    93: 'Texas',
+    92: 'Oklahoma',
+    116: 'New Jersey',
+    124: 'South Carolina',
+    127: 'Mexico',
+    143: 'West Australia',
+    147: 'Tasmania',
+    148: 'New South Wales',
+    167: 'Afghanistan',
+    174: 'India',
+    184: 'Philippines',
+    225: 'Belarus'
 };
 
 function updateTable(page) {
