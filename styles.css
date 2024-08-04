@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #e0f0ff; 
+    background-color: #e0f0ff;
     margin: 0;
     padding: 20px;
 }
@@ -16,12 +16,13 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    background-color: #ffffff; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     border-radius: 8px;
 }
 
-th, td {
+th,
+td {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #c0d0ff;
@@ -60,8 +61,8 @@ caption {
 .pagination button {
     margin: 0 5px;
     padding: 12px 20px;
-    border: 1px solid #254EAA; 
-    background-color: #ffffff; 
+    border: 1px solid #254EAA;
+    background-color: #ffffff;
     color: #254EAA;
     cursor: pointer;
     font-size: 16px;
@@ -70,7 +71,7 @@ caption {
 
 .pagination button:hover {
     background-color: #254EAA;
-    color: #ffffff; 
+    color: #ffffff;
 }
 
 .pagination button.disabled {
@@ -81,7 +82,7 @@ caption {
 
 .pagination #pageInfo {
     font-size: 16px;
-    line-height: 35px; 
+    line-height: 35px;
     display: inline-block;
 }
 
@@ -93,8 +94,8 @@ caption {
 .page-size-buttons button {
     margin: 0 5px;
     padding: 12px 20px;
-    border: 1px solid #254EAA; 
-    background-color: #ffffff; 
+    border: 1px solid #254EAA;
+    background-color: #ffffff;
     color: #254EAA;
     cursor: pointer;
     font-size: 16px;
@@ -102,8 +103,8 @@ caption {
 }
 
 .page-size-buttons button.active {
-    background-color: #254EAA; 
-    color: #ffffff; 
+    background-color: #254EAA;
+    color: #ffffff;
 }
 
 .filters {
@@ -126,13 +127,23 @@ caption {
     border-radius: 5px;
 }
 
+.updated-date {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #555;
+}
+
 @media (max-width: 768px) {
-    .filters input[type="text"], .filters select {
+
+    .filters input[type="text"],
+    .filters select {
         width: 100%;
         margin: 0 0 10px 0;
     }
-    
-    .pagination button, .page-size-buttons button {
+
+    .pagination button,
+    .page-size-buttons button {
         padding: 10px;
         font-size: 14px;
     }
