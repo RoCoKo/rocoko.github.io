@@ -51,7 +51,7 @@ function formatRelativeTime(timestamp) {
     } else if (days <= 365) {
         return 'in the last year';
     } else {
-        return in the last ${years} year${years > 1 ? 's' : ''};
+        return `in the last ${years} year${years > 1 ? 's' : ''}`;
     }
 }
 

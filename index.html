@@ -5,18 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skyrama Leaderboard</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .pagination {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .pagination button {
+            margin: 0 5px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+        .pagination button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .page-size-buttons {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .page-size-buttons button {
+            margin: 0 5px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .page-size-buttons button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .updated-date {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
     <h1>Skyrama Leaderboard</h1>
-    
-    <div class="filters">
-        <input type="text" id="searchBar" placeholder="Search for players...">
-        <select id="countryFilter">
-            <option value="">All Countries</option>
-            <!-- Options will be inserted here by JavaScript -->
-        </select>
-    </div>
-    
     <table id="leaderboard">
         <thead>
             <tr>
@@ -47,7 +77,7 @@
     </div>
 
     <div class="updated-date">
-        Last Updated: <span id="updateDate">04.08.24 22:00</span>
+        Last Updated: <span id="updateDate">04.08.24 21:15</span>
     </div>
 
     <script src="script.js"></script>
