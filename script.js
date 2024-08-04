@@ -73,9 +73,13 @@ const locationMap = {
     24: 'Portugal',
     25: 'Greece',
     34: 'Poland',
+    35: 'Czech Republic',
     46: 'Belarus',
     47: 'Ukraine',
+    51: 'Sweden',
     54: 'Azerbaijan',
+    55: 'Cyprus',
+    58: 'Canada',
     61: 'Brazil',
     62: 'Argentina',
     64: 'Colombia',
@@ -109,13 +113,15 @@ function updateTable(page) {
     const end = Math.min(start + PAGE_SIZE, leaderboardData.length);
     const pageData = leaderboardData.slice(start, end);
 
-    pageData.forEach(player => {
+    pageData.forEach((player, index) => {
+        const rank = start + index + 1; // Calculate rank
         const lastOnlineRelative = formatRelativeTime(player.last_ping_time);
         const level = getLevel(player.xp);
         const location = locationMap[player.location_id] || 'Unknown';
 
         const row = document.createElement('tr');
         row.innerHTML = `
+            <td>${rank}</td>
             <td>${player.username}</td>
             <td>${player.hi_player_id}</td>
             <td>${lastOnlineRelative}</td>
