@@ -24,8 +24,8 @@
     </table>
 
     <script>
-        // XP needed for each level
-        const levelXP = [
+        // XP required to advance from one level to the next
+        const xpToNextLevel = [
             15, 20, 25, 40, 65, 100, 155, 225, 315, 435, 600, 800, 1075, 1415, 1835, 2345, 
             2950, 3650, 4425, 5300, 6300, 7350, 8525, 9785, 11150, 12600, 14200, 15850, 
             17600, 19500, 21500, 23500, 25750, 28000, 30500, 33000, 35600, 38500, 41000, 
@@ -39,10 +39,18 @@
             5000000000, 6000000000
         ];
 
+        // Calculate cumulative XP for each level
+        const cumulativeXP = [];
+        let totalXP = 0;
+        for (let i = 0; i < xpToNextLevel.length; i++) {
+            totalXP += xpToNextLevel[i];
+            cumulativeXP.push(totalXP);
+        }
+
         function getLevel(xp) {
-            for (let i = levelXP.length - 1; i >= 0; i--) {
-                if (xp >= levelXP[i]) {
-                    return i;
+            for (let i = cumulativeXP.length - 1; i >= 0; i--) {
+                if (xp >= cumulativeXP[i]) {
+                    return i + 1; // Level is 1-based, so add 1
                 }
             }
             return 0; // Level 0 if XP is below the first level's requirement
@@ -51,7 +59,7 @@
         async function loadLeaderboard() {
             try {
                 // Fetch the JSON data
-                const response = await fetch('players.json');
+                const response = await fetch('data.json');
                 const data = await response.json();
 
                 // Reference to the table body
