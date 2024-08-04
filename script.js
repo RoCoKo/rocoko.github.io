@@ -173,13 +173,13 @@ const locationMap = {
     239: 'Swaziland',
 };
 
-function updateTable(page) {
+function updateTable(page, data = leaderboardData) {
     const tableBody = document.querySelector('#leaderboard tbody');
     tableBody.innerHTML = '';
 
     const start = (page - 1) * PAGE_SIZE;
-    const end = Math.min(start + PAGE_SIZE, leaderboardData.length);
-    const pageData = leaderboardData.slice(start, end);
+    const end = Math.min(start + PAGE_SIZE, data.length);
+    const pageData = data.slice(start, end);
 
     pageData.forEach((player, index) => {
         const rank = start + index + 1;
@@ -212,9 +212,14 @@ function changePageSize(newSize) {
 }
 
 function handleSearch() {
-    searchQuery = document.querySelector('#searchInput').value;
+    const searchQuery = document.querySelector('#searchInput').value.toLowerCase();
+    const filteredData = leaderboardData.filter(player => 
+        player.username.toLowerCase().includes(searchQuery) || 
+        player.hi_player_id.toLowerCase().includes(searchQuery)
+    );
     currentPage = 1;
-    updateTable(currentPage);
+    totalPages = Math.ceil(filteredData.length / PAGE_SIZE);
+    updateTable(currentPage, filteredData);
 }
 
 async function loadLeaderboard() {
@@ -264,7 +269,10 @@ async function loadLeaderboard() {
             document.querySelector('#pageSize100').classList.add('active');
         });
 
-        document.querySelector('#searchButton').addEventListener('click', handleSearch);
+        document.querySelector('#searchButton').addEventListener('click', () => {
+            console.log('Search button clicked');
+            handleSearch();
+        });
         document.querySelector('#searchInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 handleSearch();
