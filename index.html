@@ -51,7 +51,7 @@
         async function loadLeaderboard() {
             try {
                 // Fetch the JSON data
-                const response = await fetch('data.json');
+                const response = await fetch('players.json');
                 const data = await response.json();
 
                 // Reference to the table body
