@@ -1,50 +1,45 @@
-/* styles.css */
-
-/* Global Styles */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #e0f0ff; /* Light blue background for contrast */
+    background-color: #e0f0ff; 
     margin: 0;
     padding: 20px;
 }
 
-/* Header Styles */
 h1 {
     text-align: center;
-    color: #254EAA; /* Deep blue for header */
+    color: #254EAA;
     margin-bottom: 20px;
     font-size: 2.5em;
 }
 
-/* Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    background-color: #ffffff; /* White background for the table */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Slightly more pronounced shadow */
-    border-radius: 8px; /* Rounded corners for a softer look */
+    background-color: #ffffff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+    border-radius: 8px;
 }
 
 th, td {
     padding: 15px;
     text-align: left;
-    border-bottom: 1px solid #c0d0ff; /* Light blue border */
+    border-bottom: 1px solid #c0d0ff;
 }
 
 th {
-    background-color: #254EAA; /* Deep blue for header */
-    color: #ffffff; /* White text */
+    background-color: #254EAA;
+    color: #ffffff;
     font-size: 1.2em;
 }
 
 tr:hover {
-    background-color: #d0e0ff; /* Light blue hover effect */
+    background-color: #d0e0ff;
 }
 
 thead {
-    background-color: #254EAA; /* Consistent header color */
-    color: #ffffff; /* White text */
+    background-color: #254EAA;
+    color: #ffffff;
 }
 
 caption {
@@ -54,10 +49,9 @@ caption {
     caption-side: top;
     text-align: left;
     font-weight: bold;
-    color: #254EAA; /* Deep blue for caption text */
+    color: #254EAA;
 }
 
-/* Pagination Styles */
 .pagination {
     margin: 20px 0;
     text-align: center;
@@ -66,32 +60,31 @@ caption {
 .pagination button {
     margin: 0 5px;
     padding: 12px 20px;
-    border: 1px solid #254EAA; /* Deep blue border for buttons */
-    background-color: #ffffff; /* White background for buttons */
-    color: #254EAA; /* Deep blue text */
+    border: 1px solid #254EAA; 
+    background-color: #ffffff; 
+    color: #254EAA;
     cursor: pointer;
     font-size: 16px;
-    border-radius: 5px; /* Rounded corners for buttons */
+    border-radius: 5px;
 }
 
 .pagination button:hover {
-    background-color: #254EAA; /* Deep blue on hover */
-    color: #ffffff; /* White text on hover */
+    background-color: #254EAA;
+    color: #ffffff; 
 }
 
 .pagination button.disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    background-color: #e0e0e0; /* Light gray for disabled state */
+    background-color: #e0e0e0;
 }
 
 .pagination #pageInfo {
     font-size: 16px;
-    line-height: 35px; /* To vertically center align with buttons */
+    line-height: 35px; 
     display: inline-block;
 }
 
-/* Page Size Buttons Styles */
 .page-size-buttons {
     text-align: center;
     margin: 20px 0;
@@ -100,15 +93,35 @@ caption {
 .page-size-buttons button {
     margin: 0 5px;
     padding: 12px 20px;
-    border: 1px solid #254EAA; /* Deep blue border */
-    background-color: #ffffff; /* White background */
-    color: #254EAA; /* Deep blue text */
+    border: 1px solid #254EAA; 
+    background-color: #ffffff; 
+    color: #254EAA;
     cursor: pointer;
     font-size: 16px;
-    border-radius: 5px; /* Rounded corners for buttons */
+    border-radius: 5px;
 }
 
 .page-size-buttons button.active {
-    background-color: #254EAA; /* Deep blue for active state */
-    color: #ffffff; /* White text */
+    background-color: #254EAA; 
+    color: #ffffff; 
+}
+
+.filters {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.filters input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.filters select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    border-radius: 5px;
 }
