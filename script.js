@@ -90,6 +90,7 @@ const locationMap = {
     149: 'New Zealand',
     167: 'Afghanistan',
     174: 'India',
+    178: 'Thailand',
     184: 'Philippines',
     225: 'Belarus'
 };
