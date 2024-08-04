@@ -2478,55 +2478,6 @@
         "xp": 21403140
     },
     {
-        "hi_player_id": "8015",
-        "last_ping_time": 1333842062,
-        "location_id": 21,
-        "username": "jack",
-        "xp": 5
-    },
-    {
-        "hi_player_id": "141381",
-        "last_ping_time": 1310669080,
-        "location_id": 2,
-        "username": "Jackson",
-        "xp": 47
-    },
-    {
-        "hi_player_id": "318805",
-        "last_ping_time": 1311375769,
-        "location_id": 21,
-        "username": "asdsa",
-        "xp": 5
-    },
-    {
-        "hi_player_id": "589048",
-        "last_ping_time": 1454943264,
-        "location_id": 35,
-        "username": "stkedy",
-        "xp": 6847
-    },
-    {
-        "hi_player_id": "664985",
-        "last_ping_time": 1311876238,
-        "location_id": 21,
-        "username": "titina",
-        "xp": 17
-    },
-    {
-        "hi_player_id": "1162455",
-        "last_ping_time": 1718722848,
-        "location_id": 3,
-        "username": "dostuetsi",
-        "xp": 486167
-    },
-    {
-        "hi_player_id": "1360344",
-        "last_ping_time": 1313080674,
-        "location_id": 21,
-        "username": "naber",
-        "xp": 28
-    },
-    {
         "hi_player_id": "1517438",
         "last_ping_time": 1722732624,
         "location_id": 54,
@@ -2546,20 +2497,6 @@
         "location_id": 14,
         "username": "rs_123",
         "xp": 245105695
-    },
-    {
-        "hi_player_id": "1748040",
-        "last_ping_time": 1313512259,
-        "location_id": 13,
-        "username": "anen",
-        "xp": 101
-    },
-    {
-        "hi_player_id": "2318689",
-        "last_ping_time": 1314530757,
-        "location_id": 28,
-        "username": "michielv",
-        "xp": 86
     },
     {
         "hi_player_id": "2831200",
@@ -2590,13 +2527,6 @@
         "xp": 19343385
     },
     {
-        "hi_player_id": "8398257",
-        "last_ping_time": 1718389108,
-        "location_id": 92,
-        "username": "teresa100-",
-        "xp": 216994
-    },
-    {
         "hi_player_id": "9367133",
         "last_ping_time": 1722247753,
         "location_id": 61,
@@ -2609,13 +2539,6 @@
         "location_id": 116,
         "username": "ivo-2004",
         "xp": 52337071
-    },
-    {
-        "hi_player_id": "9909693",
-        "last_ping_time": 1350128910,
-        "location_id": 184,
-        "username": "Leon1203",
-        "xp": 16
     },
     {
         "hi_player_id": "10022024",
@@ -2632,46 +2555,11 @@
         "xp": 59885595
     },
     {
-        "hi_player_id": "11041999",
-        "last_ping_time": 1619033503,
-        "location_id": 177,
-        "username": "jirkas36",
-        "xp": 181766
-    },
-    {
-        "hi_player_id": "11721691",
-        "last_ping_time": 1385161858,
-        "location_id": 114,
-        "username": "Fandy",
-        "xp": 5
-    },
-    {
-        "hi_player_id": "11741808",
-        "last_ping_time": 1702960944,
-        "location_id": 64,
-        "username": "jhond100",
-        "xp": 886783
-    },
-    {
-        "hi_player_id": "12137361",
-        "last_ping_time": 1401551220,
-        "location_id": 21,
-        "username": "titina",
-        "xp": 16
-    },
-    {
         "hi_player_id": "12138484",
         "last_ping_time": 1722787440,
         "location_id": 148,
         "username": "bubu11",
         "xp": 44751109
-    },
-    {
-        "hi_player_id": "12579877",
-        "last_ping_time": 1704802390,
-        "location_id": 17,
-        "username": "Zsomby245",
-        "xp": 481688
     },
     {
         "hi_player_id": "12582384",
@@ -2702,20 +2590,6 @@
         "xp": 75852882
     },
     {
-        "hi_player_id": "13201991",
-        "last_ping_time": 1706776672,
-        "location_id": 13,
-        "username": "Okazen",
-        "xp": 955393
-    },
-    {
-        "hi_player_id": "13242702",
-        "last_ping_time": 1569510984,
-        "location_id": 3,
-        "username": "StormHunter59",
-        "xp": 31072
-    },
-    {
         "hi_player_id": "13245482",
         "last_ping_time": 1675502661,
         "location_id": 47,
@@ -2728,13 +2602,6 @@
         "location_id": 34,
         "username": "Szplunka",
         "xp": 22729948
-    },
-    {
-        "hi_player_id": "13309439",
-        "last_ping_time": 1704125040,
-        "location_id": 225,
-        "username": "KEMAL-NAZSI",
-        "xp": 809332
     },
     {
         "hi_player_id": "13364964",
@@ -2770,12 +2637,5 @@
         "location_id": 3,
         "username": "melissair",
         "xp": 11343318
-    },
-    {
-        "hi_player_id": "13909992",
-        "last_ping_time": 1722787432,
-        "location_id": 3,
-        "username": "Leaderboard",
-        "xp": 16
     }
 ]
