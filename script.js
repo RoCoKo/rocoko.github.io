@@ -211,6 +211,12 @@ function changePageSize(newSize) {
     updateTable(currentPage);
 }
 
+function handleSearch() {
+    searchQuery = document.querySelector('#searchInput').value;
+    currentPage = 1;
+    updateTable(currentPage);
+}
+
 async function loadLeaderboard() {
     try {
         const response = await fetch('data.json');
@@ -256,6 +262,13 @@ async function loadLeaderboard() {
             changePageSize(100);
             document.querySelectorAll('.page-size-buttons button').forEach(btn => btn.classList.remove('active'));
             document.querySelector('#pageSize100').classList.add('active');
+        });
+
+        document.querySelector('#searchButton').addEventListener('click', handleSearch);
+        document.querySelector('#searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
         });
     } catch (error) {
         console.error('Error loading leaderboard data:', error);

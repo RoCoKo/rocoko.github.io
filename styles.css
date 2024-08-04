@@ -134,6 +134,35 @@ caption {
     color: #555;
 }
 
+.search {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.search input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 250px;
+}
+
+.search button {
+    padding: 10px 20px;
+    border: 1px solid #254EAA;
+    background-color: #ffffff;
+    color: #254EAA;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.search button:hover {
+    background-color: #254EAA;
+    color: #ffffff;
+}
+
 @media (max-width: 768px) {
 
     .filters input[type="text"],
