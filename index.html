@@ -62,10 +62,13 @@
                 const response = await fetch('data.json');
                 const data = await response.json();
 
+                // Sort data by XP in descending order
+                data.sort((a, b) => b.xp - a.xp);
+
                 // Reference to the table body
                 const tableBody = document.querySelector('#leaderboard tbody');
 
-                // Iterate over the data and create table rows
+                // Iterate over the sorted data and create table rows
                 data.forEach(player => {
                     // Convert timestamp to a readable date format
                     const lastOnlineDate = new Date(player.last_ping_time * 1000).toISOString().split('T')[0];
