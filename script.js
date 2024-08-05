@@ -26,7 +26,7 @@ for (let i = 0; i < xpToNextLevel.length; i++) {
 
 function getLevel(xp) {
     if (xp < 0) return 0;
-    
+
     for (let i = 0; i < cumulativeXP.length; i++) {
         if (xp < cumulativeXP[i]) {
             return i + 1;
@@ -82,6 +82,7 @@ const locationMap = {
     36: 'Slovakia',
     38: 'Croatia',
     39: 'Bosnia and Herzegovina',
+    41: 'Serbia',
     44: 'Estonia',
     45: 'Latvia',
     46: 'Belarus',
@@ -148,6 +149,7 @@ const locationMap = {
     172: 'Kazakhstan',
     173: 'Nepal',
     174: 'India',
+    175: 'Bhutan',
     177: 'Myanmar',
     178: 'Thailand',
     180: 'Laos',
@@ -158,11 +160,14 @@ const locationMap = {
     187: 'North Korea',
     188: 'South Korea',
     189: 'Japan',
+    190: 'Mongolia',
     201: 'Ivory Coast',
     205: 'Togo',
+    209: 'Algeria',
     212: 'Egypt',
     216: 'Gabon',
     219: 'Democratic Republic of the Congo',
+    220: 'Rwanda',
     221: 'Burundi',
     222: 'Angola',
     223: 'Zambia',
@@ -208,8 +213,32 @@ function updateTable(page, data = leaderboardData) {
     document.querySelector('#prevPage').classList.toggle('disabled', page === 1);
     document.querySelector('#nextPage').classList.toggle('disabled', page === totalPages);
     document.querySelector('#lastPage').classList.toggle('disabled', page === totalPages);
+
+    updateStatistics(data);
 }
 
+function updateStatistics(data) {
+    const totalPlayers = data.length;
+    document.querySelector('#totalPlayers').textContent = totalPlayers;
+
+    const totalXP = data.reduce((sum, player) => sum + player.xp, 0);
+    const averageLevel = totalPlayers > 0 ? getLevel(totalXP / totalPlayers) : 0;
+    document.querySelector('#averageLevel').textContent = averageLevel.toFixed(2);
+
+    const locationCount = {};
+    data.forEach(player => {
+        const location = locationMap[player.location_id] || 'Unknown';
+        locationCount[location] = (locationCount[location] || 0) + 1;
+    });
+
+    const topLocations = Object.entries(locationCount)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3);
+
+    topLocations.forEach((loc, index) => {
+        document.querySelector(`#location${index + 1}`).textContent = `${loc[0]}: ${loc[1]}`;
+    });
+}
 
 function changePageSize(newSize) {
     PAGE_SIZE = newSize;
