@@ -11,50 +11,52 @@
 </head>
 
 <body>
-    <h1>Skyrama Leaderboard</h1>
+    <div class="container">
+        <h1>Skyrama Leaderboard</h1>
 
-    <div class="search">
-        <input type="text" id="searchInput" placeholder="Search by name or ID">
-        <button id="searchButton">Search</button>
-    </div>
+        <div class="search">
+            <input type="text" id="searchInput" placeholder="Search by name or ID">
+            <button id="searchButton">Search</button>
+        </div>
 
-    <table id="leaderboard">
-        <thead>
-            <tr>
-                <th>Rank</th>
-                <th>Name</th>
-                <th>ID</th>
-                <th>Last Online</th>
-                <th>Level</th>
-                <th>Location</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows will be inserted here by JavaScript -->
-        </tbody>
-    </table>
+        <table id="leaderboard">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Last Online</th>
+                    <th>Level</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be inserted here by JavaScript -->
+            </tbody>
+        </table>
 
-    <div class="pagination">
-        <button id="firstPage" class="disabled">First</button>
-        <button id="prevPage" class="disabled">Previous</button>
-        <span id="pageInfo">Page 1</span>
-        <button id="nextPage">Next</button>
-        <button id="lastPage">Last</button>
-    </div>
+        <div class="pagination">
+            <button id="firstPage" class="disabled">First</button>
+            <button id="prevPage" class="disabled">Previous</button>
+            <span id="pageInfo">Page 1</span>
+            <button id="nextPage">Next</button>
+            <button id="lastPage">Last</button>
+        </div>
 
-    <div class="page-size-buttons">
-        <button id="pageSize10" class="active">10</button>
-        <button id="pageSize20">20</button>
-        <button id="pageSize50">50</button>
-        <button id="pageSize100">100</button>
-    </div>
+        <div class="page-size-buttons">
+            <button id="pageSize10" class="active">10</button>
+            <button id="pageSize20">20</button>
+            <button id="pageSize50">50</button>
+            <button id="pageSize100">100</button>
+        </div>
 
-    <div class="updated-date">
-        Last Updated: <span id="updateDate">05.08.24 18:40</span>
-    </div>
+        <div class="updated-date">
+            Last Updated: <span id="updateDate">05.08.24 18:40</span>
+        </div>
 
-    <div class="contact-info">
-        Discord: rocoko
+        <div class="contact-info">
+            Discord: rocoko
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.4/pako.min.js"></script>
