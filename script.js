@@ -26,7 +26,7 @@ for (let i = 0; i < xpToNextLevel.length; i++) {
 
 function getLevel(xp) {
     if (xp < 0) return 0;
-    
+
     for (let i = 0; i < cumulativeXP.length; i++) {
         if (xp < cumulativeXP[i]) {
             return i + 1;
@@ -203,7 +203,7 @@ function updateTable(page, data = leaderboardData) {
             <td>${lastOnlineRelative}</td>
             <td>${level}</td>
             <td>${location}</td>
-        `;
+            `;
         tableBody.appendChild(row);
     });
 
@@ -214,10 +214,7 @@ function updateTable(page, data = leaderboardData) {
     document.querySelector('#prevPage').classList.toggle('disabled', page === 1);
     document.querySelector('#nextPage').classList.toggle('disabled', page === totalPages);
     document.querySelector('#lastPage').classList.toggle('disabled', page === totalPages);
-
-    updateStatistics(data);
 }
-
 
 
 function changePageSize(newSize) {
