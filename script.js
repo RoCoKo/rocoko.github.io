@@ -199,10 +199,15 @@ function updateTable(page, data = leaderboardData) {
         tableBody.appendChild(row);
     });
 
+    totalPages = Math.ceil(data.length / PAGE_SIZE);
     document.querySelector('#pageInfo').textContent = `Page ${page} of ${totalPages}`;
+
+    document.querySelector('#firstPage').classList.toggle('disabled', page === 1);
     document.querySelector('#prevPage').classList.toggle('disabled', page === 1);
     document.querySelector('#nextPage').classList.toggle('disabled', page === totalPages);
+    document.querySelector('#lastPage').classList.toggle('disabled', page === totalPages);
 }
+
 
 function changePageSize(newSize) {
     PAGE_SIZE = newSize;
