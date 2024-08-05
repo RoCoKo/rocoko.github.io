@@ -166,6 +166,59 @@ thead {
     color: #555;
 }
 
+.statistics {
+    margin-top: 20px;
+    padding: 15px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.statistics h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #007bff;
+}
+
+.stat-item {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.stat-label {
+    font-weight: bold;
+}
+
+.stat-value {
+    font-weight: normal;
+    color: #555;
+}
+
+.location-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.location-item {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.location-item:nth-child(1) {
+    color: #007bff;
+}
+
+.location-item:nth-child(2) {
+    color: #28a745;
+}
+
+.location-item:nth-child(3) {
+    color: #dc3545;
+}
+
+
 @media (max-width: 768px) {
     .filters input[type="text"],
     .filters select {
