@@ -2,6 +2,7 @@ let PAGE_SIZE = 10;
 let currentPage = 1;
 let totalPages = 0;
 let leaderboardData = [];
+let filteredLeaderboardData = [];
 
 const xpToNextLevel = [
     15, 20, 25, 40, 65, 100, 155, 225, 315, 435, 600, 800, 1075, 1415, 1835, 2345,
@@ -180,7 +181,7 @@ const locationMap = {
     239: 'Swaziland',
 };
 
-function updateTable(page, data = leaderboardData) {
+function updateTable(page, data = filteredLeaderboardData) {
     const tableBody = document.querySelector('#leaderboard tbody');
     tableBody.innerHTML = '';
 
@@ -215,6 +216,17 @@ function updateTable(page, data = leaderboardData) {
     document.querySelector('#lastPage').classList.toggle('disabled', page === totalPages);
 
     updateStatistics(data);
+}
+
+function handleSearch() {
+    const searchQuery = document.querySelector('#searchInput').value.toLowerCase();
+    filteredLeaderboardData = leaderboardData.filter(player =>
+        player.username.toLowerCase().includes(searchQuery) ||
+        player.hi_player_id.toLowerCase().includes(searchQuery)
+    );
+    currentPage = 1;
+    totalPages = Math.ceil(filteredLeaderboardData.length / PAGE_SIZE);
+    updateTable(currentPage, filteredLeaderboardData);
 }
 
 function updateStatistics(data) {
@@ -266,21 +278,22 @@ async function loadLeaderboard() {
         leaderboardData = JSON.parse(decompressedData);
 
         leaderboardData.sort((a, b) => b.xp - a.xp);
+        filteredLeaderboardData = [...leaderboardData];
 
-        totalPages = Math.ceil(leaderboardData.length / PAGE_SIZE);
-        updateTable(currentPage);
+        totalPages = Math.ceil(filteredLeaderboardData.length / PAGE_SIZE);
+        updateTable(currentPage, filteredLeaderboardData);
 
         document.querySelector('#prevPage').addEventListener('click', () => {
             if (currentPage > 1) {
                 currentPage--;
-                updateTable(currentPage);
+                updateTable(currentPage, filteredLeaderboardData);
             }
         });
 
         document.querySelector('#nextPage').addEventListener('click', () => {
             if (currentPage < totalPages) {
                 currentPage++;
-                updateTable(currentPage);
+                updateTable(currentPage, filteredLeaderboardData);
             }
         });
 
@@ -321,14 +334,14 @@ async function loadLeaderboard() {
         document.querySelector('#firstPage').addEventListener('click', () => {
             if (currentPage > 1) {
                 currentPage = 1;
-                updateTable(currentPage);
+                updateTable(currentPage, filteredLeaderboardData);
             }
         });
 
         document.querySelector('#lastPage').addEventListener('click', () => {
             if (currentPage < totalPages) {
                 currentPage = totalPages;
-                updateTable(currentPage);
+                updateTable(currentPage, filteredLeaderboardData);
             }
         });
     } catch (error) {
