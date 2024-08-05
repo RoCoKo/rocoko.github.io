@@ -213,8 +213,8 @@ function changePageSize(newSize) {
 
 function handleSearch() {
     const searchQuery = document.querySelector('#searchInput').value.toLowerCase();
-    const filteredData = leaderboardData.filter(player => 
-        player.username.toLowerCase().includes(searchQuery) || 
+    const filteredData = leaderboardData.filter(player =>
+        player.username.toLowerCase().includes(searchQuery) ||
         player.hi_player_id.toLowerCase().includes(searchQuery)
     );
     currentPage = 1;
@@ -224,8 +224,11 @@ function handleSearch() {
 
 async function loadLeaderboard() {
     try {
-        const response = await fetch('data.json');
-        leaderboardData = await response.json();
+        const response = await fetch('data.json.gz');
+        const compressedData = await response.arrayBuffer();
+        const decompressedData = pako.inflate(compressedData, { to: 'string' });
+        leaderboardData = JSON.parse(decompressedData);
+
         leaderboardData.sort((a, b) => b.xp - a.xp);
 
         totalPages = Math.ceil(leaderboardData.length / PAGE_SIZE);
@@ -270,9 +273,9 @@ async function loadLeaderboard() {
         });
 
         document.querySelector('#searchButton').addEventListener('click', () => {
-            console.log('Search button clicked');
             handleSearch();
         });
+
         document.querySelector('#searchInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 handleSearch();
