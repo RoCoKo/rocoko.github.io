@@ -101,28 +101,20 @@ function handleSearch() {
 document.addEventListener('DOMContentLoaded', function() {
     const loadingElement = document.getElementById('loading');
 
-    function hideLoader() {
-        if (loadingElement) {
-            loadingElement.style.display = 'none';
-        }
-    }
-
     function simulateLoading() {
         if (loadingElement) {
             loadingElement.style.display = 'flex';
-        }
-
-        setTimeout(() => {
-            if (loadingElement) {
+            setTimeout(() => {
                 loadingElement.style.display = 'none';
-            }
-        }, 1000);
+            }, 1000);
+        }
     }
 
     window.addEventListener('load', function() {
-        setTimeout(simulateLoading, 0);
+        simulateLoading();
     });
 });
+
 
 async function loadLeaderboard() {
     try {
