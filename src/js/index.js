@@ -115,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
 async function loadLeaderboard() {
     try {
         const response = await fetch('/src/data/data.json.gz');

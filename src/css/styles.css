@@ -37,35 +37,28 @@ thead {
 }
 
 th, td {
-    padding: 15px;
+    padding: 0; /* Remove padding to better control the height */
     text-align: left;
     border-bottom: 1px solid #c0d0ff;
     vertical-align: middle; /* Align text vertically in the center */
     overflow: hidden; /* Hide overflow content */
     text-overflow: ellipsis; /* Show ellipsis for overflowing text */
     white-space: nowrap; /* Prevent text from wrapping */
+    display: flex;
+    align-items: center; /* Center content vertically */
+    height: 40px; /* Fixed row height */
 }
 
 th {
     background-color: #254EAA;
     color: #ffffff;
     font-size: 1.2em;
+    /* Adjusted for header cells */
+    line-height: 40px;
 }
 
 tr {
-    height: 40px; /* Set the fixed height for table rows */
-}
-
-tr td, tr th {
-    height: 40px; /* Ensure table cells respect the row height */
-    line-height: 40px; /* Center text vertically within cells */
-}
-
-/* Handle text overflow gracefully */
-td {
-    overflow: hidden; /* Hide any overflowing content */
-    text-overflow: ellipsis; /* Show ellipsis for overflowing text */
-    white-space: nowrap; /* Prevent text from wrapping */
+    height: 40px; /* Ensure rows have fixed height */
 }
 
 tr:hover {
