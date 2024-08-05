@@ -181,7 +181,7 @@ const locationMap = {
     239: 'Swaziland',
 };
 
-function updateTable(page, data = filteredLeaderboardData) {
+function updateTable(page, data) {
     const tableBody = document.querySelector('#leaderboard tbody');
     tableBody.innerHTML = '';
 
@@ -254,20 +254,9 @@ function updateStatistics(data) {
 
 function changePageSize(newSize) {
     PAGE_SIZE = newSize;
-    totalPages = Math.ceil(leaderboardData.length / PAGE_SIZE);
+    totalPages = Math.ceil(filteredLeaderboardData.length / PAGE_SIZE);
     currentPage = 1;
-    updateTable(currentPage);
-}
-
-function handleSearch() {
-    const searchQuery = document.querySelector('#searchInput').value.toLowerCase();
-    const filteredData = leaderboardData.filter(player =>
-        player.username.toLowerCase().includes(searchQuery) ||
-        player.hi_player_id.toLowerCase().includes(searchQuery)
-    );
-    currentPage = 1;
-    totalPages = Math.ceil(filteredData.length / PAGE_SIZE);
-    updateTable(currentPage, filteredData);
+    updateTable(currentPage, filteredLeaderboardData);
 }
 
 async function loadLeaderboard() {
