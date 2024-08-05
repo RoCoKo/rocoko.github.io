@@ -2,7 +2,6 @@ let PAGE_SIZE = 10;
 let currentPage = 1;
 let totalPages = 0;
 let leaderboardData = [];
-let filteredLeaderboardData = [];
 
 const xpToNextLevel = [
     15, 20, 25, 40, 65, 100, 155, 225, 315, 435, 600, 800, 1075, 1415, 1835, 2345,
@@ -27,7 +26,7 @@ for (let i = 0; i < xpToNextLevel.length; i++) {
 
 function getLevel(xp) {
     if (xp < 0) return 0;
-
+    
     for (let i = 0; i < cumulativeXP.length; i++) {
         if (xp < cumulativeXP[i]) {
             return i + 1;
@@ -120,6 +119,7 @@ const locationMap = {
     92: 'Oklahoma',
     93: 'Texas',
     92: 'Oklahoma',
+    98: 'Los Angeles',
     100: 'Illinois',
     105: 'Tennessee',
     113: 'Rhode Island',
@@ -181,7 +181,7 @@ const locationMap = {
     239: 'Swaziland',
 };
 
-function updateTable(page, data) {
+function updateTable(page, data = leaderboardData) {
     const tableBody = document.querySelector('#leaderboard tbody');
     tableBody.innerHTML = '';
 
@@ -218,45 +218,24 @@ function updateTable(page, data) {
     updateStatistics(data);
 }
 
+
+
+function changePageSize(newSize) {
+    PAGE_SIZE = newSize;
+    totalPages = Math.ceil(leaderboardData.length / PAGE_SIZE);
+    currentPage = 1;
+    updateTable(currentPage);
+}
+
 function handleSearch() {
     const searchQuery = document.querySelector('#searchInput').value.toLowerCase();
-    filteredLeaderboardData = leaderboardData.filter(player =>
+    const filteredData = leaderboardData.filter(player =>
         player.username.toLowerCase().includes(searchQuery) ||
         player.hi_player_id.toLowerCase().includes(searchQuery)
     );
     currentPage = 1;
-    totalPages = Math.ceil(filteredLeaderboardData.length / PAGE_SIZE);
-    updateTable(currentPage, filteredLeaderboardData);
-}
-
-function updateStatistics(data) {
-    const totalPlayers = data.length;
-    document.querySelector('#totalPlayers').textContent = totalPlayers;
-
-    const totalXP = data.reduce((sum, player) => sum + player.xp, 0);
-    const averageLevel = totalPlayers > 0 ? getLevel(totalXP / totalPlayers) : 0;
-    document.querySelector('#averageLevel').textContent = averageLevel.toFixed(2);
-
-    const locationCount = {};
-    data.forEach(player => {
-        const location = locationMap[player.location_id] || 'Unknown';
-        locationCount[location] = (locationCount[location] || 0) + 1;
-    });
-
-    const topLocations = Object.entries(locationCount)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 3);
-
-    topLocations.forEach((loc, index) => {
-        document.querySelector(`#location${index + 1}`).textContent = `${loc[0]}: ${loc[1]}`;
-    });
-}
-
-function changePageSize(newSize) {
-    PAGE_SIZE = newSize;
-    totalPages = Math.ceil(filteredLeaderboardData.length / PAGE_SIZE);
-    currentPage = 1;
-    updateTable(currentPage, filteredLeaderboardData);
+    totalPages = Math.ceil(filteredData.length / PAGE_SIZE);
+    updateTable(currentPage, filteredData);
 }
 
 async function loadLeaderboard() {
@@ -267,22 +246,21 @@ async function loadLeaderboard() {
         leaderboardData = JSON.parse(decompressedData);
 
         leaderboardData.sort((a, b) => b.xp - a.xp);
-        filteredLeaderboardData = [...leaderboardData];
 
-        totalPages = Math.ceil(filteredLeaderboardData.length / PAGE_SIZE);
-        updateTable(currentPage, filteredLeaderboardData);
+        totalPages = Math.ceil(leaderboardData.length / PAGE_SIZE);
+        updateTable(currentPage);
 
         document.querySelector('#prevPage').addEventListener('click', () => {
             if (currentPage > 1) {
                 currentPage--;
-                updateTable(currentPage, filteredLeaderboardData);
+                updateTable(currentPage);
             }
         });
 
         document.querySelector('#nextPage').addEventListener('click', () => {
             if (currentPage < totalPages) {
                 currentPage++;
-                updateTable(currentPage, filteredLeaderboardData);
+                updateTable(currentPage);
             }
         });
 
@@ -323,14 +301,14 @@ async function loadLeaderboard() {
         document.querySelector('#firstPage').addEventListener('click', () => {
             if (currentPage > 1) {
                 currentPage = 1;
-                updateTable(currentPage, filteredLeaderboardData);
+                updateTable(currentPage);
             }
         });
 
         document.querySelector('#lastPage').addEventListener('click', () => {
             if (currentPage < totalPages) {
                 currentPage = totalPages;
-                updateTable(currentPage, filteredLeaderboardData);
+                updateTable(currentPage);
             }
         });
     } catch (error) {
