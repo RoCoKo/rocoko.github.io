@@ -153,6 +153,23 @@ thead {
     color: #ffffff;
 }
 
+.contact-info {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.contact-info h2 {
+    font-size: 1.8em;
+    color: #254EAA;
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    font-size: 16px;
+    color: #555;
+}
+
+
 @media (max-width: 768px) {
     .filters input[type="text"],
     .filters select {
