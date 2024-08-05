@@ -25,12 +25,12 @@ for (let i = 0; i < xpToNextLevel.length; i++) {
 }
 
 function getLevel(xp) {
-    for (let i = cumulativeXP.length - 1; i >= 0; i--) {
-        if (xp >= cumulativeXP[i]) {
-            return i + 2;
+    for (let i = 0; i < cumulativeXP.length; i++) {
+        if (xp < cumulativeXP[i]) {
+            return i + 1;
         }
     }
-    return 0;
+    return cumulativeXP.length + 1;
 }
 
 function formatRelativeTime(timestamp) {
