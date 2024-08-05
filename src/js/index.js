@@ -101,7 +101,7 @@ function handleSearch() {
 
 async function loadLeaderboard() {
     try {
-        const response = await fetch('./data/data.json.gz');
+        const response = await fetch('/data/data.json.gz');
         const compressedData = await response.arrayBuffer();
         const decompressedData = pako.inflate(compressedData, { to: 'string' });
         leaderboardData = JSON.parse(decompressedData);
