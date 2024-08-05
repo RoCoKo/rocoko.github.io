@@ -80,7 +80,6 @@ function updateTable(page, data = leaderboardData) {
     document.querySelector('#lastPage').classList.toggle('disabled', page === totalPages);
 }
 
-
 function changePageSize(newSize) {
     PAGE_SIZE = newSize;
     totalPages = Math.ceil(leaderboardData.length / PAGE_SIZE);
@@ -98,6 +97,18 @@ function handleSearch() {
     totalPages = Math.ceil(filteredData.length / PAGE_SIZE);
     updateTable(currentPage, filteredData);
 }
+
+function showLoader() {
+    document.getElementById('loading').style.display = 'flex';
+}
+
+function hideLoader() {
+    document.getElementById('loading').style.display = 'none';
+}
+
+window.addEventListener('load', function() {
+    hideLoader();
+});
 
 async function loadLeaderboard() {
     try {
