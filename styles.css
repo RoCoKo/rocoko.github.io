@@ -43,16 +43,6 @@ thead {
     color: #ffffff;
 }
 
-caption {
-    font-size: 1.6em;
-    margin: 10px 0;
-    padding: 10px;
-    caption-side: top;
-    text-align: left;
-    font-weight: bold;
-    color: #254EAA;
-}
-
 .pagination {
     margin: 20px 0;
     text-align: center;
@@ -164,7 +154,6 @@ caption {
 }
 
 @media (max-width: 768px) {
-
     .filters input[type="text"],
     .filters select {
         width: 100%;
@@ -175,5 +164,9 @@ caption {
     .page-size-buttons button {
         padding: 10px;
         font-size: 14px;
+    }
+
+    .search input[type="text"] {
+        width: 100%;
     }
 }

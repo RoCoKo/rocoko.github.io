@@ -1,4 +1,4 @@
-let PAGE_SIZE = 20;
+let PAGE_SIZE = 10;
 let currentPage = 1;
 let totalPages = 0;
 let leaderboardData = [];
@@ -279,6 +279,20 @@ async function loadLeaderboard() {
         document.querySelector('#searchInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 handleSearch();
+            }
+        });
+
+        document.querySelector('#firstPage').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage = 1;
+                updateTable(currentPage);
+            }
+        });
+
+        document.querySelector('#lastPage').addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage = totalPages;
+                updateTable(currentPage);
             }
         });
     } catch (error) {
