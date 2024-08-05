@@ -37,20 +37,28 @@ thead {
 }
 
 th, td {
-    padding: 15px;
+    padding: 10px; /* Add padding to cells */
     text-align: left;
     border-bottom: 1px solid #c0d0ff;
     vertical-align: middle; /* Vertically center content */
     overflow: hidden; /* Hide overflow content */
     text-overflow: ellipsis; /* Show ellipsis for overflowing text */
     white-space: nowrap; /* Prevent text from wrapping */
+    box-sizing: border-box; /* Ensure padding and borders are included in the width */
 }
+
+/* Fixed Column Widths */
+th:nth-child(1), td:nth-child(1) { width: 10%; }
+th:nth-child(2), td:nth-child(2) { width: 30%; }
+th:nth-child(3), td:nth-child(3) { width: 20%; }
+th:nth-child(4), td:nth-child(4) { width: 20%; }
+th:nth-child(5), td:nth-child(5) { width: 10%; }
+th:nth-child(6), td:nth-child(6) { width: 10%; }
 
 th {
     background-color: #254EAA;
     color: #ffffff;
     font-size: 1.2em;
-    line-height: 40px; /* Ensure header text is centered vertically */
 }
 
 tr {
