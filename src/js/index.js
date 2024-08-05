@@ -98,16 +98,30 @@ function handleSearch() {
     updateTable(currentPage, filteredData);
 }
 
-function showLoader() {
-    document.getElementById('loading').style.display = 'flex';
-}
+document.addEventListener('DOMContentLoaded', function() {
+    const loadingElement = document.getElementById('loading');
 
-function hideLoader() {
-    document.getElementById('loading').style.display = 'none';
-}
+    function hideLoader() {
+        if (loadingElement) {
+            loadingElement.style.display = 'none';
+        }
+    }
 
-window.addEventListener('load', function() {
-    hideLoader();
+    function simulateLoading() {
+        if (loadingElement) {
+            loadingElement.style.display = 'flex';
+        }
+
+        setTimeout(() => {
+            if (loadingElement) {
+                loadingElement.style.display = 'none';
+            }
+        }, 1000);
+    }
+
+    window.addEventListener('load', function() {
+        setTimeout(simulateLoading, 0);
+    });
 });
 
 async function loadLeaderboard() {
