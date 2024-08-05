@@ -1,6 +1,6 @@
 /* Global Styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #e0f0ff;
     margin: 0;
     padding: 20px;
@@ -31,10 +31,19 @@ table {
     border-radius: 8px;
 }
 
+thead {
+    background-color: #254EAA;
+    color: #ffffff;
+}
+
 th, td {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #c0d0ff;
+    vertical-align: middle; /* Align text vertically in the center */
+    overflow: hidden; /* Hide overflow content */
+    text-overflow: ellipsis; /* Show ellipsis for overflowing text */
+    white-space: nowrap; /* Prevent text from wrapping */
 }
 
 th {
@@ -43,13 +52,24 @@ th {
     font-size: 1.2em;
 }
 
-tr:hover {
-    background-color: #d0e0ff;
+tr {
+    height: 40px; /* Set the fixed height for table rows */
 }
 
-thead {
-    background-color: #254EAA;
-    color: #ffffff;
+tr td, tr th {
+    height: 40px; /* Ensure table cells respect the row height */
+    line-height: 40px; /* Center text vertically within cells */
+}
+
+/* Handle text overflow gracefully */
+td {
+    overflow: hidden; /* Hide any overflowing content */
+    text-overflow: ellipsis; /* Show ellipsis for overflowing text */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+tr:hover {
+    background-color: #d0e0ff;
 }
 
 /* Pagination & Buttons */
@@ -58,7 +78,7 @@ thead {
     margin: 20px 0;
 }
 
-.pagination button, .page-size-buttons button, .search button {
+button {
     margin: 0 5px;
     padding: 12px 20px;
     border: 1px solid #254EAA;
@@ -69,18 +89,18 @@ thead {
     border-radius: 5px;
 }
 
-.pagination button:hover, .search button:hover {
+button:hover {
     background-color: #254EAA;
     color: #ffffff;
 }
 
-.pagination button.disabled {
+button.disabled {
     opacity: 0.5;
     cursor: not-allowed;
     background-color: #e0e0e0;
 }
 
-.page-size-buttons button.active {
+button.active {
     background-color: #254EAA;
     color: #ffffff;
 }
@@ -122,6 +142,7 @@ input[type="text"], select {
 .location-item:nth-child(2) { color: #28a745; }
 .location-item:nth-child(3) { color: #dc3545; }
 
+/* Loading Spinner */
 .loading-container {
     position: fixed;
     top: 0;
@@ -145,18 +166,17 @@ input[type="text"], select {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* Media Queries */
 @media (max-width: 768px) {
     .filters input[type="text"], .filters select, .search input[type="text"] {
         width: 100%;
-        margin: 0 0 10px 0;
+        margin-bottom: 10px;
     }
 
-    .pagination button, .page-size-buttons button {
+    button {
         padding: 10px;
         font-size: 14px;
     }
