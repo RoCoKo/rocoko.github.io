@@ -1,4 +1,4 @@
-import { locationMap, xpToNextLevel } from './constants';
+import { locationMap, xpToNextLevel } from './constants.js';
 
 let PAGE_SIZE = 10;
 let currentPage = 1;
