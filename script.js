@@ -25,20 +25,18 @@ for (let i = 0; i < xpToNextLevel.length; i++) {
 }
 
 function getLevel(xp) {
-    // If XP is less than the XP needed for the first level
-    if (xp < cumulativeXP[0]) {
-        return 1; // Level 1 if XP is below the first cumulative XP
-    }
+    // Ensure the XP is valid
+    if (xp < 0) return 0; // Assuming negative XP is not valid
     
+    // Find the level based on cumulative XP
     for (let i = 0; i < cumulativeXP.length; i++) {
-        // If XP is less than the cumulative XP needed for the next level
         if (xp < cumulativeXP[i]) {
-            return i + 1; // Return the current level
+            return i + 1; // Return the level (i + 1) because level 1 is the first index
         }
     }
     
     // If XP is greater than or equal to the last cumulative XP value
-    return 99; // Return the maximum level
+    return cumulativeXP.length; // Return the maximum level based on array length
 }
 
 function formatRelativeTime(timestamp) {
