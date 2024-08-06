@@ -25,7 +25,7 @@ const svgTemplate = `
     <text x="2.4321535" y="24.321526" style="font-weight:bold;font-size:3.52777px;">Rank {{rank}}</text>
 
     <text x="21.889374" y="10.102788" style="font-weight:bold;font-size:3.52777px;">ID</text>
-    <text x="18.455799" y="4.4317708" style="font-weight:bold;font-size:3.52777px;">{{name}}</text>
+    <text x="18.455799" y="4.4317708" style="font-weight:bold;font-size:3.52777px;">{{username}}</text>
     <text x="43.063187" y="14.865179" style="font-size:3.52778px;">{{id}}</text>
     <text x="21.889374" y="14.865277" style="font-size:3.52777px;">XP</text>
     <text x="43.063187" y="10.102675" style="font-size:3.52778px;">{{xp}}</text>
@@ -87,6 +87,7 @@ function updateTable(page, data = leaderboardData) {
         const row = document.createElement('tr');
 
         const card = createPlayerCard({
+            username,
             rank,
             id: player.hi_player_id,
             xp: player.xp,
@@ -131,20 +132,21 @@ function handleSearch() {
 
 function createPlayerCard(player) {
     const svgContent = svgTemplate
-      .replace('{{rank}}', player.rank)
-      .replace('{{id}}', player.id)
-      .replace('{{xp}}', player.xp)
-      .replace('{{lastSeen}}', player.lastSeen)
-      .replace('{{location}}', player.location);
-  
+        .replace('{{username}}', player.username)
+        .replace('{{rank}}', player.rank)
+        .replace('{{id}}', player.id)
+        .replace('{{xp}}', player.xp)
+        .replace('{{lastSeen}}', player.lastSeen)
+        .replace('{{location}}', player.location);
+
     // Create an SVG element
     const svgElement = new DOMParser().parseFromString(svgContent, 'image/svg+xml').documentElement;
-  
-    return svgElement;
-  }
-  
 
-document.addEventListener('DOMContentLoaded', function() {
+    return svgElement;
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
     const loadingElement = document.getElementById('loading');
 
     function simulateLoading() {
@@ -156,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
         simulateLoading();
     });
 });
