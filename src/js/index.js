@@ -15,7 +15,7 @@ for (let i = 0; i < xpToNextLevel.length; i++) {
 const svgTemplate = `
 <svg width="254" height="99" viewBox="0 0 67.204166 26.19375" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="backgroundGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="backgroundGradient" x1="10.186457" y1="0.49609569" x2="10.186457" y2="25.697655">
       <stop offset="0%" style="stop-color:#efe190;stop-opacity:1;" />
       <stop offset="100%" style="stop-color:#ecc767;stop-opacity:1;" />
     </linearGradient>
