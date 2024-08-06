@@ -30,6 +30,16 @@ table {
     border-radius: 8px;
 }
 
+th, td {
+    padding: 10px;
+    text-align: center; /* Center content horizontally */
+    border-bottom: 1px solid #c0d0ff;
+    vertical-align: middle; /* Center content vertically */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
 
 /* Pagination & Buttons */
 .pagination, .page-size-buttons, .search, .filters {
