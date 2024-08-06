@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="254"
+   height="99"
+   viewBox="0 0 67.204166 26.19375"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="template-nosubbekenobirleke.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="2.9184343"
+     inkscape:cx="91.316086"
+     inkscape:cy="57.736437"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="1272"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8"
+       id="linearGradient9"
+       x1="10.186457"
+       y1="0.49609569"
+       x2="10.186457"
+       y2="25.697655"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient8"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#efe190;stop-opacity:1;"
+         offset="0"
+         id="stop8" />
+      <stop
+         style="stop-color:#ecc767;stop-opacity:1;"
+         offset="1"
+         id="stop9" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="Katman 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="rect7"
+       style="display:inline;fill:#425452;fill-opacity:1">
+      <path
+         style="color:#000000;display:inline;fill:url(#linearGradient9);-inkscape-stroke:none"
+         d="m 2.1145996,0.26251627 c -1.0260532,0 -1.85208333,0.82603013 -1.85208333,1.85208333 V 24.07915 c 0,1.026053 0.82603013,1.852083 1.85208333,1.852083 H 65.02342 c 1.026053,0 1.852083,-0.82603 1.852083,-1.852083 V 2.1145996 c 0,-1.0260532 -0.82603,-1.85208333 -1.852083,-1.85208333 z M 3.7026163,6.6125161 H 16.6703 c 1.026305,0 1.8526,0.8262949 1.8526,1.8526001 V 18.786967 c 0,1.026305 -0.826295,1.8526 -1.8526,1.8526 H 3.7026163 c -1.0263052,0 -1.8526001,-0.826295 -1.8526001,-1.8526 V 8.4651162 c 0,-1.0263052 0.8262949,-1.8526001 1.8526001,-1.8526001 z"
+         id="path11"
+         sodipodi:nodetypes="ssssssssssssssssss" />
+      <path
+         style="color:#000000;display:none;-inkscape-stroke:none"
+         d="m 3.703125,6.875 h 12.966797 c 0.885427,0 1.589844,0.7044168 1.589844,1.5898438 V 18.787109 c 0,0.885427 -0.704417,1.589844 -1.589844,1.589844 H 3.703125 c -0.885427,0 -1.5898437,-0.704417 -1.5898437,-1.589844 V 8.4648438 C 2.1132813,7.5794168 2.817698,6.875 3.703125,6.875 Z"
+         id="path17" />
+      <path
+         style="color:#000000;display:none;-inkscape-stroke:none"
+         d="m 3.703125,6.3496094 c -1.1671814,0 -2.1152344,0.948053 -2.1152344,2.1152344 V 18.787109 c 0,1.167182 0.948053,2.115235 2.1152344,2.115235 h 12.966797 c 1.167181,0 2.115234,-0.948053 2.115234,-2.115235 V 8.4648438 c 0,-1.1671814 -0.948053,-2.1152344 -2.115234,-2.1152344 z"
+         id="path16" />
+      <path
+         id="path12"
+         style="color:#000000;display:inline;-inkscape-stroke:none"
+         d="M 2.1152344,0 C 0.94831555,0 0,0.94831555 0,2.1152344 V 24.080078 c 0,1.166919 0.94831558,2.113281 2.1152344,2.113281 H 65.096124 c 1.166919,0 2.115235,-0.946362 2.115235,-2.113281 V 2.1152344 C 67.211359,0.94831558 66.263043,0 65.096124,0 Z m 0,0.52539062 H 65.096124 c 0.885186,0 1.589844,0.70465818 1.589844,1.58984378 V 24.080078 c 0,0.885185 -0.704658,1.587891 -1.589844,1.587891 H 2.1152344 c -0.8851856,0 -1.58984378,-0.702706 -1.58984378,-1.587891 V 2.1152344 c 0,-0.8851856 0.70465818,-1.58984378 1.58984378,-1.58984378 z"
+         sodipodi:nodetypes="ssssssssssssssssss" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold';display:inline;stroke-width:0.264583"
+       x="18.455799"
+       y="4.4317708"
+       id="text17"><tspan
+         sodipodi:role="line"
+         id="tspan17"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.264583"
+         x="18.455799"
+         y="4.4317708">Aircraftdispatchter</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:3.52777px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold';display:inline;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+       x="2.4321535"
+       y="24.321526"
+       id="text149"><tspan
+         sodipodi:role="line"
+         id="tspan149"
+         style="fill:#000000;stroke-width:0.264583"
+         x="2.4321535"
+         y="24.321526">Rank 253</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:3.52777px;line-height:1.35;font-family:Arial;-inkscape-font-specification:'Arial Bold';display:inline;stroke-width:0.264583"
+       x="21.889374"
+       y="10.102788"
+       id="text150"><tspan
+         sodipodi:role="line"
+         id="tspan150"
+         style="line-height:1.35;stroke-width:0.264583"
+         x="21.889374"
+         y="10.102788">ID</tspan><tspan
+         sodipodi:role="line"
+         style="line-height:1.35;stroke-width:0.264583"
+         x="21.889374"
+         y="14.865277"
+         id="tspan151">XP</tspan><tspan
+         sodipodi:role="line"
+         style="line-height:1.35;stroke-width:0.264583"
+         x="21.889374"
+         y="19.627768"
+         id="tspan152">Last Seen</tspan><tspan
+         sodipodi:role="line"
+         style="line-height:1.35;stroke-width:0.264583"
+         x="21.889374"
+         y="24.390257"
+         id="tspan153">Location</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.35;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.264583"
+       x="43.063187"
+       y="10.102675"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.35;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.264583"
+         x="43.063187"
+         y="10.102675">13500000</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.35;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.264583"
+         x="43.063187"
+         y="14.865179"
+         id="tspan2">36700000000</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.35;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.264583"
+         x="43.063187"
+         y="19.627682"
+         id="tspan3">&lt;30 Days</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.35;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.264583"
+         x="43.063187"
+         y="24.390184"
+         id="tspan4">South AU</tspan></text>
+  </g>
+</svg>
