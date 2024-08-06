@@ -37,14 +37,14 @@ thead {
 }
 
 th, td {
-    padding: 10px; /* Add padding to cells */
+    padding: 10px; 
     text-align: left;
     border-bottom: 1px solid #c0d0ff;
-    vertical-align: middle; /* Vertically center content */
-    overflow: hidden; /* Hide overflow content */
-    text-overflow: ellipsis; /* Show ellipsis for overflowing text */
-    white-space: nowrap; /* Prevent text from wrapping */
-    box-sizing: border-box; /* Ensure padding and borders are included in the width */
+    vertical-align: middle; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+    box-sizing: border-box;
 }
 
 /* Fixed Column Widths */
@@ -62,19 +62,19 @@ th {
 }
 
 tr {
-    height: 40px; /* Fixed height for rows */
+    height: 40px; 
 }
 
 tr td, tr th {
-    height: 40px; /* Ensure table cells respect the row height */
-    line-height: 40px; /* Vertically center text */
+    height: 40px; 
+    line-height: 40px; 
 }
 
 /* Handle text overflow gracefully */
 td {
-    overflow: hidden; /* Hide any overflowing content */
-    text-overflow: ellipsis; /* Show ellipsis for overflowing text */
-    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    white-space: nowrap; 
 }
 
 tr:hover {
@@ -150,6 +150,20 @@ input[type="text"], select {
 .location-item:nth-child(1) { color: #007bff; }
 .location-item:nth-child(2) { color: #28a745; }
 .location-item:nth-child(3) { color: #dc3545; }
+
+.player-card {
+    position: relative;
+    z-index: 1; /* Ensure SVG is on top */
+}
+
+.player-card svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Ensure SVG is on top */
+}
 
 /* Loading Spinner */
 .loading-container {
