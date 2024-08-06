@@ -30,48 +30,6 @@ table {
     border-radius: 8px;
 }
 
-thead {
-    background-color: #254EAA;
-    color: #ffffff;
-}
-
-th, td {
-    padding: 10px;
-    text-align: center; /* Center content horizontally */
-    border-bottom: 1px solid #c0d0ff;
-    vertical-align: middle; /* Center content vertically */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    box-sizing: border-box;
-}
-
-/* Fixed Column Widths */
-th:nth-child(1), td:nth-child(1) { width: 10%; }
-th:nth-child(2), td:nth-child(2) { width: 20%; }
-th:nth-child(3), td:nth-child(3) { width: 20%; }
-th:nth-child(4), td:nth-child(4) { width: 20%; }
-th:nth-child(5), td:nth-child(5) { width: 10%; }
-th:nth-child(6), td:nth-child(6) { width: 10%; }
-
-th {
-    background-color: #254EAA;
-    color: #ffffff;
-    font-size: 1.2em;
-}
-
-tr {
-    height: 40px;
-}
-
-tr td, tr th {
-    height: 40px;
-    line-height: 40px;
-}
-
-tr:hover {
-    background-color: #d0e0ff;
-}
 
 /* Pagination & Buttons */
 .pagination, .page-size-buttons, .search, .filters {
@@ -125,18 +83,6 @@ input[type="text"], select {
     margin: 20px 0;
     font-size: 14px;
     color: #555;
-}
-
-/* Location List */
-.location-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.location-item {
-    font-size: 1.1em;
-    margin-bottom: 5px;
 }
 
 /* Player Card */
