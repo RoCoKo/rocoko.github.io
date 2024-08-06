@@ -79,6 +79,7 @@ function updateTable(page, data = leaderboardData) {
     const pageData = data.slice(start, end);
 
     pageData.forEach((player, index) => {
+        const username = player.username;
         const rank = start + index + 1;
         const lastOnlineRelative = formatRelativeTime(player.last_ping_time);
         const level = getLevel(player.xp);
