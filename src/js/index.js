@@ -28,13 +28,13 @@ const svgTemplate = `
     <text x="2.4321535" y="24.321526" style="font-weight:bold;font-size:3.52777px;">Rank {{rank}}</text>
     <text x="21.889374" y="4.4317708" style="font-weight:bold;font-size:3.52777px;">{{username}}</text>
     <text x="21.889374" y="10.102788" style="font-weight:bold;font-size:3.52777px;">ID</text>
-    <text x="43.063187" y="10.102675" style="font-size:3.52778px;">{{id}}</text>
-    <text x="21.889374" y="14.865277" style="font-size:3.52777px;">XP</text>
-    <text x="43.063187" y="14.865179" style="font-size:3.52778px;">{{xp}}</text>
-    <text x="21.889374" y="19.627768" style="font-size:3.52777px;">Last Seen</text>
-    <text x="43.063187" y="19.627682" style="font-size:3.52778px;">{{lastSeen}}</text>
-    <text x="21.889374" y="24.390257" style="font-size:3.52777px;">Location</text>
-    <text x="43.063187" y="24.390184" style="font-size:3.52778px;">{{location}}</text>
+    <text x="43.063187" y="10.102675" style="font-size:3.52777px;">{{id}}</text>
+    <text x="21.889374" y="14.865277" style="font-weight:bold;font-size:3.52777px;">XP</text>
+    <text x="43.063187" y="14.865179" style="font-size:3.52777px;">{{xp}}</text>
+    <text x="21.889374" y="19.627768" style="font-weight:bold;font-size:3.52777px;">Last Seen</text>
+    <text x="43.063187" y="19.627682" style="font-size:3.52777px;">{{lastSeen}}</text>
+    <text x="21.889374" y="24.390257" style="font-weight:bold;font-size:3.52777px;">Location</text>
+    <text x="43.063187" y="24.390184" style="font-size:3.52777px;">{{location}}</text>
   </g>
 </svg>`;
 
