@@ -21,16 +21,15 @@ const svgTemplate = `
     </linearGradient>
   </defs>
   <g>
-    <!-- Background rectangle with increased rounded corners -->
     <rect width="67.204166" height="26.19375" rx="3" ry="3" style="fill:url(#backgroundGradient);" />
     
-    <!-- Path element, unchanged -->
     <path style="fill:#425452;" d="M 2.1152344,0 C 0.94831555,0 0,0.94831555 0,2.1152344 V 24.080078 c 0,1.166919 0.94831558,2.113281 2.1152344,2.113281 H 65.096124 c 1.166919,0 2.115235,-0.946362 2.115235,-2.113281 V 2.1152344 C 67.211359,0.94831558 66.263043,0 65.096124,0 Z m 0,0.52539062 H 65.096124 c 0.885186,0 1.589844,0.70465818 1.589844,1.58984378 V 24.080078 c 0,0.885185 -0.704658,1.587891 -1.589844,1.587891 H 2.1152344 c -0.8851856,0 -1.58984378,-0.702706 -1.58984378,-1.587891 V 2.1152344 c 0,-0.8851856 0.70465818,-1.58984378 1.58984378,-1.58984378 z" />
+   
     <text x="2.4321535" y="24.321526" style="font-weight:bold;font-size:3.52777px;">Rank {{rank}}</text>
     <text x="21.889374" y="10.102788" style="font-weight:bold;font-size:3.52777px;">ID</text>
     <text x="21.889374" y="4.4317708" style="font-weight:bold;font-size:3.52777px;">{{username}}</text>
-    <text x="43.063187" y="14.865179" style="font-size:3.52778px;">{{id}}</text>
     <text x="21.889374" y="14.865277" style="font-size:3.52777px;">XP</text>
+    <text x="43.063187" y="14.865179" style="font-size:3.52778px;">{{id}}</text>
     <text x="43.063187" y="10.102675" style="font-size:3.52778px;">{{xp}}</text>
     <text x="21.889374" y="19.627768" style="font-size:3.52777px;">Last Seen</text>
     <text x="43.063187" y="19.627682" style="font-size:3.52778px;">{{lastSeen}}</text>
@@ -38,7 +37,6 @@ const svgTemplate = `
     <text x="43.063187" y="24.390184" style="font-size:3.52778px;">{{location}}</text>
   </g>
 </svg>`;
-
 
 function getLevel(xp) {
     if (xp < 0) return 0;
