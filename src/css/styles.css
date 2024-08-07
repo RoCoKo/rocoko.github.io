@@ -16,6 +16,8 @@ h1 {
 
 /* Containers */
 .container {
+    display: flex;
+    justify-content: center;
     max-width: 100px;
     margin: auto;
 }
@@ -33,7 +35,7 @@ td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    box-sizing: content-box;
+    box-sizing: border-box;
 }
 
 /* Pagination & Buttons */
