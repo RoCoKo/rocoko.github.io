@@ -21,7 +21,6 @@ body {
     align-items: center;
     max-width: 100%;
     margin: auto;
-    padding-bottom: 60px;
 }
 
 /* Headings */
@@ -61,6 +60,7 @@ td {
 /* Pagination buttons */
 .pagination {
     margin-top: auto;
+    margin-bottom: auto;
 }
 
 /* Button styles */
