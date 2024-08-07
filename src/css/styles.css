@@ -33,7 +33,7 @@ td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    box-sizing: border-box;
+    box-sizing: content-box;
 }
 
 /* Pagination & Buttons */
