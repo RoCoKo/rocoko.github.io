@@ -1,7 +1,10 @@
 /* Global Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #e0f0ff;
+    background-image: url('background.png');
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
     margin: 0;
     padding: 0;
     display: flex;
@@ -58,7 +61,6 @@ td {
 /* Pagination buttons */
 .pagination {
     margin-top: auto;
-    /* Pushes pagination buttons to the bottom */
 }
 
 /* Button styles */
