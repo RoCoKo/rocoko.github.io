@@ -23,7 +23,7 @@ body {
 
 /* Main Content Container */
 .main-content {
-    margin-top: 60px;
+    margin-top: 120px;
     /* Adjust this value based on the height of the fixed header */
     background-image: url('background-tile.png');
     /* Background image for tiling effect */
