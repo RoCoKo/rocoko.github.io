@@ -148,7 +148,7 @@ function createPlayerCard(player) {
     wrapper.className = 'player-card';
     wrapper.appendChild(svgElement);
 
-    return svgElement;
+    return wrapper;
 }
 
 
