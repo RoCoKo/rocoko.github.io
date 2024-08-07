@@ -15,16 +15,10 @@ body {
     left: 0;
     width: 100%;
     background-image: url('background-base.png');
-    background-size: cover;
-    /* Adjusts the image to cover the header */
+    background-size: auto;
     background-repeat: no-repeat;
-    /* Prevents repeating the image */
     background-position: center;
-    /* Centers the image */
     z-index: 1000;
-    /* Ensure it stays on top */
-    height: 100px;
-    /* Adjust the height of the header if needed */
 }
 
 /* Main Content Container */
