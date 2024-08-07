@@ -14,7 +14,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #ffffff; /* Background color or image for the header */
+    background-image: url('background-base.png');
     z-index: 1000; /* Ensure it stays on top */
 }
 
