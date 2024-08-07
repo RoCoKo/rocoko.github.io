@@ -3,7 +3,22 @@ body {
     font-family: Arial, sans-serif;
     background-color: #e0f0ff;
     margin: 0;
-    padding: 20px;
+    padding: 0; /* Remove padding from body to avoid extra space */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the container takes up at least the full viewport height */
+}
+
+/* Main container to hold content */
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    margin: auto;
+    padding: 20px; /* Add padding to the container */
 }
 
 /* Headings */
@@ -14,21 +29,13 @@ h1 {
     font-size: 2.5em;
 }
 
-/* Containers */
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Center vertically if needed */
-    max-width: 100%; /* Ensure container doesn't overflow */
-    margin: auto;
-}
-
 /* Tables */
 table {
     width: 100%;
     border-collapse: collapse;
 }
 
+/* Table cells */
 th,
 td {
     text-align: center;
@@ -42,12 +49,17 @@ td {
 /* Pagination & Buttons */
 .pagination,
 .page-size-buttons,
-.search,
-.filters {
+.search {
     text-align: center;
     margin: 20px 0;
 }
 
+/* Pagination buttons */
+.pagination {
+    margin-top: auto; /* Pushes pagination buttons to the bottom */
+}
+
+/* Button styles */
 button {
     margin: 0 5px;
     padding: 12px 20px;
@@ -103,7 +115,6 @@ select {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Remove height and width if you don't need full viewport size */
 }
 
 /* Loading Spinner */
@@ -137,6 +148,7 @@ select {
 
 /* Media Queries */
 @media (max-width: 768px) {
+
     .filters input[type="text"],
     .filters select,
     .search input[type="text"] {
