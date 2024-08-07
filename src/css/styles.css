@@ -18,7 +18,8 @@ h1 {
 .container {
     display: flex;
     justify-content: center;
-    max-width: 100px;
+    align-items: center; /* Center vertically if needed */
+    max-width: 100%; /* Ensure container doesn't overflow */
     margin: auto;
 }
 
@@ -102,13 +103,7 @@ select {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
-}
-
-.player-card svg {
-    max-width: 100%;
-    height: auto;
+    /* Remove height and width if you don't need full viewport size */
 }
 
 /* Loading Spinner */
@@ -142,7 +137,6 @@ select {
 
 /* Media Queries */
 @media (max-width: 768px) {
-
     .filters input[type="text"],
     .filters select,
     .search input[type="text"] {
