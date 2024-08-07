@@ -17,6 +17,7 @@ h1 {
 /* Containers */
 .container {
     max-width: 100px;
+    margin: auto;
 }
 
 /* Tables */
