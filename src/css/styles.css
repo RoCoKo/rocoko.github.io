@@ -15,18 +15,32 @@ body {
     left: 0;
     width: 100%;
     background-image: url('background-base.png');
-    z-index: 1000; /* Ensure it stays on top */
+    background-size: cover;
+    /* Adjusts the image to cover the header */
+    background-repeat: no-repeat;
+    /* Prevents repeating the image */
+    background-position: center;
+    /* Centers the image */
+    z-index: 1000;
+    /* Ensure it stays on top */
+    height: 100px;
+    /* Adjust the height of the header if needed */
 }
 
 /* Main Content Container */
 .main-content {
-    margin-top: 60px; /* Adjust this value based on the height of the fixed header */
-    background-image: url('background-tile.png'); /* Background image for tiling effect */
-    background-size: auto; /* Use auto to repeat the tile image */
-    background-repeat: repeat; /* Ensure the image repeats */
+    margin-top: 60px;
+    /* Adjust this value based on the height of the fixed header */
+    background-image: url('background-tile.png');
+    /* Background image for tiling effect */
+    background-size: auto;
+    /* Use auto to repeat the tile image */
+    background-repeat: repeat;
+    /* Ensure the image repeats */
     background-position: top left;
     flex: 1;
-    padding: 20px; /* Adjust padding as needed */
+    padding: 20px;
+    /* Adjust padding as needed */
 }
 
 /* Main container to hold content */
