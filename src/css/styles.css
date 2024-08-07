@@ -10,9 +10,7 @@ body {
 
 /* Fixed Header */
 .header {
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: static;
     width: 100%;
     background-image: url('background-base.png');
     background-size: auto;
@@ -23,18 +21,12 @@ body {
 
 /* Main Content Container */
 .main-content {
-    margin-top: 120px;
-    /* Adjust this value based on the height of the fixed header */
     background-image: url('background-tile.png');
-    /* Background image for tiling effect */
     background-size: auto;
-    /* Use auto to repeat the tile image */
     background-repeat: repeat;
-    /* Ensure the image repeats */
     background-position: top left;
     flex: 1;
     padding: 20px;
-    /* Adjust padding as needed */
 }
 
 /* Main container to hold content */
