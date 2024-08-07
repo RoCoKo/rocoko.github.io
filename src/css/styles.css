@@ -26,7 +26,8 @@ table {
     border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
     text-align: center;
     vertical-align: middle;
     overflow: hidden;
@@ -36,7 +37,10 @@ th, td {
 }
 
 /* Pagination & Buttons */
-.pagination, .page-size-buttons, .search, .filters {
+.pagination,
+.page-size-buttons,
+.search,
+.filters {
     text-align: center;
     margin: 20px 0;
 }
@@ -69,7 +73,8 @@ button.active {
 }
 
 /* Input Fields */
-input[type="text"], select {
+input[type="text"],
+select {
     padding: 10px;
     border: 1px solid #ddd;
     font-size: 16px;
@@ -82,7 +87,8 @@ input[type="text"], select {
 }
 
 /* Contact Info & Updated Date */
-.updated-date, .contact-info {
+.updated-date,
+.contact-info {
     text-align: center;
     margin: 20px 0;
     font-size: 14px;
@@ -91,15 +97,16 @@ input[type="text"], select {
 
 /* Player Card */
 .player-card {
-    display: flex; /* Use flexbox for centering */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    max-width: 100%; /* Prevent overflow */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
 }
 
 .player-card svg {
-    width: 100%;
-    height: auto; /* Maintain aspect ratio */
+    max-width: 100%;
+    height: auto;
 }
 
 /* Loading Spinner */
@@ -126,12 +133,17 @@ input[type="text"], select {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* Media Queries */
 @media (max-width: 768px) {
-    .filters input[type="text"], .filters select, .search input[type="text"] {
+
+    .filters input[type="text"],
+    .filters select,
+    .search input[type="text"] {
         width: 100%;
         margin-bottom: 10px;
     }
