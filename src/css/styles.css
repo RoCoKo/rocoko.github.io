@@ -15,6 +15,14 @@ body {
     z-index: 1;
 }
 
+/* Headings */
+.header h1 {
+    text-align: center;
+    color: #254EAA;
+    margin: 20px 0;
+    font-size: 2.5em;
+}
+
 /* Background Image Container */
 .background-image {
     position: absolute;
@@ -48,14 +56,6 @@ body {
     align-items: center;
     max-width: 100%;
     margin: auto;
-}
-
-/* Headings */
-.header h1 {
-    text-align: center;
-    color: #254EAA;
-    margin: 20px 0;
-    font-size: 2.5em;
 }
 
 /* Tables */
