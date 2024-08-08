@@ -12,8 +12,9 @@ body {
 .header {
     position: static;
     width: 100%;
+    height: 100px; /* Replace with the actual height of your PNG image */
     background-image: url('background-base.png');
-    background-size: auto;
+    background-size: cover; /* Adjust if necessary */
     background-repeat: no-repeat;
     background-position: center;
     z-index: 1000;
