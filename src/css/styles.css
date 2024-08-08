@@ -12,6 +12,7 @@ body {
 .header {
     position: relative;
     width: 100%;
+    z-index: 1;
 }
 
 /* Background Image Container */
@@ -20,12 +21,12 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100px; /* Adjust as needed */
+    height: 100px;
     background-image: url('background-base.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    z-index: 0; /* Make sure it is behind other content */
+    z-index: 3;
 }
 
 /* Main Content Container */
