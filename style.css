@@ -132,6 +132,12 @@ tbody td {
   border-bottom: 1px solid #2c3142;
   font-size: 1rem;
 }
+tbody td:nth-child(4) {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  max-width: 300px;
+  word-wrap: break-word;
+}
 tbody tr:hover {
   background: #2c3142;
   transition: background 0.2s;

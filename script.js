@@ -201,26 +201,105 @@ async function fetchGameDetails(appid) {
 
 function parseRequirements(minReqStr) {
   if (!minReqStr) return null;
-  // Türkçe ve İngilizce anahtar kelimeleri destekle
-  const cpuMatch = minReqStr.match(/(İşlemci|Processor)\s*:?\s*([^<\n]+)/i);
-  const gpuMatch = minReqStr.match(/(Ekran Kartı|Graphics)\s*:?\s*([^<\n]+)/i);
-  const ramMatch = minReqStr.match(/(Bellek|Memory)\s*:?\s*([^<\n]+)/i);
-  let cpu = cpuMatch ? cleanModel(cpuMatch[2]) : '';
-  let gpu = gpuMatch ? cleanModel(gpuMatch[2]) : '';
+  
+  // Daha kapsamlı regex patterns
+  const patterns = {
+    cpu: [
+      /(İşlemci|Processor|CPU)\s*:?\s*([^<\n]+)/i,
+      /(Intel|AMD)\s+[^<\n]+/i,
+      /Core\s+[^<\n]+/i,
+      /Ryzen\s+[^<\n]+/i,
+      /Pentium\s+[^<\n]+/i
+    ],
+    gpu: [
+      /(Ekran Kartı|Graphics|GPU|Video)\s*:?\s*([^<\n]+)/i,
+      /(NVIDIA|GeForce|GTX|RTX)\s+[^<\n]+/i,
+      /(AMD|Radeon|RX)\s+[^<\n]+/i,
+      /(Intel)\s+(HD|UHD|Iris)\s+[^<\n]+/i,
+      /(ATI|NVidia)\s+[^<\n]+/i
+    ],
+    ram: [
+      /(Bellek|Memory|RAM)\s*:?\s*([^<\n]+)/i,
+      /(\d+)\s*(GB|MB)\s*(RAM|Memory|Bellek)/i
+    ]
+  };
+  
+  let cpu = '';
+  let gpu = '';
   let ram = 0;
-  if (ramMatch) {
-    const ramStr = ramMatch[2].replace(/[^0-9.,]/g, '').replace(',', '.');
-    ram = parseFloat(ramStr);
-    if (minReqStr.match(/MB/i)) ram = Math.round(ram/1024);
+  
+  // CPU detection
+  for (const pattern of patterns.cpu) {
+    const match = minReqStr.match(pattern);
+    if (match) {
+      cpu = cleanModel(match[2] || match[0]);
+      break;
+    }
   }
+  
+  // GPU detection - daha akıllı parsing
+  for (const pattern of patterns.gpu) {
+    const match = minReqStr.match(pattern);
+    if (match) {
+      let gpuText = match[2] || match[0];
+      
+      // Uzun açıklamaları kısalt
+      if (gpuText.includes('Video card with') || gpuText.includes('Shader model')) {
+        // En iyi GPU'yu bul
+        const gpuMatches = gpuText.match(/(ATI|NVidia|NVIDIA|AMD|GeForce|Radeon|GTX|RTX|HD|X\d+|\d+GT)/gi);
+        if (gpuMatches && gpuMatches.length > 0) {
+          // En yüksek numaralı GPU'yu seç
+          let bestGpu = gpuMatches[0];
+          for (let gpu of gpuMatches) {
+            const num1 = gpu.match(/\d+/);
+            const num2 = bestGpu.match(/\d+/);
+            if (num1 && num2 && parseInt(num1[0]) > parseInt(num2[0])) {
+              bestGpu = gpu;
+            }
+          }
+          gpu = cleanModel(bestGpu);
+        } else {
+          gpu = cleanModel(gpuText);
+        }
+      } else {
+        gpu = cleanModel(gpuText);
+      }
+      break;
+    }
+  }
+  
+  // RAM detection
+  for (const pattern of patterns.ram) {
+    const match = minReqStr.match(pattern);
+    if (match) {
+      const ramStr = (match[2] || match[1]).replace(/[^0-9.,]/g, '').replace(',', '.');
+      ram = parseFloat(ramStr);
+      if (minReqStr.match(/MB/i)) ram = Math.round(ram/1024);
+      break;
+    }
+  }
+  
   return { cpu, gpu, ram };
 }
 
 function cleanModel(str) {
+  if (!str) return '';
+  
+  // Uzun açıklamaları temizle
+  str = str.replace(/Video card with \d+ MB[^,]*/gi, '');
+  str = str.replace(/Shader model \d+\.\d+/gi, '');
+  str = str.replace(/or better/gi, '');
+  str = str.replace(/compatible/gi, '');
+  str = str.replace(/DirectX \d+\.\d+/gi, '');
+  
   // "or" ile ayrılmışsa en yüksek benchmarklıyı seç
-  let models = str.split(/\bor\b|veya|\/|,|\//i).map(s => s.trim());
+  let models = str.split(/\bor\b|veya|\/|,|\//i).map(s => s.trim()).filter(s => s.length > 0);
+  
+  if (models.length === 0) return '';
+  
   let best = models[0];
   let bestScore = 0;
+  
   for (let m of models) {
     let norm = normalizeModel(m);
     let score = benchmarks.cpu[norm] || benchmarks.gpu[norm] || 0;
@@ -229,26 +308,74 @@ function cleanModel(str) {
       bestScore = score;
     }
   }
+  
   return normalizeModel(best);
 }
 
 function normalizeModel(str) {
+  if (!str) return '';
+  
   // Sık kullanılan model adlarını sadeleştir
   str = str.replace(/(Intel|AMD|NVIDIA|GeForce|Radeon|Core|CPU|Processor|Ekran Kartı|Graphics|\(R\)|\(TM\))/gi, '');
   str = str.replace(/Quad-Core|Dual-Core|Six-Core|Eight-Core/gi, '');
   str = str.replace(/@.*$/g, '');
   str = str.replace(/\s+/g, ' ').trim();
+  
+  // Özel durumlar için daha iyi normalizasyon
+  str = str.replace(/^X(\d+)$/i, 'X$1'); // ATI X800 -> X800
+  str = str.replace(/^(\d+)GT$/i, '$1GT'); // 6600GT -> 6600GT
+  str = str.replace(/^(\d+)$/i, '$1'); // Sadece numara varsa olduğu gibi bırak
+  
   // Model adını büyük/küçük harf duyarsızlaştır
   return str;
 }
 
+// Browser-based hardware detection
+function detectHardware() {
+  const hardware = {
+    cores: navigator.hardwareConcurrency || 'Bilinmiyor',
+    memory: navigator.deviceMemory ? `${navigator.deviceMemory} GB` : 'Bilinmiyor',
+    gpu: 'Bilinmiyor',
+    platform: navigator.platform || 'Bilinmiyor'
+  };
+  
+  // Try to detect GPU via WebGL
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (gl) {
+      const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+      if (debugInfo) {
+        hardware.gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || 'Bilinmiyor';
+      }
+    }
+  } catch (e) {
+    console.warn('GPU detection failed:', e);
+  }
+  
+  return hardware;
+}
+
 function calculateScore(name, req) {
-  if (!req) return { name, score: 0, hw: 'Bilinmiyor' };
+  const detectedHw = detectHardware();
+  
+  if (!req) {
+    return { 
+      name, 
+      score: 0, 
+      hw: `Tespit: CPU Çekirdek: ${detectedHw.cores}, RAM: ${detectedHw.memory}, GPU: ${detectedHw.gpu}` 
+    };
+  }
+  
   let cpuScore = benchmarks.cpu[req.cpu] || 500;
   let gpuScore = benchmarks.gpu[req.gpu] || 500;
   let ramScore = (req.ram || 0) * 150;
   let total = Math.round(cpuScore * 0.4 + gpuScore * 0.5 + ramScore);
-  let hw = `CPU: ${req.cpu || '-'}, GPU: ${req.gpu || '-'}, RAM: ${req.ram || '-'} GB`;
+  
+  // Show both game requirements and detected hardware
+  let hw = `Gereksinim: CPU: ${req.cpu || '-'}, GPU: ${req.gpu || '-'}, RAM: ${req.ram || '-'} GB`;
+  hw += ` | Tespit: CPU Çekirdek: ${detectedHw.cores}, RAM: ${detectedHw.memory}, GPU: ${detectedHw.gpu}`;
+  
   return { name, score: total, hw };
 }
 
