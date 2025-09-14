@@ -1,7 +1,7 @@
 import { benchmarks } from './benchmarks.js';
 
 // Backend configuration - HTTPS'den HTTP'ye istek yapmak yerine daha güvenli yaklaşım
-const BACKEND_URL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://rocoko.github.io';
+const BACKEND_URL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'http://localhost:3000';
 const API_KEY = '31FB258F6CD7538985642DE56954FCEC';
 
 // DOM elements
@@ -28,9 +28,11 @@ let backendOnline = false;
 // Check backend status with better error handling
 async function checkBackendStatus() {
   try {
-    // Only try backend if we're on localhost or if backend URL is HTTPS
-    if (BACKEND_URL.startsWith('http://') && window.location.protocol === 'https:') {
-      console.log('Skipping backend check: HTTPS to HTTP not allowed');
+    console.log('Checking backend status...', { BACKEND_URL, protocol: window.location.protocol });
+    
+    // Only skip if we're on HTTPS and trying to connect to HTTP on non-localhost
+    if (BACKEND_URL.startsWith('http://') && window.location.protocol === 'https:' && !BACKEND_URL.includes('localhost')) {
+      console.log('Skipping backend check: HTTPS to HTTP not allowed for non-localhost');
       setBackendStatus(false);
       return false;
     }
@@ -38,6 +40,7 @@ async function checkBackendStatus() {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000);
     
+    console.log('Fetching:', `${BACKEND_URL}/api/health`);
     const response = await fetch(`${BACKEND_URL}/api/health`, {
       method: 'GET',
       signal: controller.signal,
@@ -46,15 +49,20 @@ async function checkBackendStatus() {
     
     clearTimeout(timeoutId);
     
+    console.log('Backend response:', { status: response.status, ok: response.ok });
+    
     if (response.ok) {
+      const data = await response.json();
+      console.log('Backend health data:', data);
       setBackendStatus(true);
       return true;
     } else {
+      console.log('Backend response not ok:', response.status, response.statusText);
       setBackendStatus(false);
       return false;
     }
   } catch (error) {
-    console.log('Backend is offline:', error.message);
+    console.log('Backend is offline:', error.message, error.name);
     setBackendStatus(false);
     return false;
   }
