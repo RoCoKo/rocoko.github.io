@@ -5,11 +5,20 @@ const form = document.getElementById('steam-form');
 const input = document.getElementById('steamid');
 const statusDiv = document.getElementById('status');
 const loader = document.getElementById('loader');
+const progressContainer = document.getElementById('progress-container');
+const progressFill = document.getElementById('progress-fill');
+const progressText = document.getElementById('progress-text');
 const table = document.getElementById('results-table');
 const tbody = table.querySelector('tbody');
 
+// Cache for game details to avoid re-fetching
+const gameDetailsCache = new Map();
+
 function showLoader(show) {
   loader.classList.toggle('hidden', !show);
+}
+function showProgress(show) {
+  progressContainer.classList.toggle('hidden', !show);
 }
 function showTable(show) {
   table.classList.toggle('hidden', !show);
@@ -19,6 +28,60 @@ function setStatus(msg) {
 }
 function clearTable() {
   tbody.innerHTML = '';
+}
+
+// Parallel processing functions
+async function processGamesInBatches(games, batchSize = 10) {
+  const results = [];
+  const totalGames = games.length;
+  let processedCount = 0;
+  
+  // Process games in batches
+  for (let i = 0; i < games.length; i += batchSize) {
+    const batch = games.slice(i, i + batchSize);
+    const batchPromises = batch.map(async (game) => {
+      try {
+        let details = gameDetailsCache.get(game.appid);
+        if (!details) {
+          details = await fetchGameDetails(game.appid);
+          gameDetailsCache.set(game.appid, details);
+        }
+        
+        const req = details ? parseRequirements(details) : null;
+        const scoreObj = calculateScore(game.name, req);
+        
+        processedCount++;
+        updateProgress(processedCount, totalGames);
+        
+        return scoreObj;
+      } catch (err) {
+        processedCount++;
+        updateProgress(processedCount, totalGames);
+        return calculateScore(game.name, null);
+      }
+    });
+    
+    const batchResults = await Promise.allSettled(batchPromises);
+    batchResults.forEach(result => {
+      if (result.status === 'fulfilled') {
+        results.push(result.value);
+      }
+    });
+    
+    // Small delay between batches to respect API limits
+    if (i + batchSize < games.length) {
+      await sleep(25); // Reduced delay for faster processing
+    }
+  }
+  
+  return results;
+}
+
+function updateProgress(processed, total) {
+  const percentage = Math.round((processed / total) * 100);
+  setStatus(`İşleniyor: ${processed}/${total} oyun`);
+  progressFill.style.width = `${percentage}%`;
+  progressText.textContent = `${percentage}%`;
 }
 
 form.addEventListener('submit', async (e) => {
@@ -31,6 +94,7 @@ form.addEventListener('submit', async (e) => {
   clearTable();
   setStatus('Oyunlar getiriliyor...');
   showLoader(true);
+  showProgress(false);
   showTable(false);
   try {
     const games = await fetchGames(steamid);
@@ -40,28 +104,22 @@ form.addEventListener('submit', async (e) => {
       showLoader(false);
       return;
     }
-    setStatus(`Toplam ${games.length} oyun bulundu. İşleniyor...`);
-    const results = [];
-    for (let i = 0; i < games.length; i++) {
-      setStatus(`Oyun ${i+1}/${games.length} işleniyor...`);
-      const game = games[i];
-      let details;
-      try {
-        details = await fetchGameDetails(game.appid);
-      } catch (err) {
-        details = null;
-      }
-      let req = details ? parseRequirements(details) : null;
-      let scoreObj = calculateScore(game.name, req);
-      results.push(scoreObj);
-      await sleep(100); // API limitine takılmamak için
-    }
+    setStatus(`Toplam ${games.length} oyun bulundu. Paralel işleniyor...`);
+    showLoader(false);
+    showProgress(true);
+    
+    const startTime = performance.now();
+    const results = await processGamesInBatches(games, 10); // 10 concurrent requests
+    const endTime = performance.now();
+    const processingTime = Math.round(endTime - startTime);
     results.sort((a, b) => b.score - a.score);
     renderTable(results);
-    setStatus('Tüm oyunlar işlendi.');
+    setStatus(`Tüm oyunlar işlendi. (${processingTime}ms - ${Math.round(games.length / (processingTime / 1000))} oyun/saniye)`);
+    showProgress(false);
     showTable(true);
   } catch (err) {
     setStatus('Bir hata oluştu: ' + err.message);
+    showProgress(false);
   }
   showLoader(false);
 });
@@ -113,12 +171,32 @@ async function fetchGames(steamid) {
 
 async function fetchGameDetails(appid) {
   const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://store.steampowered.com/api/appdetails?appids=${appid}&l=turkish`)}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('Oyun detayı alınamadı.');
-  const data = await res.json();
-  const parsed = JSON.parse(data.contents);
-  if (!parsed[appid] || !parsed[appid].success) throw new Error('Detay yok');
-  return parsed[appid].data.pc_requirements?.minimum || '';
+  
+  // Add timeout to prevent hanging requests
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+  
+  try {
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
+    
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    
+    const data = await res.json();
+    const parsed = JSON.parse(data.contents);
+    
+    if (!parsed[appid] || !parsed[appid].success) {
+      throw new Error('Game details not available');
+    }
+    
+    return parsed[appid].data.pc_requirements?.minimum || '';
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error.name === 'AbortError') {
+      throw new Error('Request timeout');
+    }
+    throw error;
+  }
 }
 
 function parseRequirements(minReqStr) {
@@ -187,6 +265,12 @@ function sleep(ms) {
   return new Promise(res => setTimeout(res, ms));
 }
 
+// Performance optimization: Clear cache when starting new session
+function clearCache() {
+  gameDetailsCache.clear();
+  console.log('Cache cleared');
+}
+
 // Test function to debug Steam API - can be called from browser console
 window.testSteamAPI = async function(steamid) {
   console.log('Testing Steam API for ID:', steamid);
@@ -199,3 +283,8 @@ window.testSteamAPI = async function(steamid) {
     return null;
   }
 };
+
+// Clear cache when form is submitted
+form.addEventListener('submit', () => {
+  clearCache();
+});
