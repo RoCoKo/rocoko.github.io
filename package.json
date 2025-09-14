@@ -1,0 +1,21 @@
+{
+  "name": "steam-benchmark-backend",
+  "version": "1.0.0",
+  "description": "Steam Library Benchmark Backend API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["steam", "benchmark", "api", "express"],
+  "author": "RoCoKo",
+  "license": "MIT"
+}

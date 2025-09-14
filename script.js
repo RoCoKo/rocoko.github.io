@@ -1,6 +1,10 @@
 import { benchmarks } from './benchmarks.js';
 
+// Backend configuration
+const BACKEND_URL = 'http://localhost:3000';
 const API_KEY = '31FB258F6CD7538985642DE56954FCEC';
+
+// DOM elements
 const form = document.getElementById('steam-form');
 const input = document.getElementById('steamid');
 const statusDiv = document.getElementById('status');
@@ -11,8 +15,52 @@ const progressText = document.getElementById('progress-text');
 const table = document.getElementById('results-table');
 const tbody = table.querySelector('tbody');
 
+// Backend status elements
+const statusIndicator = document.getElementById('status-indicator');
+const statusText = document.getElementById('status-text');
+
 // Cache for game details to avoid re-fetching
 const gameDetailsCache = new Map();
+
+// Backend status management
+let backendOnline = false;
+
+// Check backend status
+async function checkBackendStatus() {
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/health`, {
+      method: 'GET',
+      timeout: 5000
+    });
+    
+    if (response.ok) {
+      setBackendStatus(true);
+      return true;
+    } else {
+      setBackendStatus(false);
+      return false;
+    }
+  } catch (error) {
+    console.log('Backend is offline:', error.message);
+    setBackendStatus(false);
+    return false;
+  }
+}
+
+function setBackendStatus(online) {
+  backendOnline = online;
+  if (online) {
+    statusIndicator.className = 'status-indicator online';
+    statusText.textContent = 'Backend Online';
+  } else {
+    statusIndicator.className = 'status-indicator offline';
+    statusText.textContent = 'Backend Offline';
+  }
+}
+
+// Initialize backend status check
+checkBackendStatus();
+setInterval(checkBackendStatus, 10000); // Check every 10 seconds
 
 function showLoader(show) {
   loader.classList.toggle('hidden', !show);
@@ -108,8 +156,16 @@ form.addEventListener('submit', async (e) => {
     setStatus('Geçerli bir 64-bit Steam ID giriniz.');
     return;
   }
+  
+  // Check backend status before processing
+  const isBackendOnline = await checkBackendStatus();
+  if (isBackendOnline) {
+    setStatus('Backend bağlantısı kuruldu. Oyunlar getiriliyor...');
+  } else {
+    setStatus('Backend offline. Proxy servisleri kullanılıyor...');
+  }
+  
   clearTable();
-  setStatus('Oyunlar getiriliyor...');
   showLoader(true);
   showProgress(false);
   showTable(false);
@@ -268,11 +324,37 @@ async function fetchWithProxy(url, proxyIndex = 0, retryCount = 0) {
 }
 
 async function fetchGames(steamid) {
+  // Try backend first if online
+  if (backendOnline) {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/steam/games/${steamid}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Backend response:', data);
+        return data.games || [];
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Backend error');
+      }
+    } catch (error) {
+      console.warn('Backend failed, falling back to proxy:', error.message);
+      setBackendStatus(false);
+      // Fall through to proxy method
+    }
+  }
+  
+  // Fallback to proxy method
   const steamUrl = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${API_KEY}&steamid=${steamid}&include_appinfo=1&include_played_free_games=1`;
   
   try {
     const parsed = await fetchWithProxy(steamUrl);
-    console.log('API Response:', parsed); // Debug log
+    console.log('Proxy API Response:', parsed); // Debug log
     console.log('Games array:', parsed.response?.games); // Debug log
     
     if (!parsed.response) {
@@ -303,6 +385,30 @@ async function fetchGames(steamid) {
 }
 
 async function fetchGameDetails(appid) {
+  // Try backend first if online
+  if (backendOnline) {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/steam/game/${appid}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        return data.requirements || '';
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Backend error');
+      }
+    } catch (error) {
+      console.warn(`Backend failed for game ${appid}, falling back to proxy:`, error.message);
+      // Fall through to proxy method
+    }
+  }
+  
+  // Fallback to proxy method
   const steamUrl = `https://store.steampowered.com/api/appdetails?appids=${appid}&l=turkish`;
   
   try {
