@@ -30,16 +30,19 @@ function clearTable() {
   tbody.innerHTML = '';
 }
 
-// Parallel processing functions
-async function processGamesInBatches(games, batchSize = 3) { // Reduced batch size
+// Parallel processing functions with better rate limiting
+async function processGamesInBatches(games, batchSize = 2) { // Further reduced batch size
   const results = [];
   const totalGames = games.length;
   let processedCount = 0;
+  let consecutiveErrors = 0;
   
   // Process games in batches
   for (let i = 0; i < games.length; i += batchSize) {
     const batch = games.slice(i, i + batchSize);
-    const batchPromises = batch.map(async (game) => {
+    
+    // Process batch sequentially to avoid overwhelming the API
+    for (const game of batch) {
       try {
         let details = gameDetailsCache.get(game.appid);
         if (!details) {
@@ -52,26 +55,34 @@ async function processGamesInBatches(games, batchSize = 3) { // Reduced batch si
         
         processedCount++;
         updateProgress(processedCount, totalGames);
+        results.push(scoreObj);
         
-        return scoreObj;
+        // Reset error counter on success
+        consecutiveErrors = 0;
+        
+        // Add delay between individual requests
+        await sleep(500); // 500ms delay between each request
+        
       } catch (err) {
         console.warn(`Failed to fetch details for ${game.name}:`, err.message);
         processedCount++;
         updateProgress(processedCount, totalGames);
-        return calculateScore(game.name, null);
+        results.push(calculateScore(game.name, null));
+        
+        consecutiveErrors++;
+        
+        // If we get too many consecutive errors, increase delay
+        if (consecutiveErrors > 3) {
+          console.log('Too many consecutive errors, increasing delay...');
+          await sleep(2000); // 2 second delay
+          consecutiveErrors = 0; // Reset counter
+        }
       }
-    });
-    
-    const batchResults = await Promise.allSettled(batchPromises);
-    batchResults.forEach(result => {
-      if (result.status === 'fulfilled') {
-        results.push(result.value);
-      }
-    });
+    }
     
     // Longer delay between batches to respect API limits
     if (i + batchSize < games.length) {
-      await sleep(1000); // Increased delay to 1 second
+      await sleep(1500); // Increased delay to 1.5 seconds between batches
     }
   }
   
@@ -110,7 +121,7 @@ form.addEventListener('submit', async (e) => {
     showProgress(true);
     
     const startTime = performance.now();
-    const results = await processGamesInBatches(games, 3); // 3 concurrent requests
+    const results = await processGamesInBatches(games, 2); // 2 concurrent requests for better rate limiting
     const endTime = performance.now();
     const processingTime = Math.round(endTime - startTime);
     results.sort((a, b) => b.score - a.score);
@@ -137,15 +148,16 @@ form.addEventListener('submit', async (e) => {
   showLoader(false);
 });
 
-// Proxy services with fallbacks
+// More reliable proxy services with better error handling
 const PROXY_SERVICES = [
   'https://api.allorigins.win/get?url=',
-  'https://cors-anywhere.herokuapp.com/',
+  'https://corsproxy.io/?',
   'https://api.codetabs.com/v1/proxy?quest=',
-  'https://thingproxy.freeboard.io/fetch/'
+  'https://thingproxy.freeboard.io/fetch/',
+  'https://cors-anywhere.herokuapp.com/'
 ];
 
-async function fetchWithProxy(url, proxyIndex = 0) {
+async function fetchWithProxy(url, proxyIndex = 0, retryCount = 0) {
   if (proxyIndex >= PROXY_SERVICES.length) {
     throw new Error('Tüm proxy servisleri başarısız oldu.');
   }
@@ -160,17 +172,37 @@ async function fetchWithProxy(url, proxyIndex = 0) {
   
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 20000); // Increased timeout to 20 seconds
     
     const res = await fetch(proxyUrl, { 
       signal: controller.signal,
       headers: {
         'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
       }
     });
     
     clearTimeout(timeoutId);
+    
+    // Handle rate limiting with exponential backoff
+    if (res.status === 429) {
+      const retryAfter = res.headers.get('Retry-After');
+      const delay = retryAfter ? parseInt(retryAfter) * 1000 : Math.pow(2, retryCount) * 1000;
+      
+      if (retryCount < 3) {
+        console.log(`Rate limited. Waiting ${delay}ms before retry ${retryCount + 1}...`);
+        await sleep(delay);
+        return await fetchWithProxy(url, proxyIndex, retryCount + 1);
+      } else {
+        // Try next proxy after max retries
+        if (proxyIndex < PROXY_SERVICES.length - 1) {
+          console.log(`Max retries reached for proxy ${proxyIndex + 1}, trying next proxy...`);
+          return await fetchWithProxy(url, proxyIndex + 1, 0);
+        } else {
+          throw new Error('Rate limit exceeded on all proxies');
+        }
+      }
+    }
     
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}: ${res.statusText}`);
@@ -191,9 +223,17 @@ async function fetchWithProxy(url, proxyIndex = 0) {
     }
   } catch (error) {
     console.warn(`Proxy ${proxyIndex + 1} failed:`, error.message);
+    
+    // If it's a network error and we haven't exceeded retries, try again
+    if (retryCount < 2 && (error.name === 'TypeError' || error.message.includes('fetch'))) {
+      console.log(`Network error, retrying in ${Math.pow(2, retryCount) * 1000}ms...`);
+      await sleep(Math.pow(2, retryCount) * 1000);
+      return await fetchWithProxy(url, proxyIndex, retryCount + 1);
+    }
+    
     if (proxyIndex < PROXY_SERVICES.length - 1) {
       console.log(`Trying next proxy...`);
-      return await fetchWithProxy(url, proxyIndex + 1);
+      return await fetchWithProxy(url, proxyIndex + 1, 0);
     } else {
       throw error;
     }
@@ -248,6 +288,16 @@ async function fetchGameDetails(appid) {
     return parsed[appid].data.pc_requirements?.minimum || '';
   } catch (error) {
     console.warn(`Failed to fetch game details for ${appid}:`, error.message);
+    
+    // If it's a rate limit or CORS error, don't throw - just return null
+    if (error.message.includes('429') || 
+        error.message.includes('CORS') || 
+        error.message.includes('Rate limit') ||
+        error.message.includes('proxy')) {
+      console.log(`Skipping ${appid} due to API limitations`);
+      return null;
+    }
+    
     throw error;
   }
 }
