@@ -10,10 +10,49 @@ app.use(cors({
   origin: ['https://rocoko.github.io', 'http://localhost:3000'],
   credentials: true
 }));
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+
+// Add compression for faster responses
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'public, max-age=300'); // 5 minute cache
+  next();
+});
 
 // Steam API Key (you can move this to environment variables)
 const STEAM_API_KEY = '31FB258F6CD7538985642DE56954FCEC';
+
+// Simple rate limiting
+const requestCounts = new Map();
+const RATE_LIMIT_WINDOW = 60000; // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 100; // Max 100 requests per minute per IP
+
+function rateLimit(req, res, next) {
+  const clientIP = req.ip || req.connection.remoteAddress;
+  const now = Date.now();
+  
+  if (!requestCounts.has(clientIP)) {
+    requestCounts.set(clientIP, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+    return next();
+  }
+  
+  const clientData = requestCounts.get(clientIP);
+  
+  if (now > clientData.resetTime) {
+    clientData.count = 1;
+    clientData.resetTime = now + RATE_LIMIT_WINDOW;
+    return next();
+  }
+  
+  if (clientData.count >= MAX_REQUESTS_PER_WINDOW) {
+    return res.status(429).json({ error: 'Rate limit exceeded. Please try again later.' });
+  }
+  
+  clientData.count++;
+  next();
+}
+
+// Apply rate limiting to API endpoints
+app.use('/api', rateLimit);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -39,7 +78,7 @@ app.get('/api/steam/games/:steamid', async (req, res) => {
     const steamUrl = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${STEAM_API_KEY}&steamid=${steamid}&include_appinfo=1&include_played_free_games=1`;
     
     const response = await axios.get(steamUrl, {
-      timeout: 15000,
+      timeout: 10000, // Reduced timeout for faster response
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
       }
@@ -99,7 +138,7 @@ app.get('/api/steam/game/:appid', async (req, res) => {
     const steamUrl = `https://store.steampowered.com/api/appdetails?appids=${appid}&l=turkish`;
     
     const response = await axios.get(steamUrl, {
-      timeout: 10000,
+      timeout: 8000, // Reduced timeout for faster response
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
       }

@@ -30,7 +30,6 @@ async function checkBackendStatus() {
   try {
     // Only try backend if we're on localhost or if backend URL is HTTPS
     if (BACKEND_URL.startsWith('http://') && window.location.protocol === 'https:') {
-      console.log('Skipping backend check: HTTPS to HTTP not allowed');
       setBackendStatus(false);
       return false;
     }
@@ -54,7 +53,6 @@ async function checkBackendStatus() {
       return false;
     }
   } catch (error) {
-    console.log('Backend is offline:', error.message);
     setBackendStatus(false);
     return false;
   }
@@ -91,63 +89,80 @@ function clearTable() {
   tbody.innerHTML = '';
 }
 
-// Ultra-conservative processing to avoid rate limits
-async function processGamesInBatches(games, batchSize = 1) { // Process one at a time
+// Optimized processing with parallel requests
+async function processGamesInBatches(games, batchSize = 5) { // Process 5 at a time
   const results = [];
   const totalGames = games.length;
   let processedCount = 0;
   let consecutiveErrors = 0;
   let totalErrors = 0;
-  const MAX_TOTAL_ERRORS = 10; // Stop if too many total errors
+  const MAX_TOTAL_ERRORS = 20; // Increased error tolerance
   
-  // Process games one by one with generous delays
-  for (let i = 0; i < games.length; i++) {
-    const game = games[i];
+  // Process games in batches
+  for (let i = 0; i < games.length; i += batchSize) {
+    const batch = games.slice(i, i + batchSize);
     
     // Stop if too many errors
     if (totalErrors >= MAX_TOTAL_ERRORS) {
-      console.log(`Too many errors (${totalErrors}), stopping processing...`);
       setStatus(`Çok fazla hata nedeniyle işlem durduruldu. ${processedCount}/${totalGames} oyun işlendi.`);
       break;
     }
     
-    try {
-      let details = gameDetailsCache.get(game.appid);
-      if (!details) {
-        details = await fetchGameDetails(game.appid);
-        gameDetailsCache.set(game.appid, details);
+    // Process batch in parallel
+    const batchPromises = batch.map(async (game) => {
+      try {
+        let details = gameDetailsCache.get(game.appid);
+        if (!details) {
+          details = await fetchGameDetails(game.appid);
+          gameDetailsCache.set(game.appid, details);
+        }
+        
+        const req = details ? parseRequirements(details) : null;
+        return calculateScore(game.name, req);
+      } catch (err) {
+        return calculateScore(game.name, null);
       }
-      
-      const req = details ? parseRequirements(details) : null;
-      const scoreObj = calculateScore(game.name, req);
-      
-      processedCount++;
+    });
+    
+    try {
+      const batchResults = await Promise.all(batchPromises);
+      results.push(...batchResults);
+      processedCount += batch.length;
       updateProgress(processedCount, totalGames);
-      results.push(scoreObj);
       
       // Reset error counter on success
       consecutiveErrors = 0;
       
-      // Add delay between individual requests
-      await sleep(1000); // 1 second delay between each request
+      // Small delay between batches to avoid overwhelming the API
+      if (i + batchSize < games.length) {
+        await sleep(200); // Reduced delay to 200ms
+      }
       
     } catch (err) {
-      console.warn(`Failed to fetch details for ${game.name}:`, err.message);
-      processedCount++;
-      updateProgress(processedCount, totalGames);
-      results.push(calculateScore(game.name, null));
+      // If entire batch fails, process individually
+      for (const game of batch) {
+        try {
+          let details = gameDetailsCache.get(game.appid);
+          if (!details) {
+            details = await fetchGameDetails(game.appid);
+            gameDetailsCache.set(game.appid, details);
+          }
+          
+          const req = details ? parseRequirements(details) : null;
+          results.push(calculateScore(game.name, req));
+        } catch (err) {
+          results.push(calculateScore(game.name, null));
+          consecutiveErrors++;
+          totalErrors++;
+        }
+        processedCount++;
+        updateProgress(processedCount, totalGames);
+      }
       
-      consecutiveErrors++;
-      totalErrors++;
-      
-      // If we get too many consecutive errors, increase delay significantly
-      if (consecutiveErrors > 2) {
-        console.log('Too many consecutive errors, increasing delay...');
-        await sleep(5000); // 5 second delay
-        consecutiveErrors = 0; // Reset counter
-      } else {
-        // Normal delay even on error
-        await sleep(1000);
+      // If we get too many consecutive errors, increase delay
+      if (consecutiveErrors > 3) {
+        await sleep(2000); // 2 second delay
+        consecutiveErrors = 0;
       }
     }
   }
@@ -184,18 +199,17 @@ form.addEventListener('submit', async (e) => {
   showTable(false);
   try {
     const games = await fetchGames(steamid);
-    console.log('Games found:', games.length); // Debug log
     if (!games || !games.length) {
       setStatus('Kütüphanede oyun bulunamadı. Lütfen kontrol edin:\n• Steam ID\'niz doğru mu?\n• Steam profiliniz herkese açık mı?\n• Kütüphanenizde oyun var mı?\n\nDetaylı bilgi için tarayıcı konsolunu kontrol edin (F12).');
       showLoader(false);
       return;
     }
-    setStatus(`Toplam ${games.length} oyun bulundu. Paralel işleniyor...`);
+    setStatus(`Toplam ${games.length} oyun bulundu. Hızlı işleniyor...`);
     showLoader(false);
     showProgress(true);
     
     const startTime = performance.now();
-    const results = await processGamesInBatches(games, 1); // Process one at a time to avoid rate limits
+    const results = await processGamesInBatches(games, 5); // Process 5 at a time for speed
     const endTime = performance.now();
     const processingTime = Math.round(endTime - startTime);
     results.sort((a, b) => b.score - a.score);
@@ -252,7 +266,6 @@ async function fetchWithProxy(url, proxyIndex = 0, retryCount = 0) {
   }
   
   const proxyUrl = PROXY_SERVICES[proxyIndex] + encodeURIComponent(url);
-  console.log(`Trying proxy ${proxyIndex + 1}: ${PROXY_SERVICES[proxyIndex]}`);
   
   // Update status to show which proxy is being used
   if (proxyIndex > 0) {
@@ -279,14 +292,12 @@ async function fetchWithProxy(url, proxyIndex = 0, retryCount = 0) {
       const delay = retryAfter ? parseInt(retryAfter) * 1000 : Math.pow(2, retryCount) * 2000; // Increased base delay
       
       if (retryCount < 2) { // Reduced max retries
-        console.log(`Rate limited. Waiting ${delay}ms before retry ${retryCount + 1}...`);
         await sleep(delay);
         return await fetchWithProxy(url, proxyIndex, retryCount + 1);
       } else {
         // Mark this proxy as failed and try next
         proxyHealth.set(proxyIndex, (proxyHealth.get(proxyIndex) || 0) + 1);
         if (proxyIndex < PROXY_SERVICES.length - 1) {
-          console.log(`Max retries reached for proxy ${proxyIndex + 1}, trying next proxy...`);
           return await fetchWithProxy(url, proxyIndex + 1, 0);
         } else {
           throw new Error('Rate limit exceeded on all proxies');
@@ -315,20 +326,16 @@ async function fetchWithProxy(url, proxyIndex = 0, retryCount = 0) {
       return data;
     }
   } catch (error) {
-    console.warn(`Proxy ${proxyIndex + 1} failed:`, error.message);
-    
     // Mark proxy as failed
     proxyHealth.set(proxyIndex, (proxyHealth.get(proxyIndex) || 0) + 1);
     
     // If it's a network error and we haven't exceeded retries, try again
     if (retryCount < 1 && (error.name === 'TypeError' || error.message.includes('fetch'))) {
-      console.log(`Network error, retrying in ${Math.pow(2, retryCount) * 2000}ms...`);
       await sleep(Math.pow(2, retryCount) * 2000);
       return await fetchWithProxy(url, proxyIndex, retryCount + 1);
     }
     
     if (proxyIndex < PROXY_SERVICES.length - 1) {
-      console.log(`Trying next proxy...`);
       return await fetchWithProxy(url, proxyIndex + 1, 0);
     } else {
       throw error;
@@ -349,14 +356,12 @@ async function fetchGames(steamid) {
       
       if (response.ok) {
         const data = await response.json();
-        console.log('Backend response:', data);
         return data.games || [];
       } else {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Backend error');
       }
     } catch (error) {
-      console.warn('Backend failed, falling back to proxy:', error.message);
       setBackendStatus(false);
       // Fall through to proxy method
     }
@@ -367,8 +372,6 @@ async function fetchGames(steamid) {
   
   try {
     const parsed = await fetchWithProxy(steamUrl);
-    console.log('Proxy API Response:', parsed); // Debug log
-    console.log('Games array:', parsed.response?.games); // Debug log
     
     if (!parsed.response) {
       throw new Error('Steam API yanıtında response bulunamadı.');
@@ -380,15 +383,6 @@ async function fetchGames(steamid) {
     
     // Check if games array exists and has content
     const games = parsed.response.games || [];
-    console.log('Final games count:', games.length);
-    
-    if (games.length === 0) {
-      console.warn('Games array is empty. This could be due to:');
-      console.warn('1. Steam profile is private');
-      console.warn('2. No games in library');
-      console.warn('3. API key issues');
-      console.warn('4. Steam ID format issues');
-    }
     
     return games;
   } catch (error) {
@@ -416,7 +410,6 @@ async function fetchGameDetails(appid) {
         throw new Error(errorData.error || 'Backend error');
       }
     } catch (error) {
-      console.warn(`Backend failed for game ${appid}, falling back to proxy:`, error.message);
       // Fall through to proxy method
     }
   }
@@ -433,14 +426,11 @@ async function fetchGameDetails(appid) {
     
     return parsed[appid].data.pc_requirements?.minimum || '';
   } catch (error) {
-    console.warn(`Failed to fetch game details for ${appid}:`, error.message);
-    
     // If it's a rate limit or CORS error, don't throw - just return null
     if (error.message.includes('429') || 
         error.message.includes('CORS') || 
         error.message.includes('Rate limit') ||
         error.message.includes('proxy')) {
-      console.log(`Skipping ${appid} due to API limitations`);
       return null;
     }
     
@@ -451,25 +441,31 @@ async function fetchGameDetails(appid) {
 function parseRequirements(minReqStr) {
   if (!minReqStr) return null;
   
-  // Daha kapsamlı regex patterns
+  // More comprehensive regex patterns for better parsing
   const patterns = {
     cpu: [
-      /(İşlemci|Processor|CPU)\s*:?\s*([^<\n]+)/i,
-      /(Intel|AMD)\s+[^<\n]+/i,
-      /Core\s+[^<\n]+/i,
-      /Ryzen\s+[^<\n]+/i,
-      /Pentium\s+[^<\n]+/i
+      /(İşlemci|Processor|CPU)\s*:?\s*([^<\n\r]+)/i,
+      /(Intel|AMD)\s+[^<\n\r]+/i,
+      /Core\s+[^<\n\r]+/i,
+      /Ryzen\s+[^<\n\r]+/i,
+      /Pentium\s+[^<\n\r]+/i,
+      /Celeron\s+[^<\n\r]+/i,
+      /Athlon\s+[^<\n\r]+/i,
+      /FX\s+[^<\n\r]+/i
     ],
     gpu: [
-      /(Ekran Kartı|Graphics|GPU|Video)\s*:?\s*([^<\n]+)/i,
-      /(NVIDIA|GeForce|GTX|RTX)\s+[^<\n]+/i,
-      /(AMD|Radeon|RX)\s+[^<\n]+/i,
-      /(Intel)\s+(HD|UHD|Iris)\s+[^<\n]+/i,
-      /(ATI|NVidia)\s+[^<\n]+/i
+      /(Ekran Kartı|Graphics|GPU|Video)\s*:?\s*([^<\n\r]+)/i,
+      /(NVIDIA|GeForce|GTX|RTX)\s+[^<\n\r]+/i,
+      /(AMD|Radeon|RX)\s+[^<\n\r]+/i,
+      /(Intel)\s+(HD|UHD|Iris|Arc)\s+[^<\n\r]+/i,
+      /(ATI|NVidia)\s+[^<\n\r]+/i,
+      /(GTX|RTX|GT)\s+\d+[^<\n\r]*/i,
+      /(RX|HD|R9|R7|R5)\s+\d+[^<\n\r]*/i
     ],
     ram: [
-      /(Bellek|Memory|RAM)\s*:?\s*([^<\n]+)/i,
-      /(\d+)\s*(GB|MB)\s*(RAM|Memory|Bellek)/i
+      /(Bellek|Memory|RAM)\s*:?\s*([^<\n\r]+)/i,
+      /(\d+)\s*(GB|MB)\s*(RAM|Memory|Bellek)/i,
+      /(\d+)\s*(GB|MB)\s*(of\s+)?(RAM|Memory|Bellek)/i
     ]
   };
   
@@ -477,27 +473,30 @@ function parseRequirements(minReqStr) {
   let gpu = '';
   let ram = 0;
   
-  // CPU detection
+  // CPU detection with better matching
   for (const pattern of patterns.cpu) {
     const match = minReqStr.match(pattern);
     if (match) {
-      cpu = cleanModel(match[2] || match[0]);
-      break;
+      let cpuText = match[2] || match[0];
+      // Clean up common prefixes and suffixes
+      cpuText = cpuText.replace(/^(Intel|AMD)\s+/i, '').trim();
+      cpu = cleanModel(cpuText);
+      if (cpu) break;
     }
   }
   
-  // GPU detection - daha akıllı parsing
+  // GPU detection with improved parsing
   for (const pattern of patterns.gpu) {
     const match = minReqStr.match(pattern);
     if (match) {
       let gpuText = match[2] || match[0];
       
-      // Uzun açıklamaları kısalt
+      // Handle complex GPU descriptions
       if (gpuText.includes('Video card with') || gpuText.includes('Shader model')) {
-        // En iyi GPU'yu bul
-        const gpuMatches = gpuText.match(/(ATI|NVidia|NVIDIA|AMD|GeForce|Radeon|GTX|RTX|HD|X\d+|\d+GT)/gi);
+        // Extract the best GPU from the description
+        const gpuMatches = gpuText.match(/(ATI|NVidia|NVIDIA|AMD|GeForce|Radeon|GTX|RTX|HD|UHD|Iris|Arc|X\d+|\d+GT|RX\d+)/gi);
         if (gpuMatches && gpuMatches.length > 0) {
-          // En yüksek numaralı GPU'yu seç
+          // Find the highest numbered GPU
           let bestGpu = gpuMatches[0];
           for (let gpu of gpuMatches) {
             const num1 = gpu.match(/\d+/);
@@ -513,18 +512,24 @@ function parseRequirements(minReqStr) {
       } else {
         gpu = cleanModel(gpuText);
       }
-      break;
+      if (gpu) break;
     }
   }
   
-  // RAM detection
+  // RAM detection with better number parsing
   for (const pattern of patterns.ram) {
     const match = minReqStr.match(pattern);
     if (match) {
-      const ramStr = (match[2] || match[1]).replace(/[^0-9.,]/g, '').replace(',', '.');
-      ram = parseFloat(ramStr);
-      if (minReqStr.match(/MB/i)) ram = Math.round(ram/1024);
-      break;
+      let ramText = match[2] || match[1];
+      // Extract numbers from the text
+      const ramMatch = ramText.match(/(\d+(?:\.\d+)?)\s*(GB|MB)/i);
+      if (ramMatch) {
+        ram = parseFloat(ramMatch[1]);
+        if (ramMatch[2].toUpperCase() === 'MB') {
+          ram = Math.round(ram / 1024 * 10) / 10; // Convert MB to GB with 1 decimal
+        }
+        break;
+      }
     }
   }
   
@@ -534,14 +539,19 @@ function parseRequirements(minReqStr) {
 function cleanModel(str) {
   if (!str) return '';
   
-  // Uzun açıklamaları temizle
+  // Clean up common descriptions and technical details
   str = str.replace(/Video card with \d+ MB[^,]*/gi, '');
   str = str.replace(/Shader model \d+\.\d+/gi, '');
   str = str.replace(/or better/gi, '');
   str = str.replace(/compatible/gi, '');
   str = str.replace(/DirectX \d+\.\d+/gi, '');
+  str = str.replace(/OpenGL \d+\.\d+/gi, '');
+  str = str.replace(/Vulkan \d+\.\d+/gi, '');
+  str = str.replace(/@.*$/g, ''); // Remove clock speeds
+  str = str.replace(/\(.*?\)/g, ''); // Remove parentheses content
+  str = str.replace(/\s+/g, ' ').trim(); // Clean up whitespace
   
-  // "or" ile ayrılmışsa en yüksek benchmarklıyı seç
+  // Handle multiple options separated by "or", "veya", "/", ","
   let models = str.split(/\bor\b|veya|\/|,|\//i).map(s => s.trim()).filter(s => s.length > 0);
   
   if (models.length === 0) return '';
@@ -564,19 +574,26 @@ function cleanModel(str) {
 function normalizeModel(str) {
   if (!str) return '';
   
-  // Sık kullanılan model adlarını sadeleştir
-  str = str.replace(/(Intel|AMD|NVIDIA|GeForce|Radeon|Core|CPU|Processor|Ekran Kartı|Graphics|\(R\)|\(TM\))/gi, '');
-  str = str.replace(/Quad-Core|Dual-Core|Six-Core|Eight-Core/gi, '');
-  str = str.replace(/@.*$/g, '');
-  str = str.replace(/\s+/g, ' ').trim();
+  // Remove common brand names and technical terms
+  str = str.replace(/(Intel|AMD|NVIDIA|GeForce|Radeon|Core|CPU|Processor|Ekran Kartı|Graphics|\(R\)|\(TM\)|\(C\))/gi, '');
+  str = str.replace(/Quad-Core|Dual-Core|Six-Core|Eight-Core|Octa-Core/gi, '');
+  str = str.replace(/@.*$/g, ''); // Remove clock speeds
+  str = str.replace(/\(.*?\)/g, ''); // Remove parentheses
+  str = str.replace(/\s+/g, ' ').trim(); // Clean up whitespace
   
-  // Özel durumlar için daha iyi normalizasyon
+  // Special cases for better normalization
   str = str.replace(/^X(\d+)$/i, 'X$1'); // ATI X800 -> X800
   str = str.replace(/^(\d+)GT$/i, '$1GT'); // 6600GT -> 6600GT
-  str = str.replace(/^(\d+)$/i, '$1'); // Sadece numara varsa olduğu gibi bırak
+  str = str.replace(/^(\d+)Ti$/i, '$1Ti'); // 1060Ti -> 1060Ti
+  str = str.replace(/^(\d+)$/i, '$1'); // Keep pure numbers
   
-  // Model adını büyük/küçük harf duyarsızlaştır
-  return str;
+  // Normalize common GPU series
+  str = str.replace(/^GTX\s*(\d+)/i, 'GTX $1');
+  str = str.replace(/^RTX\s*(\d+)/i, 'RTX $1');
+  str = str.replace(/^RX\s*(\d+)/i, 'RX $1');
+  str = str.replace(/^HD\s*(\d+)/i, 'HD $1');
+  
+  return str.trim();
 }
 
 // Global canvas for WebGL detection to avoid context warnings
@@ -616,7 +633,7 @@ function detectHardware() {
       }
     }
   } catch (e) {
-    console.warn('GPU detection failed:', e);
+    // GPU detection failed - keep silent
   }
   
   // Cache the result
@@ -631,7 +648,7 @@ function calculateScore(name, req) {
     return { 
       name, 
       score: 0, 
-      hw: `Tespit: CPU Çekirdek: ${detectedHw.cores}, RAM: ${detectedHw.memory}, GPU: ${detectedHw.gpu}` 
+      hw: `Gereksinim: CPU: -, GPU: -, RAM: - GB | Tespit: CPU Çekirdek: ${detectedHw.cores}, RAM: ${detectedHw.memory}, GPU: ${detectedHw.gpu}` 
     };
   }
   
@@ -665,38 +682,30 @@ function clearCache() {
   gameDetailsCache.clear();
   cachedHardware = null; // Reset hardware detection cache
   proxyHealth.clear(); // Reset proxy health tracking
-  console.log('Cache cleared');
 }
 
 // Test function to debug Steam API - can be called from browser console
 window.testSteamAPI = async function(steamid) {
-  console.log('Testing Steam API for ID:', steamid);
   try {
     const games = await fetchGames(steamid);
-    console.log('Test successful. Games found:', games.length);
     return games;
   } catch (error) {
-    console.error('Test failed:', error);
     return null;
   }
 };
 
 // Test proxy connectivity
 window.testProxies = async function() {
-  console.log('Testing proxy services...');
   const testUrl = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=test&steamid=76561198000000000&include_appinfo=1';
   
   for (let i = 0; i < PROXY_SERVICES.length; i++) {
     try {
-      console.log(`Testing proxy ${i + 1}: ${PROXY_SERVICES[i]}`);
       const result = await fetchWithProxy(testUrl, i);
-      console.log(`✓ Proxy ${i + 1} is working`);
       return i;
     } catch (error) {
-      console.log(`✗ Proxy ${i + 1} failed:`, error.message);
+      // Continue to next proxy
     }
   }
-  console.log('All proxies failed');
   return -1;
 };
 
