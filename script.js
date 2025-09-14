@@ -119,72 +119,127 @@ form.addEventListener('submit', async (e) => {
     showProgress(false);
     showTable(true);
   } catch (err) {
-    setStatus('Bir hata oluştu: ' + err.message);
+    console.error('Form submission error:', err);
+    let errorMessage = 'Bir hata oluştu: ' + err.message;
+    
+    // Provide more specific error messages
+    if (err.message.includes('proxy')) {
+      errorMessage = 'Proxy servisleri çalışmıyor. Lütfen daha sonra tekrar deneyin.';
+    } else if (err.message.includes('Steam API')) {
+      errorMessage = 'Steam API hatası. Lütfen Steam ID\'nizi kontrol edin.';
+    } else if (err.message.includes('timeout')) {
+      errorMessage = 'İstek zaman aşımına uğradı. Lütfen tekrar deneyin.';
+    }
+    
+    setStatus(errorMessage);
     showProgress(false);
   }
   showLoader(false);
 });
 
-async function fetchGames(steamid) {
-  const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${API_KEY}&steamid=${steamid}&include_appinfo=1&include_played_free_games=1`)}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('Oyunlar alınamadı.');
-  const data = await res.json();
-  console.log('API Response:', data); // Debug log
-  
-  if (!data.contents) {
-    throw new Error('API yanıtı boş geldi.');
+// Proxy services with fallbacks
+const PROXY_SERVICES = [
+  'https://api.allorigins.win/get?url=',
+  'https://cors-anywhere.herokuapp.com/',
+  'https://api.codetabs.com/v1/proxy?quest=',
+  'https://thingproxy.freeboard.io/fetch/'
+];
+
+async function fetchWithProxy(url, proxyIndex = 0) {
+  if (proxyIndex >= PROXY_SERVICES.length) {
+    throw new Error('Tüm proxy servisleri başarısız oldu.');
   }
   
-  let parsed;
+  const proxyUrl = PROXY_SERVICES[proxyIndex] + encodeURIComponent(url);
+  console.log(`Trying proxy ${proxyIndex + 1}: ${PROXY_SERVICES[proxyIndex]}`);
+  
+  // Update status to show which proxy is being used
+  if (proxyIndex > 0) {
+    setStatus(`Proxy ${proxyIndex + 1} deneniyor...`);
+  }
+  
   try {
-    parsed = JSON.parse(data.contents);
-  } catch (e) {
-    console.error('JSON parse error:', e);
-    throw new Error('API yanıtı parse edilemedi.');
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+    
+    const res = await fetch(proxyUrl, { 
+      signal: controller.signal,
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+      }
+    });
+    
+    clearTimeout(timeoutId);
+    
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    }
+    
+    const data = await res.json();
+    
+    // Handle different proxy response formats
+    if (data.contents) {
+      // allorigins.win format
+      return JSON.parse(data.contents);
+    } else if (data.response) {
+      // Direct Steam API response
+      return data;
+    } else {
+      // Try to parse as direct response
+      return data;
+    }
+  } catch (error) {
+    console.warn(`Proxy ${proxyIndex + 1} failed:`, error.message);
+    if (proxyIndex < PROXY_SERVICES.length - 1) {
+      console.log(`Trying next proxy...`);
+      return await fetchWithProxy(url, proxyIndex + 1);
+    } else {
+      throw error;
+    }
   }
+}
+
+async function fetchGames(steamid) {
+  const steamUrl = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${API_KEY}&steamid=${steamid}&include_appinfo=1&include_played_free_games=1`;
   
-  console.log('Parsed Response:', parsed); // Debug log
-  console.log('Games array:', parsed.response?.games); // Debug log
-  
-  if (!parsed.response) {
-    throw new Error('Steam API yanıtında response bulunamadı.');
+  try {
+    const parsed = await fetchWithProxy(steamUrl);
+    console.log('API Response:', parsed); // Debug log
+    console.log('Games array:', parsed.response?.games); // Debug log
+    
+    if (!parsed.response) {
+      throw new Error('Steam API yanıtında response bulunamadı.');
+    }
+    
+    if (parsed.response.error) {
+      throw new Error(`Steam API hatası: ${parsed.response.error.error_desc || 'Bilinmeyen hata'}`);
+    }
+    
+    // Check if games array exists and has content
+    const games = parsed.response.games || [];
+    console.log('Final games count:', games.length);
+    
+    if (games.length === 0) {
+      console.warn('Games array is empty. This could be due to:');
+      console.warn('1. Steam profile is private');
+      console.warn('2. No games in library');
+      console.warn('3. API key issues');
+      console.warn('4. Steam ID format issues');
+    }
+    
+    return games;
+  } catch (error) {
+    console.error('Steam API fetch failed:', error);
+    throw new Error(`Oyunlar alınamadı: ${error.message}`);
   }
-  
-  if (parsed.response.error) {
-    throw new Error(`Steam API hatası: ${parsed.response.error.error_desc || 'Bilinmeyen hata'}`);
-  }
-  
-  // Check if games array exists and has content
-  const games = parsed.response.games || [];
-  console.log('Final games count:', games.length);
-  
-  if (games.length === 0) {
-    console.warn('Games array is empty. This could be due to:');
-    console.warn('1. Steam profile is private');
-    console.warn('2. No games in library');
-    console.warn('3. API key issues');
-    console.warn('4. Steam ID format issues');
-  }
-  
-  return games;
 }
 
 async function fetchGameDetails(appid) {
-  const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://store.steampowered.com/api/appdetails?appids=${appid}&l=turkish`)}`;
-  
-  // Add timeout to prevent hanging requests
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+  const steamUrl = `https://store.steampowered.com/api/appdetails?appids=${appid}&l=turkish`;
   
   try {
-    const res = await fetch(url, { signal: controller.signal });
-    clearTimeout(timeoutId);
-    
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    
-    const data = await res.json();
-    const parsed = JSON.parse(data.contents);
+    const parsed = await fetchWithProxy(steamUrl);
     
     if (!parsed[appid] || !parsed[appid].success) {
       throw new Error('Game details not available');
@@ -192,10 +247,7 @@ async function fetchGameDetails(appid) {
     
     return parsed[appid].data.pc_requirements?.minimum || '';
   } catch (error) {
-    clearTimeout(timeoutId);
-    if (error.name === 'AbortError') {
-      throw new Error('Request timeout');
-    }
+    console.warn(`Failed to fetch game details for ${appid}:`, error.message);
     throw error;
   }
 }
@@ -425,6 +477,25 @@ window.testSteamAPI = async function(steamid) {
     console.error('Test failed:', error);
     return null;
   }
+};
+
+// Test proxy connectivity
+window.testProxies = async function() {
+  console.log('Testing proxy services...');
+  const testUrl = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=test&steamid=76561198000000000&include_appinfo=1';
+  
+  for (let i = 0; i < PROXY_SERVICES.length; i++) {
+    try {
+      console.log(`Testing proxy ${i + 1}: ${PROXY_SERVICES[i]}`);
+      const result = await fetchWithProxy(testUrl, i);
+      console.log(`✓ Proxy ${i + 1} is working`);
+      return i;
+    } catch (error) {
+      console.log(`✗ Proxy ${i + 1} failed:`, error.message);
+    }
+  }
+  console.log('All proxies failed');
+  return -1;
 };
 
 // Clear cache when form is submitted
