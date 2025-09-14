@@ -34,8 +34,9 @@ form.addEventListener('submit', async (e) => {
   showTable(false);
   try {
     const games = await fetchGames(steamid);
-    if (!games.length) {
-      setStatus('Kütüphanede oyun bulunamadı.');
+    console.log('Games found:', games.length); // Debug log
+    if (!games || !games.length) {
+      setStatus('Kütüphanede oyun bulunamadı. Lütfen kontrol edin:\n• Steam ID\'niz doğru mu?\n• Steam profiliniz herkese açık mı?\n• Kütüphanenizde oyun var mı?\n\nDetaylı bilgi için tarayıcı konsolunu kontrol edin (F12).');
       showLoader(false);
       return;
     }
@@ -70,8 +71,44 @@ async function fetchGames(steamid) {
   const res = await fetch(url);
   if (!res.ok) throw new Error('Oyunlar alınamadı.');
   const data = await res.json();
-  const parsed = JSON.parse(data.contents);
-  return parsed.response.games || [];
+  console.log('API Response:', data); // Debug log
+  
+  if (!data.contents) {
+    throw new Error('API yanıtı boş geldi.');
+  }
+  
+  let parsed;
+  try {
+    parsed = JSON.parse(data.contents);
+  } catch (e) {
+    console.error('JSON parse error:', e);
+    throw new Error('API yanıtı parse edilemedi.');
+  }
+  
+  console.log('Parsed Response:', parsed); // Debug log
+  console.log('Games array:', parsed.response?.games); // Debug log
+  
+  if (!parsed.response) {
+    throw new Error('Steam API yanıtında response bulunamadı.');
+  }
+  
+  if (parsed.response.error) {
+    throw new Error(`Steam API hatası: ${parsed.response.error.error_desc || 'Bilinmeyen hata'}`);
+  }
+  
+  // Check if games array exists and has content
+  const games = parsed.response.games || [];
+  console.log('Final games count:', games.length);
+  
+  if (games.length === 0) {
+    console.warn('Games array is empty. This could be due to:');
+    console.warn('1. Steam profile is private');
+    console.warn('2. No games in library');
+    console.warn('3. API key issues');
+    console.warn('4. Steam ID format issues');
+  }
+  
+  return games;
 }
 
 async function fetchGameDetails(appid) {
@@ -149,3 +186,16 @@ function renderTable(results) {
 function sleep(ms) {
   return new Promise(res => setTimeout(res, ms));
 }
+
+// Test function to debug Steam API - can be called from browser console
+window.testSteamAPI = async function(steamid) {
+  console.log('Testing Steam API for ID:', steamid);
+  try {
+    const games = await fetchGames(steamid);
+    console.log('Test successful. Games found:', games.length);
+    return games;
+  } catch (error) {
+    console.error('Test failed:', error);
+    return null;
+  }
+};
