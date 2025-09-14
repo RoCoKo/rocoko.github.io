@@ -31,7 +31,7 @@ function clearTable() {
 }
 
 // Parallel processing functions
-async function processGamesInBatches(games, batchSize = 10) {
+async function processGamesInBatches(games, batchSize = 3) { // Reduced batch size
   const results = [];
   const totalGames = games.length;
   let processedCount = 0;
@@ -55,6 +55,7 @@ async function processGamesInBatches(games, batchSize = 10) {
         
         return scoreObj;
       } catch (err) {
+        console.warn(`Failed to fetch details for ${game.name}:`, err.message);
         processedCount++;
         updateProgress(processedCount, totalGames);
         return calculateScore(game.name, null);
@@ -68,9 +69,9 @@ async function processGamesInBatches(games, batchSize = 10) {
       }
     });
     
-    // Small delay between batches to respect API limits
+    // Longer delay between batches to respect API limits
     if (i + batchSize < games.length) {
-      await sleep(25); // Reduced delay for faster processing
+      await sleep(1000); // Increased delay to 1 second
     }
   }
   
@@ -109,7 +110,7 @@ form.addEventListener('submit', async (e) => {
     showProgress(true);
     
     const startTime = performance.now();
-    const results = await processGamesInBatches(games, 10); // 10 concurrent requests
+    const results = await processGamesInBatches(games, 3); // 3 concurrent requests
     const endTime = performance.now();
     const processingTime = Math.round(endTime - startTime);
     results.sort((a, b) => b.score - a.score);
@@ -330,8 +331,17 @@ function normalizeModel(str) {
   return str;
 }
 
-// Browser-based hardware detection
+// Global canvas for WebGL detection to avoid context warnings
+let globalCanvas = null;
+let globalGL = null;
+let cachedHardware = null;
+
+// Browser-based hardware detection (cached)
 function detectHardware() {
+  if (cachedHardware) {
+    return cachedHardware;
+  }
+  
   const hardware = {
     cores: navigator.hardwareConcurrency || 'Bilinmiyor',
     memory: navigator.deviceMemory ? `${navigator.deviceMemory} GB` : 'Bilinmiyor',
@@ -339,20 +349,25 @@ function detectHardware() {
     platform: navigator.platform || 'Bilinmiyor'
   };
   
-  // Try to detect GPU via WebGL
+  // Try to detect GPU via WebGL (reuse canvas)
   try {
-    const canvas = document.createElement('canvas');
-    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-    if (gl) {
-      const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    if (!globalCanvas) {
+      globalCanvas = document.createElement('canvas');
+      globalGL = globalCanvas.getContext('webgl') || globalCanvas.getContext('experimental-webgl');
+    }
+    
+    if (globalGL) {
+      const debugInfo = globalGL.getExtension('WEBGL_debug_renderer_info');
       if (debugInfo) {
-        hardware.gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || 'Bilinmiyor';
+        hardware.gpu = globalGL.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || 'Bilinmiyor';
       }
     }
   } catch (e) {
     console.warn('GPU detection failed:', e);
   }
   
+  // Cache the result
+  cachedHardware = hardware;
   return hardware;
 }
 
@@ -395,6 +410,7 @@ function sleep(ms) {
 // Performance optimization: Clear cache when starting new session
 function clearCache() {
   gameDetailsCache.clear();
+  cachedHardware = null; // Reset hardware detection cache
   console.log('Cache cleared');
 }
 
