@@ -30,59 +30,64 @@ function clearTable() {
   tbody.innerHTML = '';
 }
 
-// Parallel processing functions with better rate limiting
-async function processGamesInBatches(games, batchSize = 2) { // Further reduced batch size
+// Ultra-conservative processing to avoid rate limits
+async function processGamesInBatches(games, batchSize = 1) { // Process one at a time
   const results = [];
   const totalGames = games.length;
   let processedCount = 0;
   let consecutiveErrors = 0;
+  let totalErrors = 0;
+  const MAX_TOTAL_ERRORS = 10; // Stop if too many total errors
   
-  // Process games in batches
-  for (let i = 0; i < games.length; i += batchSize) {
-    const batch = games.slice(i, i + batchSize);
+  // Process games one by one with generous delays
+  for (let i = 0; i < games.length; i++) {
+    const game = games[i];
     
-    // Process batch sequentially to avoid overwhelming the API
-    for (const game of batch) {
-      try {
-        let details = gameDetailsCache.get(game.appid);
-        if (!details) {
-          details = await fetchGameDetails(game.appid);
-          gameDetailsCache.set(game.appid, details);
-        }
-        
-        const req = details ? parseRequirements(details) : null;
-        const scoreObj = calculateScore(game.name, req);
-        
-        processedCount++;
-        updateProgress(processedCount, totalGames);
-        results.push(scoreObj);
-        
-        // Reset error counter on success
-        consecutiveErrors = 0;
-        
-        // Add delay between individual requests
-        await sleep(500); // 500ms delay between each request
-        
-      } catch (err) {
-        console.warn(`Failed to fetch details for ${game.name}:`, err.message);
-        processedCount++;
-        updateProgress(processedCount, totalGames);
-        results.push(calculateScore(game.name, null));
-        
-        consecutiveErrors++;
-        
-        // If we get too many consecutive errors, increase delay
-        if (consecutiveErrors > 3) {
-          console.log('Too many consecutive errors, increasing delay...');
-          await sleep(2000); // 2 second delay
-          consecutiveErrors = 0; // Reset counter
-        }
-      }
+    // Stop if too many errors
+    if (totalErrors >= MAX_TOTAL_ERRORS) {
+      console.log(`Too many errors (${totalErrors}), stopping processing...`);
+      setStatus(`Çok fazla hata nedeniyle işlem durduruldu. ${processedCount}/${totalGames} oyun işlendi.`);
+      break;
     }
     
-    // Longer delay between batches to respect API limits
-    if (i + batchSize < games.length) {
-      await sleep(1500); // Increased delay to 1.5 seconds between batches
+    try {
+      let details = gameDetailsCache.get(game.appid);
+      if (!details) {
+        details = await fetchGameDetails(game.appid);
+        gameDetailsCache.set(game.appid, details);
+      }
+      
+      const req = details ? parseRequirements(details) : null;
+      const scoreObj = calculateScore(game.name, req);
+      
+      processedCount++;
+      updateProgress(processedCount, totalGames);
+      results.push(scoreObj);
+      
+      // Reset error counter on success
+      consecutiveErrors = 0;
+      
+      // Add delay between individual requests
+      await sleep(1000); // 1 second delay between each request
+      
+    } catch (err) {
+      console.warn(`Failed to fetch details for ${game.name}:`, err.message);
+      processedCount++;
+      updateProgress(processedCount, totalGames);
+      results.push(calculateScore(game.name, null));
+      
+      consecutiveErrors++;
+      totalErrors++;
+      
+      // If we get too many consecutive errors, increase delay significantly
+      if (consecutiveErrors > 2) {
+        console.log('Too many consecutive errors, increasing delay...');
+        await sleep(5000); // 5 second delay
+        consecutiveErrors = 0; // Reset counter
+      } else {
+        // Normal delay even on error
+        await sleep(1000);
+      }
     }
   }
   
@@ -121,7 +126,7 @@ form.addEventListener('submit', async (e) => {
     showProgress(true);
     
     const startTime = performance.now();
-    const results = await processGamesInBatches(games, 2); // 2 concurrent requests for better rate limiting
+    const results = await processGamesInBatches(games, 1); // Process one at a time to avoid rate limits
     const endTime = performance.now();
     const processingTime = Math.round(endTime - startTime);
     results.sort((a, b) => b.score - a.score);
@@ -154,10 +159,25 @@ const PROXY_SERVICES = [
   'https://corsproxy.io/?',
   'https://api.codetabs.com/v1/proxy?quest=',
   'https://thingproxy.freeboard.io/fetch/',
-  'https://cors-anywhere.herokuapp.com/'
+  'https://cors-anywhere.herokuapp.com/',
+  'https://cors.bridged.cc/',
+  'https://api.codetabs.com/v1/proxy?quest='
 ];
 
+// Track proxy health to avoid repeatedly trying failed proxies
+const proxyHealth = new Map();
+const MAX_FAILURES = 3;
+
 async function fetchWithProxy(url, proxyIndex = 0, retryCount = 0) {
+  // Skip proxies that have failed too many times
+  if (proxyHealth.get(proxyIndex) >= MAX_FAILURES) {
+    if (proxyIndex < PROXY_SERVICES.length - 1) {
+      return await fetchWithProxy(url, proxyIndex + 1, 0);
+    } else {
+      throw new Error('Tüm proxy servisleri başarısız oldu.');
+    }
+  }
+  
   if (proxyIndex >= PROXY_SERVICES.length) {
     throw new Error('Tüm proxy servisleri başarısız oldu.');
   }
@@ -172,7 +192,7 @@ async function fetchWithProxy(url, proxyIndex = 0, retryCount = 0) {
   
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 20000); // Increased timeout to 20 seconds
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // Reduced timeout to 15 seconds
     
     const res = await fetch(proxyUrl, { 
       signal: controller.signal,
@@ -187,14 +207,15 @@ async function fetchWithProxy(url, proxyIndex = 0, retryCount = 0) {
     // Handle rate limiting with exponential backoff
     if (res.status === 429) {
       const retryAfter = res.headers.get('Retry-After');
-      const delay = retryAfter ? parseInt(retryAfter) * 1000 : Math.pow(2, retryCount) * 1000;
+      const delay = retryAfter ? parseInt(retryAfter) * 1000 : Math.pow(2, retryCount) * 2000; // Increased base delay
       
-      if (retryCount < 3) {
+      if (retryCount < 2) { // Reduced max retries
         console.log(`Rate limited. Waiting ${delay}ms before retry ${retryCount + 1}...`);
         await sleep(delay);
         return await fetchWithProxy(url, proxyIndex, retryCount + 1);
       } else {
-        // Try next proxy after max retries
+        // Mark this proxy as failed and try next
+        proxyHealth.set(proxyIndex, (proxyHealth.get(proxyIndex) || 0) + 1);
         if (proxyIndex < PROXY_SERVICES.length - 1) {
           console.log(`Max retries reached for proxy ${proxyIndex + 1}, trying next proxy...`);
           return await fetchWithProxy(url, proxyIndex + 1, 0);
@@ -210,6 +231,9 @@ async function fetchWithProxy(url, proxyIndex = 0, retryCount = 0) {
     
     const data = await res.json();
     
+    // Reset failure count on success
+    proxyHealth.set(proxyIndex, 0);
+    
     // Handle different proxy response formats
     if (data.contents) {
       // allorigins.win format
@@ -224,10 +248,13 @@ async function fetchWithProxy(url, proxyIndex = 0, retryCount = 0) {
   } catch (error) {
     console.warn(`Proxy ${proxyIndex + 1} failed:`, error.message);
     
+    // Mark proxy as failed
+    proxyHealth.set(proxyIndex, (proxyHealth.get(proxyIndex) || 0) + 1);
+    
     // If it's a network error and we haven't exceeded retries, try again
-    if (retryCount < 2 && (error.name === 'TypeError' || error.message.includes('fetch'))) {
-      console.log(`Network error, retrying in ${Math.pow(2, retryCount) * 1000}ms...`);
-      await sleep(Math.pow(2, retryCount) * 1000);
+    if (retryCount < 1 && (error.name === 'TypeError' || error.message.includes('fetch'))) {
+      console.log(`Network error, retrying in ${Math.pow(2, retryCount) * 2000}ms...`);
+      await sleep(Math.pow(2, retryCount) * 2000);
       return await fetchWithProxy(url, proxyIndex, retryCount + 1);
     }
     
@@ -451,10 +478,15 @@ function detectHardware() {
     platform: navigator.platform || 'Bilinmiyor'
   };
   
-  // Try to detect GPU via WebGL (reuse canvas)
+  // Try to detect GPU via WebGL (reuse canvas properly)
   try {
     if (!globalCanvas) {
       globalCanvas = document.createElement('canvas');
+      globalCanvas.width = 1;
+      globalCanvas.height = 1;
+    }
+    
+    if (!globalGL) {
       globalGL = globalCanvas.getContext('webgl') || globalCanvas.getContext('experimental-webgl');
     }
     
@@ -513,6 +545,7 @@ function sleep(ms) {
 function clearCache() {
   gameDetailsCache.clear();
   cachedHardware = null; // Reset hardware detection cache
+  proxyHealth.clear(); // Reset proxy health tracking
   console.log('Cache cleared');
 }
 
