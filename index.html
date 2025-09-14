@@ -1,64 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skyrama Leaderboard</title>
-    <link rel="stylesheet" href="src/css/styles.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="src/favicon.png">
-    <script type="module" src="/src/js/index.js" defer></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4653851494913538"
-        crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Steam Library Benchmark</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div class="background-image"></div>
-    <header class="header">
-        <h1>Skyrama Leaderboard</h1>
-    </header>
-    
-    <div class="main-content">
-        <div class="search">
-            <input type="text" id="searchInput" placeholder="Search by name or ID">
-            <button id="searchButton">Search</button>
-        </div>
-
-        <table id="leaderboard">
-            <tbody>
-                <!-- Rows will be inserted here by JavaScript -->
-            </tbody>
-        </table>
-
-        <div class="pagination">
-            <button id="firstPage" class="disabled">First</button>
-            <button id="prevPage" class="disabled">Previous</button>
-            <span id="pageInfo">Page 1</span>
-            <button id="nextPage">Next</button>
-            <button id="lastPage">Last</button>
-        </div>
-
-        <div class="page-size-buttons">
-            <button id="pageSize10" class="active">10</button>
-            <button id="pageSize20">20</button>
-            <button id="pageSize50">50</button>
-            <button id="pageSize100">100</button>
-        </div>
-
-        <div class="updated-date">
-            Last Updated: <span id="updateDate">06.08.24 02:20</span>
-        </div>
-
-        <div class="contact-info">
-            Discord: rocoko
-        </div>
-
-        <div id="loading" class="loading-container">
-            <div class="loading-spinner"></div>
-        </div>
+  <div class="container">
+    <h1>Steam Library Benchmark</h1>
+    <form id="steam-form" autocomplete="off">
+      <label for="steamid">Steam 64-bit ID:</label>
+      <input type="text" id="steamid" name="steamid" placeholder="Örn: 76561198000000000" required>
+      <button type="submit" id="start-btn">Başlat</button>
+    </form>
+    <div id="status"></div>
+    <div id="loader" class="hidden">
+      <div class="spinner"></div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.4/pako.min.js"></script>
+    <table id="results-table" class="hidden">
+      <thead>
+        <tr>
+          <th>Sıra</th>
+          <th>Oyun Adı</th>
+          <th>Gereksinim Puanı</th>
+          <th>Tespit Edilen Donanım</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Sonuçlar buraya gelecek -->
+      </tbody>
+    </table>
+  </div>
+  <script type="module" src="benchmarks.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
-
 </html>
