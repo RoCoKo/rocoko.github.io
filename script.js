@@ -1,7 +1,7 @@
 import { benchmarks } from './benchmarks.js';
 
-// Backend configuration
-const BACKEND_URL = 'http://localhost:3000';
+// Backend configuration - HTTPS'den HTTP'ye istek yapmak yerine daha güvenli yaklaşım
+const BACKEND_URL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://your-backend-domain.com';
 const API_KEY = '31FB258F6CD7538985642DE56954FCEC';
 
 // DOM elements
@@ -25,13 +25,26 @@ const gameDetailsCache = new Map();
 // Backend status management
 let backendOnline = false;
 
-// Check backend status
+// Check backend status with better error handling
 async function checkBackendStatus() {
   try {
+    // Only try backend if we're on localhost or if backend URL is HTTPS
+    if (BACKEND_URL.startsWith('http://') && window.location.protocol === 'https:') {
+      console.log('Skipping backend check: HTTPS to HTTP not allowed');
+      setBackendStatus(false);
+      return false;
+    }
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    
     const response = await fetch(`${BACKEND_URL}/api/health`, {
       method: 'GET',
-      timeout: 5000
+      signal: controller.signal,
+      mode: 'cors'
     });
+    
+    clearTimeout(timeoutId);
     
     if (response.ok) {
       setBackendStatus(true);
