@@ -1,0 +1,19 @@
+[
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/borderlands-4/27317",
+    "game": "Borderlands 4",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i7-9700 / AMD Ryzen 7 2700X",
+        "ram": "16 GB",
+        "video_card": "NVIDIA GeForce RTX 2070 / AMD Radeon RX 5700 XT",
+        "dedicated_video_ram": "8192 MB",
+        "os": "Windows 10 / Windows 11",
+        "shader_model_version": "6.0",
+        "free_disk_space": "100 GB"
+      },
+      "recommended": null
+    }
+  }
+]
