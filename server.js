@@ -9,7 +9,15 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({
   origin: ['https://rocoko.github.io', 'http://localhost:3000'],
   methods: ['GET', 'OPTIONS'], // Allow GET and OPTIONS methods
-  allowedHeaders: ['Content-Type'], // Allow Content-Type header
+  allowedHeaders: ['Content-Type', 'ngrok-skip-browser-warning'], // Allow custom ngrok header
+  credentials: true
+}));
+
+// Ensure Express responds to all preflight requests
+app.options('*', cors({
+  origin: ['https://rocoko.github.io', 'http://localhost:3000'],
+  methods: ['GET', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'ngrok-skip-browser-warning'],
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
