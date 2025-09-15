@@ -151,13 +151,10 @@ app.get('/api/steam/game/:appid', async (req, res) => {
     }
 
     const gameData = response.data[appid].data;
-    const requirements = gameData.pc_requirements?.minimum || '';
 
     res.json({
       success: true,
-      appid: appid,
-      name: gameData.name,
-      requirements: requirements
+      data: gameData
     });
 
   } catch (error) {
