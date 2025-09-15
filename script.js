@@ -40,10 +40,7 @@ async function checkBackendStatus() {
     const response = await fetch(`${BACKEND_URL}/api/health`, {
       method: 'GET',
       signal: controller.signal,
-      mode: 'cors',
-      headers: {
-        'ngrok-skip-browser-warning': '69420' // Herhangi bir değer olabilir
-      }
+      mode: 'cors'
     });
     
     clearTimeout(timeoutId);
@@ -245,8 +242,7 @@ async function fetchGames(steamid) {
   const response = await fetch(`${BACKEND_URL}/api/steam/games/${steamid}`, {
     method: 'GET',
     headers: { 
-      'Content-Type': 'application/json',
-      'ngrok-skip-browser-warning': '69420'
+      'Content-Type': 'application/json'
     }
   });
 
@@ -266,8 +262,7 @@ async function fetchGameDetails(appid) {
   const response = await fetch(`${BACKEND_URL}/api/steam/game/${appid}`, {
     method: 'GET',
     headers: { 
-      'Content-Type': 'application/json',
-      'ngrok-skip-browser-warning': '69420'
+      'Content-Type': 'application/json'
     }
   });
 
