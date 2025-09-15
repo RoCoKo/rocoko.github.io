@@ -108,7 +108,7 @@ async function processGamesInBatches(games, batchSize = 5) { // Process 5 at a t
     
     // Stop if too many errors
     if (totalErrors >= MAX_TOTAL_ERRORS) {
-      setStatus(`Çok fazla hata nedeniyle işlem durduruldu. ${processedCount}/${totalGames} oyun işlendi.`);
+      setStatus(`Processing stopped due to too many errors. ${processedCount}/${totalGames} games processed.`);
       break;
     }
     
@@ -176,7 +176,7 @@ async function processGamesInBatches(games, batchSize = 5) { // Process 5 at a t
 
 function updateProgress(processed, total) {
   const percentage = Math.round((processed / total) * 100);
-  setStatus(`İşleniyor: ${processed}/${total} oyun`);
+  setStatus(`Processing: ${processed}/${total} games`);
   progressFill.style.width = `${percentage}%`;
   progressText.textContent = `${percentage}%`;
 }
@@ -185,16 +185,16 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const steamid = input.value.trim();
   if (!/^\d{17}$/.test(steamid)) {
-    setStatus('Geçerli bir 64-bit Steam ID giriniz.');
+    setStatus('Please enter a valid 64-bit Steam ID.');
     return;
   }
   
   // Check backend status before processing
   const isBackendOnline = await checkBackendStatus();
   if (isBackendOnline) {
-    setStatus('Backend bağlantısı kuruldu. Oyunlar getiriliyor...');
+    setStatus('Backend connection established. Fetching games...');
   } else {
-    setStatus('Backend offline. Proxy servisleri kullanılıyor...');
+    setStatus('Backend offline. Using proxy services...');
   }
   
   clearTable();
@@ -204,11 +204,11 @@ form.addEventListener('submit', async (e) => {
   try {
     const games = await fetchGames(steamid);
     if (!games || !games.length) {
-      setStatus('Kütüphanede oyun bulunamadı. Lütfen kontrol edin:\n• Steam ID\'niz doğru mu?\n• Steam profiliniz herkese açık mı?\n• Kütüphanenizde oyun var mı?\n\nDetaylı bilgi için tarayıcı konsolunu kontrol edin (F12).');
+      setStatus('No games found in the library. Please check:\n• Is your Steam ID correct?\n• Is your Steam profile public?\n• Do you have games in your library?\n\nCheck the browser console (F12) for more details.');
       showLoader(false);
       return;
     }
-    setStatus(`Toplam ${games.length} oyun bulundu. Hızlı işleniyor...`);
+    setStatus(`Found ${games.length} games in total. Processing quickly...`);
     showLoader(false);
     showProgress(true);
     
@@ -218,21 +218,21 @@ form.addEventListener('submit', async (e) => {
     const processingTime = Math.round(endTime - startTime);
     results.sort((a, b) => b.score - a.score);
     renderTable(results);
-    setStatus(`Tüm oyunlar işlendi. (${processingTime}ms - ${Math.round(games.length / (processingTime / 1000))} oyun/saniye)`);
+    setStatus(`All games processed. (${processingTime}ms - ${Math.round(games.length / (processingTime / 1000))} games/second)`);
     showProgress(false);
     showTable(true);
   } catch (err) {
     console.error('Form submission error:', err);
-    let errorMessage = 'Bir hata oluştu: ' + err.message;
+    let errorMessage = 'An error occurred: ' + err.message;
     
     // Provide more specific error messages
     if (err.message.includes('backend')) {
-      errorMessage = 'Backend sunucusuna bağlanılamadı. Lütfen sunucunun ve ngrok tünelinin çalıştığından emin olun.';
+      errorMessage = 'Could not connect to the backend server. Please make sure the server and ngrok tunnel are running.';
     } else if (err.message.includes('Steam API')) {
-      errorMessage = 'Steam API hatası. Lütfen Steam ID\'nizi kontrol edin ve profilinizin herkese açık olduğundan emin olun.';
+      errorMessage = 'Steam API error. Please check your Steam ID and make sure your profile is public.';
     } else if (err.message.includes('timeout')) {
-      errorMessage = 'İstek zaman aşımına uğradı. Lütfen tekrar deneyin.';
-    } else if (err.message.includes('oyun bulunamadı')) {
+      errorMessage = 'The request timed out. Please try again.';
+    } else if (err.message.includes('game not found')) {
       errorMessage = err.message; // Use the specific message from fetchGames
     }
     
@@ -252,17 +252,17 @@ async function fetchGames(steamid) {
   });
 
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({ error: 'Bilinmeyen bir backend hatası oluştu.' }));
+    const errorData = await response.json().catch(() => ({ error: 'An unknown backend error occurred.' }));
     throw new Error(errorData.error || 'Backend error');
   }
 
   const contentType = response.headers.get('content-type') || '';
   if (!contentType.includes('application/json')) {
-    throw new Error('Beklenmeyen cevap formatı (JSON değil). Muhtemelen geçici HTML sayfası geldi.');
+    throw new Error('Unexpected response format (not JSON). A temporary HTML page was probably received.');
   }
   const data = await response.json();
   if (!data.games || data.games.length === 0) {
-    throw new Error('Kütüphanede oyun bulunamadı veya profil gizli.');
+    throw new Error('No games found in library or profile is private.');
   }
   return data.games;
 }
@@ -278,13 +278,13 @@ async function fetchGameDetails(appid) {
 
   if (!response.ok) {
     // Don't throw for a single game, just return null to not stop the whole process.
-    console.error(`Oyun detayı alınamadı (appid: ${appid}). Sunucu yanıtı: ${response.status}`);
+    console.error(`Could not get game details (appid: ${appid}). Server response: ${response.status}`);
     return null;
   }
 
   const contentType = response.headers.get('content-type') || '';
   if (!contentType.includes('application/json')) {
-    console.error(`Oyun detayı beklenmedik formatta (appid: ${appid}).`);
+    console.error(`Game detail in unexpected format (appid: ${appid}).`);
     return null;
   }
   const data = await response.json();
@@ -322,7 +322,7 @@ function parseRequirements(minReqStr) {
   // More comprehensive regex patterns for better parsing
   const patterns = {
     cpu: [
-      /(İşlemci|Processor|CPU)\s*:?\s*([^\n\r]+)/i,
+      /(CPU|Processor)\s*:?\s*([^\n\r]+)/i,
       /(Intel|AMD)\s+[^<\n\r]+/i,
       /Core\s+[^<\n\r]+/i,
       /Ryzen\s+[^<\n\r]+/i,
@@ -332,7 +332,7 @@ function parseRequirements(minReqStr) {
       /FX\s+[^<\n\r]+/i
     ],
     gpu: [
-      /(Ekran Kartı|Graphics|GPU|Video)\s*:?\s*([^\n\r]+)/i,
+      /(Graphics|GPU|Video)\s*:?\s*([^\n\r]+)/i,
       /(NVIDIA|GeForce|GTX|RTX)\s+[^<\n\r]+/i,
       /(AMD|Radeon|RX)\s+[^<\n\r]+/i,
       /(Intel)\s+(HD|UHD|Iris|Arc)\s+[^<\n\r]+/i,
@@ -341,9 +341,9 @@ function parseRequirements(minReqStr) {
       /(RX|HD|R9|R7|R5)\s+\d+[^<\n\r]*/i
     ],
     ram: [
-      /(Bellek|Memory|RAM)\s*:?\s*([^\n\r]+)/i,
-      /(\d+)\s*(GB|MB)\s*(RAM|Memory|Bellek)/i,
-      /(\d+)\s*(GB|MB)\s*(of\s+)?(RAM|Memory|Bellek)/i
+      /(Memory|RAM)\s*:?\s*([^\n\r]+)/i,
+      /(\d+)\s*(GB|MB)\s*(Memory|RAM)/i,
+      /(\d+)\s*(GB|MB)\s*(of\s+)?(Memory|RAM)/i
     ]
   };
   
@@ -429,8 +429,8 @@ function cleanModel(str) {
   str = str.replace(/\(.*?\)/g, ''); // Remove parentheses content
   str = str.replace(/\s+/g, ' ').trim(); // Clean up whitespace
   
-  // Handle multiple options separated by "or", "veya", "/", ","
-  let models = str.split(/\bor\b|veya|\/|,|\//i).map(s => s.trim()).filter(s => s.length > 0);
+  // Handle multiple options separated by "or", "/", ","
+  let models = str.split(/\bor\b|\/|,|\//i).map(s => s.trim()).filter(s => s.length > 0);
   
   if (models.length === 0) return '';
   
@@ -453,7 +453,7 @@ function normalizeModel(str) {
   if (!str) return '';
   
   // Remove common brand names and technical terms
-  str = str.replace(/(Intel|AMD|NVIDIA|GeForce|Radeon|Core|CPU|Processor|Ekran Kartı|Graphics|\(R\)|\(TM\)|\(C\))/gi, '');
+  str = str.replace(/(Intel|AMD|NVIDIA|GeForce|Radeon|Core|CPU|Processor|Graphics|\(R\)|\(TM\)|\(C\))/gi, '');
   str = str.replace(/Quad-Core|Dual-Core|Six-Core|Eight-Core|Octa-Core/gi, '');
   str = str.replace(/@.*$/g, ''); // Remove clock speeds
   str = str.replace(/\(.*?\)/g, ''); // Remove parentheses
@@ -486,10 +486,10 @@ function detectHardware() {
   }
   
   const hardware = {
-    cores: navigator.hardwareConcurrency || 'Bilinmiyor',
-    memory: navigator.deviceMemory ? `${navigator.deviceMemory} GB` : 'Bilinmiyor',
-    gpu: 'Bilinmiyor',
-    platform: navigator.platform || 'Bilinmiyor'
+    cores: navigator.hardwareConcurrency || 'Unknown',
+    memory: navigator.deviceMemory ? `${navigator.deviceMemory} GB` : 'Unknown',
+    gpu: 'Unknown',
+    platform: navigator.platform || 'Unknown'
   };
   
   // Try to detect GPU via WebGL (reuse canvas properly)
@@ -513,7 +513,7 @@ function detectHardware() {
           const match = gpuString.match(/\((?:[^,]+,\s*)?([^,(]+)/);
           hardware.gpu = match ? match[1].trim() : gpuString;
         } else {
-          hardware.gpu = 'Bilinmiyor';
+          hardware.gpu = 'Unknown';
         }
       }
     }
@@ -531,7 +531,7 @@ function calculateScore(name, req) {
     return {
       name,
       score: 0,
-      hw: `Veri yok`
+      hw: `No data`
     };
   }
 

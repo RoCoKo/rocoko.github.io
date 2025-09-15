@@ -148,47 +148,22 @@ app.get('/api/steam/game/:appid', async (req, res) => {
       });
     }
 
-    const steamUrlTr = `https://store.steampowered.com/api/appdetails?appids=${appid}&l=turkish`;
+    const steamUrl = `https://store.steampowered.com/api/appdetails?appids=${appid}&l=english`;
     
-    const responseTr = await axios.get(steamUrlTr, {
+    const response = await axios.get(steamUrl, {
       timeout: 8000, // Reduced timeout for faster response
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
       }
     });
 
-    if (!responseTr.data[appid] || !responseTr.data[appid].success) {
+    if (!response.data[appid] || !response.data[appid].success) {
       return res.status(404).json({ 
         error: 'Game details not available' 
       });
     }
 
-    let gameData = responseTr.data[appid].data;
-
-    const hasPcRequirements = (data) => {
-      if (!data || !data.pc_requirements) return false;
-      const min = data.pc_requirements.minimum;
-      const rec = data.pc_requirements.recommended;
-      return (typeof min === 'string' && min.trim().length > 0) || (typeof rec === 'string' && rec.trim().length > 0);
-    };
-
-    // If Turkish pc requirements missing/empty, try English fallback
-    if (!hasPcRequirements(gameData)) {
-      const steamUrlEn = `https://store.steampowered.com/api/appdetails?appids=${appid}&l=english`;
-      try {
-        const responseEn = await axios.get(steamUrlEn, {
-          timeout: 8000,
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-          }
-        });
-        if (responseEn.data[appid]?.success && hasPcRequirements(responseEn.data[appid].data)) {
-          gameData = responseEn.data[appid].data;
-        }
-      } catch (e) {
-        // Ignore fallback errors and return whatever we have
-      }
-    }
+    let gameData = response.data[appid].data;
 
     res.json({
       success: true,
