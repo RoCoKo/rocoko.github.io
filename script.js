@@ -1,7 +1,7 @@
 import { benchmarks } from './benchmarks.js';
 
 // Backend configuration - HTTPS'den HTTP'ye istek yapmak yerine daha güvenli yaklaşım
-const BACKEND_URL = 'https://020575e0a80b.ngrok-free.app';
+const BACKEND_URL = 'https://1b42b640d155.ngrok-free.app';
 const API_KEY = '31FB258F6CD7538985642DE56954FCEC';
 
 // DOM elements
