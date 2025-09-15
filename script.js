@@ -287,8 +287,9 @@ async function fetchGameDetails(appid) {
     return null;
   }
   const data = await response.json();
-  // Return the requirements string, or an empty string if not available
-  return data.data?.pc_requirements?.minimum || '';
+  // Prefer minimum; if empty, fall back to recommended
+  const pcReq = data.data?.pc_requirements || {};
+  return pcReq.minimum || pcReq.recommended || '';
 }
 
 function parseRequirements(minReqStr) {
