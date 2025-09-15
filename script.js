@@ -344,12 +344,16 @@ function parseRequirements(minReqStr) {
       /(Memory|RAM)\s*:?\s*([^\n\r]+)/i,
       /(\d+)\s*(GB|MB)\s*(Memory|RAM)/i,
       /(\d+)\s*(GB|MB)\s*(of\s+)?(Memory|RAM)/i
+    ],
+    vram: [
+      /(?:Video card|Graphics|GPU).*?(?:\s+must be)?\s+(\d+\s*(?:GB|MB))/i // For video memory within graphics description
     ]
   };
   
   let cpu = '';
   let gpu = '';
   let ram = 0;
+  let vram = 0; // Initialize vram
   
   // CPU detection with better matching
   for (const pattern of patterns.cpu) {
@@ -358,7 +362,12 @@ function parseRequirements(minReqStr) {
       let cpuText = match[2] || match[0];
       // Clean up common prefixes and suffixes
       cpuText = cpuText.replace(/^(Intel|AMD)\s+/i, '').trim();
-      cpu = cleanModel(cpuText);
+      // Check if it's a descriptive requirement, not a specific model
+      if (cpuText.toLowerCase().includes('or higher') || cpuText.toLowerCase().includes('minimum') || cpuText.toLowerCase().includes('equivalent') || cpuText.toLowerCase().includes('threads')) {
+        cpu = cpuText; // Use as is
+      } else {
+        cpu = cleanModel(cpuText);
+      }
       if (cpu) break;
     }
   }
@@ -370,25 +379,25 @@ function parseRequirements(minReqStr) {
       let gpuText = match[2] || match[0];
       
       // Handle complex GPU descriptions
-      if (gpuText.includes('Video card with') || gpuText.includes('Shader model')) {
-        // Extract the best GPU from the description
+      if (gpuText.includes('Video card must be') || gpuText.includes('Shader model') || gpuText.toLowerCase().includes('directx')) {
+        // Use the descriptive text directly
+        gpu = gpuText.trim();
+      } else {
+        // Extract the best GPU from the description if it contains multiple options
         const gpuMatches = gpuText.match(/(ATI|NVidia|NVIDIA|AMD|GeForce|Radeon|GTX|RTX|HD|UHD|Iris|Arc|X\d+|\d+GT|RX\d+)/gi);
         if (gpuMatches && gpuMatches.length > 0) {
-          // Find the highest numbered GPU
           let bestGpu = gpuMatches[0];
-          for (let gpu of gpuMatches) {
-            const num1 = gpu.match(/\d+/);
+          for (let g of gpuMatches) {
+            const num1 = g.match(/\d+/);
             const num2 = bestGpu.match(/\d+/);
             if (num1 && num2 && parseInt(num1[0]) > parseInt(num2[0])) {
-              bestGpu = gpu;
+              bestGpu = g;
             }
           }
           gpu = cleanModel(bestGpu);
         } else {
           gpu = cleanModel(gpuText);
         }
-      } else {
-        gpu = cleanModel(gpuText);
       }
       if (gpu) break;
     }
@@ -411,7 +420,23 @@ function parseRequirements(minReqStr) {
     }
   }
   
-  return { cpu, gpu, ram };
+  // VRAM detection - this is separate from system RAM
+  for (const pattern of patterns.vram) {
+    const match = text.match(pattern);
+    if (match) {
+      const vramText = match[1]; // Captures the '1 GB' part directly from the pattern
+      const vramMatch = vramText.match(/(\d+(?:\.\d+)?)\s*(GB|MB)/i);
+      if (vramMatch) {
+        vram = parseFloat(vramMatch[1]);
+        if (vramMatch[2].toUpperCase() === 'MB') {
+          vram = Math.round(vram / 1024 * 10) / 10; 
+        }
+        break;
+      }
+    }
+  }
+  
+  return { cpu, gpu, ram, vram };
 }
 
 function cleanModel(str) {
@@ -542,7 +567,13 @@ function calculateScore(name, req, appid) {
   let total = Math.round(cpuScore * 0.4 + gpuScore * 0.5 + ramScore);
 
   // Show game requirements in a cleaner format
-  let hw = `CPU: ${req.cpu || '?'} | GPU: ${req.gpu || '?'} | RAM: ${req.ram || '?'} GB`;
+  let hw = `CPU: ${req.cpu || '?'} | GPU: ${req.gpu || ''}`;
+  if (req.vram && (!req.gpu || req.gpu.toLowerCase().includes('video card') || req.gpu.toLowerCase().includes('graphics'))) {
+    hw += ` (${req.vram} GB VRAM)`;
+  } else if (req.gpu) {
+    hw += `${req.gpu}`;
+  }
+  hw += ` | RAM: ${req.ram || '?'} GB`;
 
   return { name, score: total, hw, appid };
 }
