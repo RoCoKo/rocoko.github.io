@@ -287,18 +287,44 @@ async function fetchGameDetails(appid) {
     return null;
   }
   const data = await response.json();
-  // Prefer minimum; if empty, fall back to recommended
+  // Combine minimum + recommended (some apps only fill one)
   const pcReq = data.data?.pc_requirements || {};
-  return pcReq.minimum || pcReq.recommended || '';
+  const parts = [];
+  if (typeof pcReq.minimum === 'string' && pcReq.minimum.trim().length > 0) parts.push(pcReq.minimum);
+  if (typeof pcReq.recommended === 'string' && pcReq.recommended.trim().length > 0) parts.push(pcReq.recommended);
+  return parts.join('\n');
 }
 
 function parseRequirements(minReqStr) {
   if (!minReqStr) return null;
   
+  // Normalize HTML to plain text first so regex can work reliably
+  const htmlToText = (html) => {
+    try {
+      // Preserve some structure before stripping
+      const normalized = String(html)
+        .replace(/<br\s*\/?\s*>/gi, '\n')
+        .replace(/<\/(li|p|ul|ol)>/gi, '\n')
+        .replace(/<li\b[^>]*>/gi, '- ');
+      const temp = document.createElement('div');
+      temp.innerHTML = normalized;
+      const text = (temp.textContent || temp.innerText || '').replace(/\u00A0/g, ' ');
+      return text;
+    } catch (_) {
+      return String(html);
+    }
+  };
+  
+  const text = htmlToText(minReqStr)
+    .replace(/\r?\n/g, '\n')
+    .replace(/\s+\n/g, '\n')
+    .replace(/\n\s+/g, '\n')
+    .trim();
+  
   // More comprehensive regex patterns for better parsing
   const patterns = {
     cpu: [
-      /(İşlemci|Processor|CPU)\s*:?\s*([^<\n\r]+)/i,
+      /(İşlemci|Processor|CPU)\s*:?\s*([^\n\r]+)/i,
       /(Intel|AMD)\s+[^<\n\r]+/i,
       /Core\s+[^<\n\r]+/i,
       /Ryzen\s+[^<\n\r]+/i,
@@ -308,7 +334,7 @@ function parseRequirements(minReqStr) {
       /FX\s+[^<\n\r]+/i
     ],
     gpu: [
-      /(Ekran Kartı|Graphics|GPU|Video)\s*:?\s*([^<\n\r]+)/i,
+      /(Ekran Kartı|Graphics|GPU|Video)\s*:?\s*([^\n\r]+)/i,
       /(NVIDIA|GeForce|GTX|RTX)\s+[^<\n\r]+/i,
       /(AMD|Radeon|RX)\s+[^<\n\r]+/i,
       /(Intel)\s+(HD|UHD|Iris|Arc)\s+[^<\n\r]+/i,
@@ -317,7 +343,7 @@ function parseRequirements(minReqStr) {
       /(RX|HD|R9|R7|R5)\s+\d+[^<\n\r]*/i
     ],
     ram: [
-      /(Bellek|Memory|RAM)\s*:?\s*([^<\n\r]+)/i,
+      /(Bellek|Memory|RAM)\s*:?\s*([^\n\r]+)/i,
       /(\d+)\s*(GB|MB)\s*(RAM|Memory|Bellek)/i,
       /(\d+)\s*(GB|MB)\s*(of\s+)?(RAM|Memory|Bellek)/i
     ]
@@ -329,7 +355,7 @@ function parseRequirements(minReqStr) {
   
   // CPU detection with better matching
   for (const pattern of patterns.cpu) {
-    const match = minReqStr.match(pattern);
+    const match = text.match(pattern);
     if (match) {
       let cpuText = match[2] || match[0];
       // Clean up common prefixes and suffixes
@@ -341,7 +367,7 @@ function parseRequirements(minReqStr) {
   
   // GPU detection with improved parsing
   for (const pattern of patterns.gpu) {
-    const match = minReqStr.match(pattern);
+    const match = text.match(pattern);
     if (match) {
       let gpuText = match[2] || match[0];
       
@@ -372,7 +398,7 @@ function parseRequirements(minReqStr) {
   
   // RAM detection with better number parsing
   for (const pattern of patterns.ram) {
-    const match = minReqStr.match(pattern);
+    const match = text.match(pattern);
     if (match) {
       let ramText = match[2] || match[1];
       // Extract numbers from the text
