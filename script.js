@@ -418,6 +418,7 @@ function cleanModel(str) {
   if (!str) return '';
   
   // Clean up common descriptions and technical details
+  str = str.replace(/,?\s*(and|or)?\s*integrated graphics not (supported|recommended)/gi, '');
   str = str.replace(/Video card with \d+ MB[^,]*/gi, '');
   str = str.replace(/Shader model \d+\.\d+/gi, '');
   str = str.replace(/or better/gi, '');
