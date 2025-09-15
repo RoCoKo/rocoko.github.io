@@ -7,28 +7,22 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 const allowedOrigins = ['https://rocoko.github.io', 'http://localhost:3000'];
-const corsOptions = {
-  origin: function(origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      return callback(null, true);
-    }
-    return callback(new Error('Not allowed by CORS'));
-  },
-  methods: ['GET', 'OPTIONS'],
-  credentials: true,
-  // Mirror requested headers so custom headers like ngrok-skip-browser-warning are allowed
-  allowedHeaders: function(req, callback) {
-    const requestHeaders = req.header('Access-Control-Request-Headers');
-    if (requestHeaders) {
-      return callback(null, requestHeaders);
-    }
-    return callback(null, 'Content-Type, ngrok-skip-browser-warning');
-  },
-  maxAge: 86400
+const corsOptionsDelegate = function (req, callback) {
+  const originHeader = req.header('Origin');
+  const isAllowed = !originHeader || allowedOrigins.indexOf(originHeader) !== -1;
+  const requestedHeaders = req.header('Access-Control-Request-Headers');
+  const options = {
+    origin: isAllowed,
+    methods: ['GET', 'OPTIONS'],
+    credentials: true,
+    allowedHeaders: requestedHeaders || ['Content-Type', 'ngrok-skip-browser-warning'],
+    maxAge: 86400
+  };
+  callback(null, options);
 };
 
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+app.use(cors(corsOptionsDelegate));
+app.options('*', cors(corsOptionsDelegate));
 app.use(express.json({ limit: '10mb' }));
 
 // Add compression for faster responses
