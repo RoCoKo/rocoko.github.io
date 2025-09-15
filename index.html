@@ -3,13 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Game Requirements Browser</title>
+  <title>Steam Library Benchmark</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>Game Requirements Browser</h1>
+    <h1>Steam Library Benchmark</h1>
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:10px;">
+      <input id="steamid" type="text" placeholder="SteamID64 (17 haneli)" style="flex:1; min-width:220px;">
+      <button id="fetch-library">Kütüphaneyi Getir</button>
+    </div>
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:10px;">
+      <input id="user-cpu" type="text" placeholder="CPU (örn: Ryzen 5 5500)" style="flex:1; min-width:220px;">
+      <input id="user-gpu" type="text" placeholder="GPU (örn: GTX 1060)" style="flex:1; min-width:220px;">
+      <input id="user-ram" type="text" placeholder="RAM GB (örn: 16)" style="width:120px;">
+      <button id="apply-hw">Donanımı Uygula</button>
+    </div>
     <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:10px;">
       <input id="search" type="text" placeholder="Search game..." style="flex:1; min-width:220px;">
       <select id="sort">
@@ -29,6 +39,7 @@
           <th>Game</th>
           <th>Req Score</th>
           <th>Minimum Requirements</th>
+          <th>Meets Min?</th>
         </tr>
       </thead>
       <tbody>

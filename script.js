@@ -8,6 +8,21 @@ const tbody = table.querySelector('tbody');
 const searchInput = document.getElementById('search');
 const sortSelect = document.getElementById('sort');
 const reloadBtn = document.getElementById('reload');
+const steamIdInput = document.getElementById('steamid');
+const fetchLibBtn = document.getElementById('fetch-library');
+const userCpuInput = document.getElementById('user-cpu');
+const userGpuInput = document.getElementById('user-gpu');
+const userRamInput = document.getElementById('user-ram');
+const applyHwBtn = document.getElementById('apply-hw');
+
+const API_BASE = (typeof localStorage !== 'undefined' && localStorage.getItem('apiBase')) || 'http://localhost:3000';
+
+const state = {
+  requirements: [],
+  libGames: [],
+  dataset: [], // current rendered list
+  userHw: { cpuModel: '', gpuModel: '', ramGb: 0 }
+};
 
 function showLoader(show) {
   loader.classList.toggle('hidden', !show);
@@ -29,7 +44,7 @@ async function loadRequirements() {
     const res = await fetch('cyri-data.json', { cache: 'no-cache' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    setStatus(`Loaded ${data.length} entries.`);
+    setStatus(`Loaded ${data.length} requirement entries.`);
     return data;
   } catch (e) {
     setStatus(`Failed to load JSON: ${e.message}`);
@@ -40,19 +55,27 @@ async function loadRequirements() {
 }
 
 function computeScoreFromMinimum(min) {
-  if (!min) return { score: 0, hw: 'No data' };
-  const cpuModel = normalizeModel(min.cpu || '');
-  const gpuModel = normalizeModel(min.video_card || min.graphics || '');
+  if (!min) return { score: 0, hw: 'Veri yok', parts: { cpu: null, gpu: null, ramGb: 0 } };
+
+  const cpuCandidates = splitAlternatives(min.cpu);
+  const gpuCandidates = splitAlternatives(min.video_card || min.graphics || '');
+
+  const cpuModel = pickKnownModel(cpuCandidates, benchmarks.cpu);
+  const gpuModel = pickKnownModel(gpuCandidates, benchmarks.gpu);
+
   const ramGb = extractNumberGb(min.ram || '');
   const vramGb = extractNumberGb(min.dedicated_video_ram || '') || 0;
 
-  const cpuScore = (benchmarks.cpu[cpuModel] || 500) * 0.4;
-  const gpuScore = (benchmarks.gpu[gpuModel] || 500) * 0.5;
+  const cpuRaw = cpuModel ? benchmarks.cpu[cpuModel] : 500;
+  const gpuRaw = gpuModel ? benchmarks.gpu[gpuModel] : 500;
+
+  const cpuScore = cpuRaw * 0.4;
+  const gpuScore = gpuRaw * 0.5;
   const ramScore = Math.max(0, ramGb) * 150;
   const total = Math.round(cpuScore + gpuScore + ramScore);
 
   let hw = `CPU: ${min.cpu || '?'} | GPU: ${min.video_card || min.graphics || '?'}${vramGb ? ` (${vramGb} GB VRAM)` : ''} | RAM: ${ramGb || '?'} GB`;
-  return { score: total, hw };
+  return { score: total, hw, parts: { cpu: cpuModel, gpu: gpuModel, ramGb } };
 }
 
 function extractNumberGb(text) {
@@ -80,11 +103,61 @@ function normalizeModel(str) {
   return s;
 }
 
+function splitAlternatives(text) {
+  if (!text) return [];
+  const parts = String(text).split(/\s*[/|,]|\bor\b/i).map(s => normalizeModel(s)).map(s => s.trim()).filter(Boolean);
+  // ensure uniqueness while preserving order
+  return [...new Set(parts)];
+}
+
+function pickKnownModel(models, table) {
+  for (const m of models) {
+    if (table[m]) return m;
+  }
+  return models[0] || '';
+}
+
+function normTitle(str) {
+  return String(str || '')
+    .toLowerCase()
+    .replace(/®|™/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function computeUserScores() {
+  const cpuModel = normalizeModel(state.userHw.cpuModel);
+  const gpuModel = normalizeModel(state.userHw.gpuModel);
+  const cpu = benchmarks.cpu[cpuModel] || null;
+  const gpu = benchmarks.gpu[gpuModel] || null;
+  const ramGb = Number(state.userHw.ramGb) || 0;
+  return { cpuModel, gpuModel, cpu, gpu, ramGb };
+}
+
+function checkMeetsMin(minParts) {
+  if (!minParts) return { label: 'Veri yok', value: null };
+  const user = computeUserScores();
+  const reqCpu = minParts.cpu ? benchmarks.cpu[minParts.cpu] : null;
+  const reqGpu = minParts.gpu ? benchmarks.gpu[minParts.gpu] : null;
+  const reqRam = minParts.ramGb || 0;
+
+  const cpuOk = reqCpu == null || (user.cpu != null && user.cpu >= reqCpu);
+  const gpuOk = reqGpu == null || (user.gpu != null && user.gpu >= reqGpu);
+  const ramOk = user.ramGb >= reqRam;
+
+  if ((reqCpu != null && user.cpu == null) || (reqGpu != null && user.gpu == null)) {
+    return { label: 'Veri yok', value: null };
+  }
+  const ok = cpuOk && gpuOk && ramOk;
+  return { label: ok ? 'Evet' : 'Hayır', value: ok };
+}
+
 function renderTable(items) {
   clearTable();
   items.forEach((item, i) => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${i + 1}</td><td>${item.game || 'Unknown'}</td><td>${item._score}</td><td>${item._hw}</td>`;
+    const meets = item._meets?.label || 'Veri yok';
+    tr.innerHTML = `<td>${i + 1}</td><td>${item.game || item.name || 'Unknown'}</td><td>${item._score}</td><td>${item._hw}</td><td>${meets}</td>`;
     tbody.appendChild(tr);
   });
 }
@@ -92,30 +165,115 @@ function renderTable(items) {
 function filterAndSort(data) {
   const q = (searchInput.value || '').toLowerCase();
   const dir = sortSelect.value;
-  const filtered = data.filter(x => (x.game || '').toLowerCase().includes(q));
+  const filtered = data.filter(x => ((x.game || x.name || '')).toLowerCase().includes(q));
   filtered.sort((a, b) => dir === 'asc' ? a._score - b._score : b._score - a._score);
   return filtered;
 }
 
-async function init() {
-  const data = await loadRequirements();
-  const enriched = data.map(entry => {
-    const { score, hw } = computeScoreFromMinimum(entry.requirements?.minimum);
-    return { ...entry, _score: score, _hw: hw };
+async function fetchLibrary(steamid) {
+  const url = `${API_BASE}/api/steam/games/${steamid}`;
+  showLoader(true);
+  setStatus('Steam kütüphanesi alınıyor...');
+  try {
+    const res = await fetch(url, { headers: { 'ngrok-skip-browser-warning': 'true' } });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    const games = (json.games || []).map(g => ({ appid: g.appid, name: g.name }));
+    setStatus(`Kütüphane: ${games.length} oyun`);
+    return games;
+  } catch (e) {
+    setStatus(`Kütüphane alınamadı: ${e.message}`);
+    return [];
+  } finally {
+    showLoader(false);
+  }
+}
+
+function buildReqIndex(reqs) {
+  const idx = new Map();
+  for (const r of reqs) {
+    const key = normTitle(r.game);
+    if (key) idx.set(key, r);
+  }
+  return idx;
+}
+
+function joinLibraryWithRequirements(library, reqs) {
+  const idx = buildReqIndex(reqs);
+  return library.map(g => {
+    const key = normTitle(g.name);
+    const match = idx.get(key);
+    if (!match) {
+      return { ...g, game: g.name, _score: 0, _hw: 'Veri yok', _meets: { label: 'Veri yok', value: null } };
+    }
+    const { score, hw, parts } = computeScoreFromMinimum(match.requirements?.minimum);
+    const meets = checkMeetsMin(parts);
+    return { ...g, game: match.game || g.name, _score: score, _hw: hw, _meets: meets };
   });
-  const apply = () => renderTable(filterAndSort(enriched));
+}
+
+function applyAndRender() {
+  const list = filterAndSort(state.dataset);
+  showTable(true);
+  renderTable(list);
+}
+
+async function init() {
+  state.requirements = await loadRequirements();
+
+  // Default dataset: requirement list (for standalone browsing)
+  state.dataset = state.requirements.map(entry => {
+    const { score, hw, parts } = computeScoreFromMinimum(entry.requirements?.minimum);
+    const meets = checkMeetsMin(parts);
+    return { ...entry, _score: score, _hw: hw, _meets: meets };
+  });
+
+  const apply = () => applyAndRender();
   searchInput.addEventListener('input', apply);
   sortSelect.addEventListener('change', apply);
   reloadBtn.addEventListener('click', async () => {
-    const fresh = await loadRequirements();
-    const enriched2 = fresh.map(entry => {
-      const { score, hw } = computeScoreFromMinimum(entry.requirements?.minimum);
-      return { ...entry, _score: score, _hw: hw };
-    });
-    renderTable(filterAndSort(enriched2));
+    state.requirements = await loadRequirements();
+    if (state.libGames.length) {
+      state.dataset = joinLibraryWithRequirements(state.libGames, state.requirements);
+    } else {
+      state.dataset = state.requirements.map(entry => {
+        const { score, hw, parts } = computeScoreFromMinimum(entry.requirements?.minimum);
+        const meets = checkMeetsMin(parts);
+        return { ...entry, _score: score, _hw: hw, _meets: meets };
+      });
+    }
+    applyAndRender();
   });
-  showTable(true);
-  apply();
+
+  fetchLibBtn?.addEventListener('click', async () => {
+    const steamid = (steamIdInput.value || '').trim();
+    if (!/^\d{17}$/.test(steamid)) {
+      setStatus('Geçersiz SteamID64. (17 haneli)');
+      return;
+    }
+    state.libGames = await fetchLibrary(steamid);
+    state.dataset = joinLibraryWithRequirements(state.libGames, state.requirements);
+    applyAndRender();
+  });
+
+  applyHwBtn?.addEventListener('click', () => {
+    state.userHw = {
+      cpuModel: userCpuInput.value || '',
+      gpuModel: userGpuInput.value || '',
+      ramGb: Number(userRamInput.value || 0)
+    };
+    // Recompute meets for current dataset
+    state.dataset = state.dataset.map(item => {
+      // items may be both raw req entries or joined games
+      const min = item.requirements?.minimum;
+      const parts = min ? computeScoreFromMinimum(min).parts : undefined;
+      const meets = parts ? checkMeetsMin(parts) : item._hw === 'Veri yok' ? { label: 'Veri yok', value: null } : checkMeetsMin(undefined);
+      return { ...item, _meets: meets };
+    });
+    applyAndRender();
+  });
+
+  applyAndRender();
 }
 
 init();
