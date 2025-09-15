@@ -18,6 +18,7 @@ const tbody = table.querySelector('tbody');
 // Backend status elements
 const statusIndicator = document.getElementById('status-indicator');
 const statusText = document.getElementById('status-text');
+const hardwareInfoDiv = document.getElementById('hardware-info');
 
 // Cache for game details to avoid re-fetching
 const gameDetailsCache = new Map();
@@ -269,7 +270,7 @@ async function fetchGames(steamid) {
 async function fetchGameDetails(appid) {
   const response = await fetch(`${BACKEND_URL}/api/steam/game/${appid}`, {
     method: 'GET',
-    headers: { 
+    headers: {
       'Content-Type': 'application/json',
       'ngrok-skip-browser-warning': '1'
     }
@@ -287,12 +288,9 @@ async function fetchGameDetails(appid) {
     return null;
   }
   const data = await response.json();
-  // Combine minimum + recommended (some apps only fill one)
+  // Return only minimum requirements, or an empty string if not available
   const pcReq = data.data?.pc_requirements || {};
-  const parts = [];
-  if (typeof pcReq.minimum === 'string' && pcReq.minimum.trim().length > 0) parts.push(pcReq.minimum);
-  if (typeof pcReq.recommended === 'string' && pcReq.recommended.trim().length > 0) parts.push(pcReq.recommended);
-  return parts.join('\n');
+  return pcReq.minimum || '';
 }
 
 function parseRequirements(minReqStr) {
@@ -509,7 +507,14 @@ function detectHardware() {
     if (globalGL) {
       const debugInfo = globalGL.getExtension('WEBGL_debug_renderer_info');
       if (debugInfo) {
-        hardware.gpu = globalGL.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || 'Bilinmiyor';
+        const gpuString = globalGL.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        if (gpuString) {
+          // Try to extract a clean name, especially from ANGLE wrappers
+          const match = gpuString.match(/\((?:[^,]+,\s*)?([^,(]+)/);
+          hardware.gpu = match ? match[1].trim() : gpuString;
+        } else {
+          hardware.gpu = 'Bilinmiyor';
+        }
       }
     }
   } catch (e) {
@@ -522,25 +527,22 @@ function detectHardware() {
 }
 
 function calculateScore(name, req) {
-  const detectedHw = detectHardware();
-  
   if (!req) {
-    return { 
-      name, 
-      score: 0, 
-      hw: `Gereksinim: CPU: -, GPU: -, RAM: - GB | Tespit: CPU Çekirdek: ${detectedHw.cores}, RAM: ${detectedHw.memory}, GPU: ${detectedHw.gpu}` 
+    return {
+      name,
+      score: 0,
+      hw: `Veri yok`
     };
   }
-  
+
   let cpuScore = benchmarks.cpu[req.cpu] || 500;
   let gpuScore = benchmarks.gpu[req.gpu] || 500;
   let ramScore = (req.ram || 0) * 150;
   let total = Math.round(cpuScore * 0.4 + gpuScore * 0.5 + ramScore);
-  
-  // Show both game requirements and detected hardware
-  let hw = `Gereksinim: CPU: ${req.cpu || '-'}, GPU: ${req.gpu || '-'}, RAM: ${req.ram || '-'} GB`;
-  hw += ` | Tespit: CPU Çekirdek: ${detectedHw.cores}, RAM: ${detectedHw.memory}, GPU: ${detectedHw.gpu}`;
-  
+
+  // Show game requirements in a cleaner format
+  let hw = `CPU: ${req.cpu || '?'} | GPU: ${req.gpu || '?'} | RAM: ${req.ram || '?'} GB`;
+
   return { name, score: total, hw };
 }
 
