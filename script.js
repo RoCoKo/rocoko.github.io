@@ -1,7 +1,7 @@
 import { benchmarks } from './benchmarks.js';
 
 // Backend configuration - HTTPS'den HTTP'ye istek yapmak yerine daha güvenli yaklaşım
-const BACKEND_URL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://rocoko.github.io';
+const BACKEND_URL = 'https://020575e0a80b.ngrok-free.app';
 const API_KEY = '31FB258F6CD7538985642DE56954FCEC';
 
 // DOM elements
@@ -404,7 +404,7 @@ async function fetchGameDetails(appid) {
       
       if (response.ok) {
         const data = await response.json();
-        return data.requirements || '';
+        return data.data.pc_requirements?.minimum || '';
       } else {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Backend error');
