@@ -122,9 +122,9 @@ async function processGamesInBatches(games, batchSize = 5) { // Process 5 at a t
         }
         
         const req = details ? parseRequirements(details) : null;
-        return calculateScore(game.name, req);
+        return calculateScore(game.name, req, game.appid);
       } catch (err) {
-        return calculateScore(game.name, null);
+        return calculateScore(game.name, null, game.appid);
       }
     });
     
@@ -153,9 +153,9 @@ async function processGamesInBatches(games, batchSize = 5) { // Process 5 at a t
           }
           
           const req = details ? parseRequirements(details) : null;
-          results.push(calculateScore(game.name, req));
+          results.push(calculateScore(game.name, req, game.appid));
         } catch (err) {
-          results.push(calculateScore(game.name, null));
+          results.push(calculateScore(game.name, null, game.appid));
           consecutiveErrors++;
           totalErrors++;
         }
@@ -527,7 +527,7 @@ function detectHardware() {
   return hardware;
 }
 
-function calculateScore(name, req) {
+function calculateScore(name, req, appid) {
   if (!req) {
     return {
       name,
@@ -544,14 +544,15 @@ function calculateScore(name, req) {
   // Show game requirements in a cleaner format
   let hw = `CPU: ${req.cpu || '?'} | GPU: ${req.gpu || '?'} | RAM: ${req.ram || '?'} GB`;
 
-  return { name, score: total, hw };
+  return { name, score: total, hw, appid };
 }
 
 function renderTable(results) {
   clearTable();
   results.forEach((r, i) => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${i+1}</td><td>${r.name}</td><td>${r.score}</td><td>${r.hw}</td>`;
+    const steamStoreUrl = `https://store.steampowered.com/app/${r.appid}/`;
+    tr.innerHTML = `<td>${i+1}</td><td><a href="${steamStoreUrl}" target="_blank" style="color: inherit; text-decoration: none; font-weight: bold;">${r.name}</a></td><td>${r.score}</td><td>${r.hw}</td>`;
     tbody.appendChild(tr);
   });
 }
