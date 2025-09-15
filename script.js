@@ -47,7 +47,10 @@ async function loadRequirements() {
   showLoader(true);
   setStatus('Loading requirements JSON...');
   try {
-    const res = await fetch('cyri-data.json', { cache: 'no-cache' });
+    const [res] = await Promise.all([
+      fetch('cyri-data.json', { cache: 'no-cache' }),
+      new Promise(resolve => setTimeout(resolve, 10)) // Minimum 10ms display for loader
+    ]);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     setStatus(`Sistem gereksinim verisi yüklendi. Başlamak için kütüphanenizi getirin.`);
