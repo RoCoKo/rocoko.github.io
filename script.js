@@ -44,7 +44,7 @@ async function loadRequirements() {
     const res = await fetch('cyri-data.json', { cache: 'no-cache' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    setStatus(`Loaded ${data.length} requirement entries.`);
+    setStatus(`Sistem gereksinim verisi yüklendi. Başlamak için kütüphanenizi getirin.`);
     return data;
   } catch (e) {
     setStatus(`Failed to load JSON: ${e.message}`);
@@ -218,15 +218,46 @@ function applyAndRender() {
   renderTable(list);
 }
 
-async function init() {
-  state.requirements = await loadRequirements();
+function detectHardware() {
+  // RAM: navigator.deviceMemory is a simple and effective API
+  if (navigator.deviceMemory) {
+    userRamInput.value = navigator.deviceMemory;
+  }
 
-  // Default dataset: requirement list (for standalone browsing)
-  state.dataset = state.requirements.map(entry => {
-    const { score, hw, parts } = computeScoreFromMinimum(entry.requirements?.minimum);
-    const meets = checkMeetsMin(parts);
-    return { ...entry, _score: score, _hw: hw, _meets: meets };
-  });
+  // GPU: WebGL is the most common way, but the result string needs parsing.
+  // CPU: There is no reliable way to get CPU model in browser JS for privacy reasons.
+  try {
+    const canvas = document.createElement('canvas');
+    // Prevent canvas from being visible
+    canvas.style.display = 'none';
+    document.body.appendChild(canvas);
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
+    if (gl) {
+      const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+      if (debugInfo) {
+        const gpuString = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+
+        let gpuModel = gpuString;
+        const angleMatch = gpuString.match(/ANGLE \((.*)\)/);
+        if (angleMatch && angleMatch[1]) {
+            gpuModel = angleMatch[1];
+        }
+
+        gpuModel = gpuModel.replace(/ Direct3D.*/, '').replace(/ vs_.* ps_.*$/, '').replace(/\s*\([^)]*\)/, '');
+
+        userGpuInput.value = gpuModel.trim();
+      }
+    }
+    document.body.removeChild(canvas);
+  } catch (e) {
+    console.error("Could not detect GPU info:", e);
+  }
+}
+
+async function init() {
+  detectHardware();
+  state.requirements = await loadRequirements();
 
   const apply = () => applyAndRender();
   searchInput.addEventListener('input', apply);
@@ -235,12 +266,6 @@ async function init() {
     state.requirements = await loadRequirements();
     if (state.libGames.length) {
       state.dataset = joinLibraryWithRequirements(state.libGames, state.requirements);
-    } else {
-      state.dataset = state.requirements.map(entry => {
-        const { score, hw, parts } = computeScoreFromMinimum(entry.requirements?.minimum);
-        const meets = checkMeetsMin(parts);
-        return { ...entry, _score: score, _hw: hw, _meets: meets };
-      });
     }
     applyAndRender();
   });
@@ -273,7 +298,6 @@ async function init() {
     applyAndRender();
   });
 
-  applyAndRender();
 }
 
 init();
