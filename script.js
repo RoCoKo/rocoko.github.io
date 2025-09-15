@@ -37,6 +37,12 @@ function clearTable() {
   tbody.innerHTML = '';
 }
 
+function decodeHtmlEntities(text) {
+  const textArea = document.createElement('textarea');
+  textArea.innerHTML = text;
+  return textArea.value;
+}
+
 async function loadRequirements() {
   showLoader(true);
   setStatus('Loading requirements JSON...');
@@ -157,7 +163,8 @@ function renderTable(items) {
   items.forEach((item, i) => {
     const tr = document.createElement('tr');
     const meets = item._meets?.label || 'Veri yok';
-    tr.innerHTML = `<td>${i + 1}</td><td>${item.game || item.name || 'Unknown'}</td><td>${item._score}</td><td>${item._hw}</td><td>${meets}</td>`;
+    const gameName = decodeHtmlEntities(item.game || item.name || 'Unknown');
+    tr.innerHTML = `<td>${i + 1}</td><td>${gameName}</td><td>${item._score}</td><td>${item._hw}</td><td>${meets}</td>`;
     tbody.appendChild(tr);
   });
 }
