@@ -3,39 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Steam Library Benchmark</title>
+  <title>Game Requirements Browser</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>Steam Library Benchmark</h1>
-    <div id="backend-status" class="backend-status">
-      <span id="status-indicator" class="status-indicator offline"></span>
-      <span id="status-text">Backend Offline</span>
+    <h1>Game Requirements Browser</h1>
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:10px;">
+      <input id="search" type="text" placeholder="Search game..." style="flex:1; min-width:220px;">
+      <select id="sort">
+        <option value="desc">Most demanding first</option>
+        <option value="asc">Least demanding first</option>
+      </select>
+      <button id="reload">Reload JSON</button>
     </div>
-    <form id="steam-form" autocomplete="off">
-      <label for="steamid">Steam 64-bit ID:</label>
-      <input type="text" id="steamid" name="steamid" placeholder="e.g.: 76561199109579406" required>
-      <button type="submit" id="start-btn">Start</button>
-    </form>
-    <div id="hardware-info" class="hidden" style="text-align: center; margin: 10px 0; padding: 10px; background-color: #2a2a2e; border-radius: 5px; border: 1px solid #444;"></div>
     <div id="status"></div>
     <div id="loader" class="hidden">
       <div class="spinner"></div>
     </div>
-    <div id="progress-container" class="hidden">
-      <div class="progress-bar">
-        <div id="progress-fill" class="progress-fill"></div>
-      </div>
-      <div id="progress-text">0%</div>
-    </div>
     <table id="results-table" class="hidden">
       <thead>
         <tr>
-          <th>Rank</th>
-          <th>Game Name</th>
-          <th>Requirement Score</th>
+          <th>#</th>
+          <th>Game</th>
+          <th>Req Score</th>
           <th>Minimum Requirements</th>
         </tr>
       </thead>
@@ -44,7 +36,6 @@
       </tbody>
     </table>
   </div>
-  <script type="module" src="benchmarks.js"></script>
   <script type="module" src="script.js"></script>
 </body>
 </html>
