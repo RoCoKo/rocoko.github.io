@@ -341,9 +341,8 @@ function parseRequirements(minReqStr) {
       /(RX|HD|R9|R7|R5)\s+\d+[^<\n\r]*/i
     ],
     ram: [
-      /(Memory|RAM)\s*:?\s*([^\n\r]+)/i,
-      /(\d+)\s*(GB|MB)\s*(Memory|RAM)/i,
-      /(\d+)\s*(GB|MB)\s*(of\s+)?(Memory|RAM)/i
+      /(?:Memory|RAM)\s*:?\s*(\d+(?:\.\d+)?)\s*(GB|MB)/i,
+      /(\d+(?:\.\d+)?)\s*(GB|MB)\s*(?:of\s+)?RAM/i
     ],
     vram: [
       /(?:Video card|Graphics|GPU).*?(?:\s+must be)?\s+(\d+\s*(?:GB|MB))/i // For video memory within graphics description
@@ -407,16 +406,11 @@ function parseRequirements(minReqStr) {
   for (const pattern of patterns.ram) {
     const match = text.match(pattern);
     if (match) {
-      let ramText = match[2] || match[1];
-      // Extract numbers from the text
-      const ramMatch = ramText.match(/(\d+(?:\.\d+)?)\s*(GB|MB)/i);
-      if (ramMatch) {
-        ram = parseFloat(ramMatch[1]);
-        if (ramMatch[2].toUpperCase() === 'MB') {
-          ram = Math.round(ram / 1024 * 10) / 10; // Convert MB to GB with 1 decimal
-        }
-        break;
+      ram = parseFloat(match[1]);
+      if (match[2] && match[2].toUpperCase() === 'MB') {
+        ram = Math.round(ram / 1024 * 10) / 10; // Convert MB to GB
       }
+      break;
     }
   }
   
@@ -480,6 +474,7 @@ function normalizeModel(str) {
   
   // Remove common brand names and technical terms
   str = str.replace(/(Intel|AMD|NVIDIA|GeForce|Radeon|Core|CPU|Processor|Graphics|\(R\)|\(TM\)|\(C\))/gi, '');
+  str = str.replace(/\s+\d+\s*(GB|MB)/gi, ''); // Remove VRAM amounts like '2GB'
   str = str.replace(/Quad-Core|Dual-Core|Six-Core|Eight-Core|Octa-Core/gi, '');
   str = str.replace(/@.*$/g, ''); // Remove clock speeds
   str = str.replace(/\(.*?\)/g, ''); // Remove parentheses
@@ -567,11 +562,9 @@ function calculateScore(name, req, appid) {
   let total = Math.round(cpuScore * 0.4 + gpuScore * 0.5 + ramScore);
 
   // Show game requirements in a cleaner format
-  let hw = `CPU: ${req.cpu || '?'} | GPU: ${req.gpu || ''}`;
-  if (req.vram && (!req.gpu || req.gpu.toLowerCase().includes('video card') || req.gpu.toLowerCase().includes('graphics'))) {
+  let hw = `CPU: ${req.cpu || '?'} | GPU: ${req.gpu || '?'}`;
+  if (req.vram > 0) {
     hw += ` (${req.vram} GB VRAM)`;
-  } else if (req.gpu) {
-    hw += `${req.gpu}`;
   }
   hw += ` | RAM: ${req.ram || '?'} GB`;
 
