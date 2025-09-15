@@ -2660,5 +2660,18 @@
       },
       "recommended": null
     }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/mirrors-edge/10835",
+    "game": "Mirror&#x27;s Edge",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Pentium 4 3.0GHz or 100% compatible equivalent",
+        "ram": "1 GB",
+        "video_card": "256MB memory with Shader Model 3.0 (NVIDIA GeForce 6800 or equivalent, GeForce 7300 is below minimum requirements)"
+      },
+      "recommended": null
+    }
   }
 ]

@@ -190,12 +190,40 @@ async function main() {
   }
 
   const outPath = path.resolve(process.cwd(), opts.out);
-  const results = [];
+  let results = [];
+  const existingUrls = new Set();
 
-  for (let idx = 0; idx < urls.length; idx++) {
-    const url = urls[idx];
+  if (fs.existsSync(outPath)) {
     try {
-      console.log(`[${idx + 1}/${urls.length}] Fetching`, url);
+      const existingData = fs.readFileSync(outPath, 'utf8');
+      const parsedData = JSON.parse(existingData);
+      if (Array.isArray(parsedData)) {
+        results = parsedData;
+        for (const item of results) {
+          if (item && item.url) {
+            existingUrls.add(item.url);
+          }
+        }
+      }
+    } catch (err) {
+      console.error(`Warning: Could not read or parse ${outPath}. Starting fresh.`, err.message);
+    }
+  }
+
+  const newUrls = urls.filter(u => !existingUrls.has(u));
+
+  console.log(`Found ${results.length} existing entries.`);
+  console.log(`Processing ${newUrls.length} new URLs out of ${urls.length} total.`);
+
+  if (newUrls.length === 0) {
+    console.log('No new URLs to process.');
+    return;
+  }
+
+  for (let idx = 0; idx < newUrls.length; idx++) {
+    const url = newUrls[idx];
+    try {
+      console.log(`[${idx + 1}/${newUrls.length}] Fetching`, url);
       const html = await fetchHtml(url);
       const parsed = parseCyriPage(html, url);
       results.push(parsed);
@@ -203,7 +231,7 @@ async function main() {
       console.error('Failed:', url, '-', err.message);
       results.push({ source: 'systemrequirementslab', url, error: err.message });
     }
-    if (idx < urls.length - 1) {
+    if (idx < newUrls.length - 1) {
       await sleep(RATE_MS);
     }
   }

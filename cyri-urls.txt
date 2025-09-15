@@ -203,3 +203,4 @@ https://www.systemrequirementslab.com/cyri/requirements/world-of-tanks/11129
 https://www.systemrequirementslab.com/cyri/requirements/world-of-warcraft/10207
 https://www.systemrequirementslab.com/cyri/requirements/world-of-warships-anniversary-party/26275
 https://www.systemrequirementslab.com/cyri/requirements/xcom-2/13025
+https://www.systemrequirementslab.com/cyri/requirements/mirrors-edge/10835
