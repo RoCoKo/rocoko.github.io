@@ -40,7 +40,10 @@ async function checkBackendStatus() {
     const response = await fetch(`${BACKEND_URL}/api/health`, {
       method: 'GET',
       signal: controller.signal,
-      mode: 'cors'
+      mode: 'cors',
+      headers: {
+        'ngrok-skip-browser-warning': '1'
+      }
     });
     
     clearTimeout(timeoutId);
@@ -242,7 +245,8 @@ async function fetchGames(steamid) {
   const response = await fetch(`${BACKEND_URL}/api/steam/games/${steamid}`, {
     method: 'GET',
     headers: { 
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': '1'
     }
   });
 
@@ -251,6 +255,10 @@ async function fetchGames(steamid) {
     throw new Error(errorData.error || 'Backend error');
   }
 
+  const contentType = response.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    throw new Error('Beklenmeyen cevap formatı (JSON değil). Muhtemelen geçici HTML sayfası geldi.');
+  }
   const data = await response.json();
   if (!data.games || data.games.length === 0) {
     throw new Error('Kütüphanede oyun bulunamadı veya profil gizli.');
@@ -262,7 +270,8 @@ async function fetchGameDetails(appid) {
   const response = await fetch(`${BACKEND_URL}/api/steam/game/${appid}`, {
     method: 'GET',
     headers: { 
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': '1'
     }
   });
 
@@ -272,6 +281,11 @@ async function fetchGameDetails(appid) {
     return null;
   }
 
+  const contentType = response.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    console.error(`Oyun detayı beklenmedik formatta (appid: ${appid}).`);
+    return null;
+  }
   const data = await response.json();
   // Return the requirements string, or an empty string if not available
   return data.data?.pc_requirements?.minimum || '';
