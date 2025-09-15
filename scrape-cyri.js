@@ -16,7 +16,7 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 
-const RATE_MS = 1200; // throttle between requests
+const RATE_MS = 100; // throttle between requests
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -81,7 +81,9 @@ function parseRequirementsBlock(text) {
     if (!m) continue;
     const key = normalizeKey(m[1]);
     const val = m[2].trim();
-    result[key] = val;
+    if (['cpu', 'ram', 'video_card'].includes(key)) {
+      result[key] = val;
+    }
   }
   return result;
 }

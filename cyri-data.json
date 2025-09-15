@@ -1,17 +1,2662 @@
 [
   {
     "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/112-operator/19868",
+    "game": "112 Operator",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "6 GB",
+        "video_card": "NVIDIA GeForce GT 650"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/a-way-out/16141",
+    "game": "A Way Out",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel core i3-2100T @ 2.5GHz/AMD FX 6100, or better",
+        "ram": "8 GB",
+        "video_card": "DirectX 11 Compatible NVIDIA GeForce GTX 650Ti 2GB, AMD Radeon HD 7750 2GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/afk-journey/27432",
+    "game": "AFK Journey",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel or AMD processor",
+        "ram": "4 GB",
+        "video_card": "Information"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/albion-online/15694",
+    "game": "Albion Online",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel/AMD CPU with SSE2",
+        "ram": "4 GB",
+        "video_card": "Graphics card with DirectX 10 support or better"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/alien-isolation/12335",
+    "game": "Alien: Isolation",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Duo E8500 or AMD Athlon 64 X2 6400+",
+        "ram": "4 GB",
+        "video_card": "1GB (AMD Radeon HD 5550 or Nvidia GeForce GT 430)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/among-us/19562",
+    "game": "Among Us",
+    "requirements": {
+      "minimum": {
+        "cpu": "SSE2 instruction set support",
+        "ram": "1 GB",
+        "video_card": "Info"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/anno-2070/11242",
+    "game": "Anno 2070",
+    "requirements": {
+      "minimum": {
+        "cpu": "2 GHz Intel  Core 2 Duo or AMD Athlon 64 X2 or better",
+        "ram": "2 GB",
+        "video_card": "512 MB DirectX 9.0c–compatible with Shader Model 3.0 or higher (ATI Radeon X1000/HD 2000/3000/4000/5000/6000 series  or NVIDIA GeForce 7/8/9/100/200/300/400/500 series)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/apex-legends-titanfall-battle-royale/18531",
+    "game": "Apex Legends",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-6300 3.8GHz / AMD FX-4350 4.2 GHz Quad-Core Processor",
+        "ram": "6 GB",
+        "video_card": "1 GB NVIDIA GeForce GT 640 / Radeon HD 7730"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/arcadegeddon/21051",
+    "game": "Arcadegeddon",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "8 GB",
+        "video_card": "NVIDIA® GeForce® GTX 670 GPU and/or AMD Radeon™ HD 7970"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/assassin-creed-uniy/12370",
+    "game": "Assassin&#x27;s Creed Unity",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-2500K @ 3.3 GHz or AMD Phenom II x4 940 @ 3.0 GHz or AMD FX-8350 @ 4.0 GHz",
+        "ram": "6 GB",
+        "video_card": "NVIDIA GeForce GTX 680 or AMD Radeon HD 7970 (2 GB VRAM)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/assassin-s-creed-odyssey/17860",
+    "game": "Assassin&#x27;s Creed Odyssey",
+    "requirements": {
+      "minimum": {
+        "cpu": "AMD FX 6300 @ 3.8 GHz, Ryzen 3 – 1200, Intel Core i5 2400 @ 3.1 GHz",
+        "ram": "8 GB",
+        "video_card": "AMD Radeon R9 285 or NVIDIA GeForce GTX 660 (2GB VRAM with Shader Model 5.0)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/assassin-s-creed-origins/15993",
+    "game": "Assassin&#x27;s Creed: Origins",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-2400s @ 2.5 GHz or AMD FX-6350 @ 3.9 GHz or equivalent",
+        "ram": "6 GB",
+        "video_card": "NVIDIA GeForce GTX 660 or AMD R9 270 (2048 MB VRAM with Shader Model 5.0 or better)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/assassins-creed-ii/10927",
+    "game": "Assassin&#x27;s Creed II",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Duo 1.8 GHz or AMD Athlon 64 X2 2.4 GHz",
+        "ram": "1.5 GB Windows XP / 2 GB Windows Vista - Windows 7",
+        "video_card": "256 MB DirectX 9.0-compliant card with Shader Model 3.0 or higher (NVIDIA GeForce 7/8/9/100/200 series / ATI RADEON X1950, HD 2000/3000/4000/5000 series)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/assassins-creed-iii/11461",
+    "game": "Assassin&#x27;s Creed III",
+    "requirements": {
+      "minimum": {
+        "cpu": "2.66 GHz Intel Core 2 Duo E8200 or 2.66 GHz AMD Athlon II X4 620",
+        "ram": "2 GB",
+        "video_card": "512 MB DirectX 9.0c-compliant with Shader Model 4.0 or higher (GeForce 8800 GT or Radeon HD 4850)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/assassins-creed-iv-black-flag/11846",
+    "game": "Assassin&#x27;s Creed IV Black Flag",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core2Quad Q8400 @ 2.6 GHz or AMD Athlon II X4 620 @ 2.6 GHz",
+        "ram": "2 GB",
+        "video_card": "Nvidia Geforce GTX 260 or AMD Radeon HD 4870 (512MB VRAM with shader Model 4.0 or higher)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/assassins-creed-rogue/12484",
+    "game": "Assassin&#x27;s Creed Rogue",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Quad Q6600 @ 2.4 GHz or AMD Athlon II X4 620 @ 2.6 GHz",
+        "ram": "2 GB",
+        "video_card": "nVidia GeForce GTS 450 or AMD Radeon HD 5670 (1024MB VRAM) or Intel HD Graphics 4600"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/assassins-creed-syndicate/12971",
+    "game": "Assassin&#x27;s Creed Syndicate",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5 2400s @ 2.5 GHz or AMD FX 6350 @ 3.9 GHz",
+        "ram": "6 GB",
+        "video_card": "NVIDIA GeForce GTX 660 or AMD Radeon R9 270 (2GB VRAM with Shader Model 5.0)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/assassins-creed-valhalla/19915",
+    "game": "Assassin&#x27;s Creed Valhalla",
+    "requirements": {
+      "minimum": {
+        "cpu": "Ryzen 3 1200 - 3.1 Ghz / Core i5-4460 - 3.2 Ghz",
+        "ram": "8 GB",
+        "video_card": "AMD Radeon R9 380 or NVIDIA GeForce GTX 960 or better"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/assetto-corsa/11895",
+    "game": "Assetto Corsa",
+    "requirements": {
+      "minimum": {
+        "cpu": "AMD Athlon X2 2.8 GHZ, Intel Core 2 Duo 2.4 GHZ",
+        "ram": "2 GB",
+        "video_card": "DirectX 10.1 (e.g. AMD Radeon HD 6450, Nvidia GeForce GT 460)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/baldur-s-gate-3/18813",
+    "game": "Baldur&#x27;s Gate 3",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5 4690 / AMD FX 8350",
+        "ram": "8 GB",
+        "video_card": "Nvidia GTX 970 / RX 480 (4GB+ of VRAM)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/batman-arkham-asylum/10901",
+    "game": "Batman: Arkham Asylum",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Pentium 4 3.0 GHz or AMD Athlon 64 3500+",
+        "ram": "XP = 1 GB, Vista = 2GB",
+        "video_card": "128 MB 3D Graphics card (NVIDIA GeForce 6600 or ATI Radeon X1300 or better)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/batman-arkham-city/11228",
+    "game": "Batman: Arkham City",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Duo 2.4 GHz or AMD Athlon X2 4800+",
+        "ram": "2 GB",
+        "video_card": "ATI 3850HD 512 MB or NVIDIA GeForce 8800 GT 512MB or Intel HD Graphics 2000"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/batman-arkham-knight/12596",
+    "game": "Batman: Arkham Knight",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-750, 2.67 GHz | AMD Phenom II X4 965, 3.4 GHz",
+        "ram": "6 GB",
+        "video_card": "NVIDIA GeForce GTX 660 (2 GB Memory Minimum) | AMD Radeon HD 7950 (3 GB Memory Minimum)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/batman-arkham-origins-blackgate/12039",
+    "game": "Batman: Arkham Origins Blackgate",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core Duo, 2.4 GHz | AMD Athlon X2, 2.8 GHz",
+        "ram": "2 GB",
+        "video_card": "NVIDIA GeForce 8800 GTS | AMD Radeon 3850"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/batman-arkham-origins/11704",
+    "game": "Batman: Arkham Origins",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core Duo, 2.4 GHz | AMD Athlon X2, 2.8 GHz",
+        "ram": "2 GB",
+        "video_card": "NVIDIA GeForce 8800 GTS | AMD Radeon 3850"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/batman-arkham-vr/15833",
+    "game": "Batman: Arkham VR",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel™ Core™ i5-4590 equivalent or greater",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce™ GTX 1060 / GTX 970 or AMD Radeon™ RX 480"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/battlefield-1/13404",
+    "game": "Battlefield 1",
+    "requirements": {
+      "minimum": {
+        "cpu": "Core i5 6600K / AMD FX-6350",
+        "ram": "8 GB",
+        "video_card": "DirectX 11.0 Compatible video card with 2 GB VRAM (AMD Radeon HD 7850 / nVidia GeForce GTX 660)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/battlefield-1942-secret-weapons-of-world-war-ii/10547",
+    "game": "Battlefield 1942: Secret Weapons of World War II",
+    "requirements": {
+      "minimum": {
+        "cpu": "Pentium III or Athlon equivalent",
+        "ram": "128 MB (256 MB RAM required for Windows 2000/XP)",
+        "video_card": "3D-accelerated 32 MB video card (NVIDIA GeForce 256 / GeForce 2+ / ATI Radeon+)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/battlefield-2042/20953",
+    "game": "Battlefield 2042",
+    "requirements": {
+      "minimum": {
+        "cpu": "Core i5 6600K / AMD Ryzen 5 1600",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 1050 Ti or AMD Radeon RX 560, 4 GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/battlefield-3-back-to-karkand/11246",
+    "game": "Battlefield 3: Back to Karkand",
+    "requirements": {
+      "minimum": {
+        "cpu": "2 GHz DUAL CORE (Core 2 Duo 2.4 GHz or Athlon X2 2.7 GHz)",
+        "ram": "2 GB",
+        "video_card": "(AMD): DirectX 10.1 compatible with 512 MB RAM (ATI Radeon 3000, 4000, 5000 or 6000 series, with ATI Radeon HD 3870 or higher performance)(NVIDIA): DirectX 10.0 compatible with 512 MB RAM (NVIDIA GeForce 8, 9, 200, 300, 400 or 500 series, with NVIDIA GeForce 8800 GT or higher performance)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/battlefield-3/11211",
+    "game": "Battlefield 3",
+    "requirements": {
+      "minimum": {
+        "cpu": "2 GHz DUAL CORE (Core 2 Duo 2.4 GHz or Athlon X2  2.7 GHz)",
+        "ram": "2 GB",
+        "video_card": "(AMD): DirectX 10.1 compatible with 512 MB RAM (ATI Radeon 3000, 4000, 5000 or 6000 series, with ATI Radeon HD 3870 or higher performance)(NVIDIA): DirectX 10.0 compatible with 512 MB RAM (NVIDIA GeForce 8, 9, 200, 300, 400 or 500 series, with NVIDIA GeForce 8800 GT or higher performance)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/battlefield-4/11804",
+    "game": "Battlefield 4",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Duo 2.4 GHz, AMD Athlon X2 2.8 GHz or better",
+        "ram": "4 GB",
+        "video_card": "512 MB AMD Radeon HD 3870 / NVIDIA GeForce 8800 GT or better"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/battlefield-5-armageddon/13374",
+    "game": "Battlefield 5",
+    "requirements": {
+      "minimum": {
+        "cpu": "Core i5 6600K / AMD FX-8350",
+        "ram": "8 GB",
+        "video_card": "DirectX 11.0 Compatible video card with 2 GB VRAM (AMD Radeon HD 7850 / nVidia GeForce GTX 660)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/battlefield-6/27568",
+    "game": "Battlefield 6",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-8400, AMD Ryzen 5 2600",
+        "ram": "16 GB",
+        "video_card": "Nvidia GeForce RTX 2060, AMD Radeon RX 5600 XT 6GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/battlefield-hardline/12479",
+    "game": "Battlefield Hardline",
+    "requirements": {
+      "minimum": {
+        "cpu": "Athlon II/Phenom II 2.8 GHz, Intel Core i3/i5 2.4GHz",
+        "ram": "4 GB",
+        "video_card": "ATI Radeon HD 5770 (1 GB), NVIDIA GeForce GTX 260"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/battlefleet-gothic-armada-2/17482",
+    "game": "Battlefleet Gothic: Armada 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-3450 (3.1 GHz)/AMD FX-6300 (3.5 GHz)",
+        "ram": "8 GB",
+        "video_card": "2 GB, GeForce GTX 660/Radeon HD 7870"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/battlegrounds/15571",
+    "game": "PLAYERUNKNOWN&#x27;S BATTLEGROUNDS",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-4430 / AMD FX-6300",
+        "ram": "8 GB",
+        "video_card": "nVidia GeForce GTX 960 2GB / AMD Radeon R7 370 2GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/battlerite-royale/18222",
+    "game": "Battlerite Royale",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "4 GB",
+        "video_card": "Intel HD 3000"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/beamngdrive/12676",
+    "game": "BeamNG.drive",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "2 GB",
+        "video_card": "Dedicated graphics card"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/blood-bowl-2/12767",
+    "game": "Blood Bowl 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "3072 MB",
+        "video_card": "768 MB 100% DIRECTX 10 AND SHADERS 4.0 COMPATIBLE ATI RADEON HD 5670/NVIDIA GEFORCE GTX 260 OR HIGHER"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
     "url": "https://www.systemrequirementslab.com/cyri/requirements/borderlands-4/27317",
     "game": "Borderlands 4",
     "requirements": {
       "minimum": {
         "cpu": "Intel Core i7-9700 / AMD Ryzen 7 2700X",
         "ram": "16 GB",
-        "video_card": "NVIDIA GeForce RTX 2070 / AMD Radeon RX 5700 XT",
-        "dedicated_video_ram": "8192 MB",
-        "os": "Windows 10 / Windows 11",
-        "shader_model_version": "6.0",
-        "free_disk_space": "100 GB"
+        "video_card": "NVIDIA GeForce RTX 2070 / AMD Radeon RX 5700 XT"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/botanicula/11440",
+    "game": "Botanicula",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "1 GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/braid/11606",
+    "game": "Braid",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "768 MB",
+        "video_card": "Pixel Shader 2.0"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/call-of-cthulhu/13730",
+    "game": "Call of Cthulhu",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-3450 (3.1 GHz)/AMD FX-6300 (3.5 GHz)",
+        "ram": "8 GB",
+        "video_card": "2 GB, GeForce GTX 660/Radeon HD 7870"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/call-of-duty-black-o/11439",
+    "game": "Call of Duty: Black Ops II",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Duo E8200 2.66 GHz or AMD Phenom X3 8750 2.4 GHz",
+        "ram": "2GB for 32-bit OS or 4GB for 64-bit OS",
+        "video_card": "Nvidia GeForce 8800GT 512 MB or ATI Radeon HD 3870 512 MB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/call-of-duty-black-ops-4/17727",
+    "game": "Call of Duty: Black Ops 4",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-4340 or AMD FX-6300 processor",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 660 2 GB or Radeon HD 7950 2 GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/call-of-duty-black-ops-6/23471",
+    "game": "Call of Duty: Black Ops 6",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-6600 or AMD Ryzen 5 1400",
+        "ram": "8 GB",
+        "video_card": "NVIDIA® GeForce® GTX 960 / GTX 1650 or AMD™ Radeon RX 470"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/call-of-duty-black-ops-cold-war/20163",
+    "game": "Call of Duty: Black Ops Cold War",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-4340 or AMD FX-6300",
+        "ram": "8 GB",
+        "video_card": "Nvidia GeForce GTX 670  / GTX 1650 or AMD Radeon HD 7950"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/call-of-duty-black-ops-cold-war/20295",
+    "game": "Call of Duty: Black Ops - Cold War",
+    "requirements": {
+      "minimum": {
+        "cpu": "...",
+        "ram": "...",
+        "video_card": "..."
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/call-of-duty-black-ops-iii/12603",
+    "game": "Call of Duty: Black Ops III",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-530 @ 2.93 GHz / AMD Phenom II X4 810 @ 2.60 GHz",
+        "ram": "6 GB",
+        "video_card": "NVIDIA GeForce GTX 470 @ 1GB / ATI Radeon HD 6970 @ 1GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/call-of-duty-modern-warfare-3/11232",
+    "game": "Call of Duty: Modern Warfare 3",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel® Core™ 2 Duo E6600 or AMD Phenom™ X3 8750 processor or better",
+        "ram": "2 GB",
+        "video_card": "Shader 3.0 or better 256 MB NVIDIA GeForce 8600GT / ATI® Radeon X1950 or better"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/call-of-duty-modern-warfare-iii-blackcell-season-1-/27428",
+    "game": "Call of Duty: Modern Warfare III - BlackCell",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-6600 or AMD Ryzen 5 1400",
+        "ram": "8 GB",
+        "video_card": "2 GB NVIDIA GeForce GTX 960 / GTX 1650 or AMD Radeon RX 470"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/call-of-duty-modern-warfare/18809",
+    "game": "Call of Duty: Modern Warfare",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-4340 or AMD FX-6300",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 670 / NVIDIA GeForce GTX 1650 or AMD Radeon HD 7950"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/call-of-duty-vanguard/20705",
+    "game": "Call of Duty: Vanguard",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-4340 or AMD FX-6300",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 960 or AMD Radeon RX 470 - DirectX 12.0 compatible system"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/call-of-duty-warzone/19566",
+    "game": "Call of Duty: Warzone",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel® Core™ i3-6100 / Core™ i5-2500K or AMD Ryzen™ 3 1200",
+        "ram": "8 GB",
+        "video_card": "NVIDIA® GeForce® GTX 960 or AMD Radeon™ RX 470"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/call-of-duty-ww2/15916",
+    "game": "Call of Duty: WW2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3 3225 3.3 GHz or AMD Ryzen 5 1400",
+        "ram": "8 GB",
+        "video_card": "Nvidia GeForce GTX 660 @ 2 GB / GTX 1050 or ATI Radeon HD 7850 @ 2GB / AMD RX 550"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/celeste/17404",
+    "game": "Celeste",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3 380M",
+        "ram": "2 GB",
+        "video_card": "Intel HD 4000"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/cities-skylines/12489",
+    "game": "Cities: Skylines",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel® Core™ I7 930  |  AMD® FX 6350",
+        "ram": "8 GB",
+        "video_card": "Nvidia® GeForce™ GTS 450 (1 GB) |  AMD® R7 250 (2 GB)  |  Intel Iris Xe G7 (Tiger Lake)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/clair-obscur-expedition-33/25593",
+    "game": "Clair Obscur: Expedition 33",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i7-8700K / AMD Ryzen 5 1600X",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 1070 Ti 8GB / AMD Radeon RX Vega 56 8GB / Intel Arc A580 8GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/counter-strike-2/22638",
+    "game": "Counter-Strike 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel® Core™ i5 750 or higher (4 hardware CPU threads",
+        "ram": "8 GB",
+        "video_card": "Video card must be 1 GB or more and should be a DirectX 11-compatible with support for Shader Model 5.0"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/counter-strike-global-offensive/11422",
+    "game": "Counter-Strike: Global Offensive",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel® Core™ 2 Duo E6600 or AMD Phenom™ X3 8750 processor or better",
+        "ram": "2 GB",
+        "video_card": "Video card must be 256 MB or more and should be a DirectX 9-compatible with support for Pixel Shader 3.0"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/cyberpunk-2077/13169",
+    "game": "Cyberpunk 2077",
+    "requirements": {
+      "minimum": {
+        "cpu": "Core i7-6700 or Ryzen 5 1600",
+        "ram": "12 GB",
+        "video_card": "GeForce GTX 1060 6GB or Radeon RX 580 8GB or Arc A380"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/danganronpa-2-goodbye-despair/13214",
+    "game": "Danganronpa 2: Goodbye Despair",
+    "requirements": {
+      "minimum": {
+        "cpu": "2.8 GHz Intel Core 2 Duo or better",
+        "ram": "3 GB",
+        "video_card": "OpenGL 3.2 compatible GPU with at least 1GB of VRAM"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/danganronpa-trigger-happy-havoc/14235",
+    "game": "Danganronpa: Trigger Happy Havoc",
+    "requirements": {
+      "minimum": {
+        "cpu": "2.8 GHz Intel Core 2 Duo or better",
+        "ram": "3 GB",
+        "video_card": "OpenGL 3.2 or DirectX 9.0c compatible GPU with at least 1GB of VRAM"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/dark-souls-iii/13089",
+    "game": "Dark Souls 3",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-2100 / AMD FX-6300",
+        "ram": "4 GB",
+        "video_card": "NVIDIA® GeForce GTX 750 Ti / ATI Radeon HD 7950"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/dead-by-daylight-five-nights-at-freddys/27355",
+    "game": "Dead by Daylight - Five Nights at Freddy&#x2019;s",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-4170 or AMD FX-8120",
+        "ram": "8 GB",
+        "video_card": "DX11 Compatible GeForce GTX 460 1GB or AMD HD 6850 1GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/dead-cells/16012",
+    "game": "Dead Cells",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel i5+",
+        "ram": "2 GB",
+        "video_card": "Nvidia 450 GTS / Radeon HD 5750 or better"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/deadly-premonition-2-a-blessing-in-disguise/20752",
+    "game": "Deadly Premonition 2: A Blessing in Disguise",
+    "requirements": {
+      "minimum": {
+        "cpu": "...",
+        "ram": "...",
+        "video_card": "..."
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/destiny-2/15764",
+    "game": "Destiny 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel - Core i3-3250 / AMD - FX-4350",
+        "ram": "6 GB",
+        "video_card": "Nvidia - GeForce GTX 660 2GB / AMD - Radeon HD 7850 2GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/devil-may-cry-5/18123",
+    "game": "Devil May Cry 5",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel® Core™ i5-4460, AMD FX™-6300, or better",
+        "ram": "8 GB",
+        "video_card": "NVIDIA® GeForce® GTX 760 or AMD Radeon™ R7 260x with 2GB Video RAM, or better"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/dishonored-2/13225",
+    "game": "Dishonored 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-2400/AMD FX-8320 or better",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GTX 660 2GB/AMD Radeon HD 7970 3GB or better"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/divinity-original-sin-2/13396",
+    "game": "Divinity: Original Sin 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5 or equivalent",
+        "ram": "4 GB",
+        "video_card": "NVIDIA® GeForce® GTX 550 or ATI™ Radeon™ HD 6XXX or higher"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/doom-eternal/17891",
+    "game": "Doom Eternal",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5 @ 3.3 GHz or better, or AMD Ryzen 3 @ 3.1 GHz or better",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 1050Ti (4GB), GTX 1060 (3GB), GTX 1650 (4GB) or AMD Radeon R9 280(3GB), AMD Radeon R9 290 (4GB), RX 470 (4GB)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/dota-2/11352",
+    "game": "Dota 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "4 GB",
+        "video_card": "nVidia GeForce 8600/9600GT, ATI/AMD Radeon HD2600/3600"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/dragon-age-inquisition/12360",
+    "game": "Dragon Age: Inquisition",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "4 GB",
+        "video_card": "512 MB, AMD Radeon HD 4870, NVIDIA GeForce 8800 GT"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/ducktales-remastered/11774",
+    "game": "DuckTales: Remastered",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Pentium 4 2.4 GHz or AMD Equivalent",
+        "ram": "1 GB",
+        "video_card": "NVIDIA Geforce 9600GT, AMD Radeon HD 3870 or higher (it must be able to manage Pixel Shader 3.0) with at least 512MB of display memory"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/ea-sports-fc-24/22649",
+    "game": "EA SPORTS FC 24",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-6600K @ 3.50GHz or AMD Ryzen 5 1600 @ 3.2 GHZ",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 1050 Ti 4GB or AMD Radeon RX 570 4GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/ea-sports-fc-26/27468",
+    "game": "EA SPORTS FC 26",
+    "requirements": {
+      "minimum": {
+        "cpu": "AMD Ryzen 5 1600 or Intel Core i5 6600K",
+        "ram": "8 GB",
+        "video_card": "AMD Radeon RX 570 or Nvidia GeForce GTX 1050 Ti"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/elden-ring-nightreign/26687",
+    "game": "ELDEN RING NIGHTREIGN",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-10600 / AMD RYZEN 5 5500",
+        "ram": "12 GB",
+        "video_card": "NVIDIA GeForce GTX 1060 3GB / AMD Radeon RX 580 4GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/elden-ring/18888",
+    "game": "Elden Ring",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-8400 | AMD Ryzen 3 3300X",
+        "ram": "12 GB",
+        "video_card": "Nvidia GeForce GTX 1060, 3GB | AMD Radeon RX 580, 4GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/elite-dangerous/12195",
+    "game": "Elite: Dangerous",
+    "requirements": {
+      "minimum": {
+        "cpu": "2 GHz Quad Core",
+        "ram": "4 GB",
+        "video_card": "Nvidia GeForce GTX 260 / ATI Radeon HD 4870"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/fallout-4/12905",
+    "game": "Fallout 4",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-2300 2.8 GHz/AMD Phenom II X4 945 3.0 GHz or equivalent",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GTX 550 Ti 2GB/AMD Radeon HD 7870 2GB or equivalent"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/far-cry-3-blood-dragon/11627",
+    "game": "Far Cry 3 - Blood Dragon",
+    "requirements": {
+      "minimum": {
+        "cpu": "2.66 GHz Intel Core 2 Duo E6700 or 3.00 GHz AMD Athlon 64 X2 6000+",
+        "ram": "2 GB",
+        "video_card": "512 MB DirectX 9.0c–compliant"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/far-cry-3/11465",
+    "game": "Far Cry 3",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core2 Duo E6700/AMD Athlon64 X2 6000+",
+        "ram": "2 GB",
+        "video_card": "Nvidia 8800 GTX/AMD Radeon HD 2900 or equivalent 512MB DirectX 9c card"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/far-cry-4/12380",
+    "game": "Far Cry 4",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-750 @ 2.6 GHz or AMD Phenom II X4 955 @ 3.2 GHz",
+        "ram": "4 GB",
+        "video_card": "NVIDIA GeForce GTX 460 or AMD Radeon HD5850 (1GB VRAM)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/far-cry-5/15464",
+    "game": "Far Cry 5",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-2400 | AMD FX-6300 @ 3.5 GHz or better",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 670 | AMD R9 270 (2GB VRAM with Shader Model 5.0 or better)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/far-cry-6/20118",
+    "game": "Far Cry 6",
+    "requirements": {
+      "minimum": {
+        "cpu": "AMD Ryzen 3 1200 3.1GHz or Intel Core i5-4460 3.2GHz",
+        "ram": "8 GB",
+        "video_card": "AMD Radeon RX 460 4GB or Nvidia GeForce GTX 960 4GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/far-cry-primal/12930",
+    "game": "Far Cry Primal",
+    "requirements": {
+      "minimum": {
+        "cpu": "Core i3-550 / Phenom II X4 955",
+        "ram": "4 GB",
+        "video_card": "Nvidia GeForce GTX 460 / Radeon HD 5770 1 GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/farming-simulator-17/13772",
+    "game": "Farming Simulator 17",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "2 GB",
+        "video_card": "Nvidia Geforce GTS 450 Series, AMD Radeon HD 6770 graphics card or better (min 1 GB VRAM)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/farming-simulator-19/17853",
+    "game": "Farming Simulator 19",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-2100T @ 2.5GHz or AMD FX-4100 @3.6 GHz",
+        "ram": "4 GB",
+        "video_card": "Nvidia Geforce GTX 650, AMD Radeon HD 7770 graphics card or better (min. 2 GB VRAM, DX11 support)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/fifa-17/13469",
+    "game": "FIFA 17",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-2100 @ 3.1GHz or AMD Phenom II X4 965 @ 3.4 GHz",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GTX 460 or AMD Radeon R7 260"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/fifa-18/15759",
+    "game": "FIFA 18",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-2100 / AMD Phenom II X4 965 3.4 GHz",
+        "ram": "8 GB",
+        "video_card": "Nvidia GeForce GTX 460 or AMD Radeon R7 260 (1 GB)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/fifa-19/17965",
+    "game": "FIFA 19",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-2100 / AMD Phenom II X4 965 or better",
+        "ram": "8 GB",
+        "video_card": "1 GB NVIDIA GeForce GTX 460 / AMD Radeon R7 260"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/fifa-23/21824",
+    "game": "FIFA 23",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5 6600k or AMD Ryzen 5 1600",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 1050 Ti or AMD Radeon RX 570"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/football-manager-26/27889",
+    "game": "Football Manager 26",
+    "requirements": {
+      "minimum": {
+        "cpu": "Desktop: Intel Core i3-530 or AMD FX-4100  Laptop: Intel Core i3-330M or AMD A6-5200  Requires SSE4.2 & SSSE3",
+        "ram": "4 GB",
+        "video_card": "Desktop: NVIDIA GeForce GTX 960 or AMD Radeon R9 380 or Intel HD 530  Laptop: NVIDIA GeForce GTX 960M or AMD Radeon R9 M375 or Intel HD 530  512MiB VRAM"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/fortnite-battle-royale/16853",
+    "game": "Fortnite: Battle Royale",
+    "requirements": {
+      "minimum": {
+        "cpu": "Core i3-3225 3.3 GHz",
+        "ram": "8 GB",
+        "video_card": "Intel HD 4000 on PC; AMD Radeon Vega 8"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/fortnite/15349",
+    "game": "Fortnite",
+    "requirements": {
+      "minimum": {
+        "cpu": "Core i3-3225 3.3 GHz",
+        "ram": "8 GB",
+        "video_card": "Intel HD 4000 on PC; AMD Radeon Vega 8"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/forza-horizon-4/17900",
+    "game": "Forza Horizon 4",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel i3-4170 @ 3.7Ghz OR Intel i5 750 @ 2.67Ghz",
+        "ram": "8 GB",
+        "video_card": "NVidia 650TI OR NVidia GT 740 OR AMD R7 250x"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/forza-horizon-5/20977",
+    "game": "Forza Horizon 5",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel i5-4460 or AMD Ryzen 3 1200",
+        "ram": "8 GB",
+        "video_card": "NVidia GTX 970 OR AMD RX 470"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/garrys-mod/11441",
+    "game": "Garry&#x27;s Mod",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "2 GB",
+        "video_card": "DirectX® 9 level Graphics Card (Requires support for SSE)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/genshin-impact/20275",
+    "game": "Genshin Impact",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel® Core™ i5 (6th generation), AMD Ryzen™ series or equivalent",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GT 1050 or equivalent (Integrated - Intel Iris Xe or equivalent)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/god-of-war/21298",
+    "game": "God of War",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel i5-2500k (4 core 3.3 GHz) or AMD Ryzen 3 1200 (4 core 3.1 GHz)",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GTX 960 (4 GB) or AMD R9 290X (4 GB)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/grand-theft-auto-6/14721",
+    "game": "Grand Theft Auto 6",
+    "requirements": {
+      "minimum": {
+        "cpu": "...",
+        "ram": "...",
+        "video_card": "..."
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/grand-theft-auto-v/12455",
+    "game": "Grand Theft Auto V",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Quad CPU Q6600 @ 2.40GHz (4 CPUs) / AMD Phenom 9850 Quad-Core Processor (4 CPUs) @ 2.5GHz",
+        "ram": "4 GB",
+        "video_card": "NVIDIA 9800 GT 1GB / AMD HD 4870 1GB (DX 10, 10.1, 11)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/guild-of-dungeoneering/12772",
+    "game": "Guild of Dungeoneering",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "2 GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/h1z1-king-of-the-kill/13104",
+    "game": "H1Z1: King of the Kill",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel i5 Quad-Core",
+        "ram": "6 GB",
+        "video_card": "nVidia GeForce GTX 280 series or higher"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/h1z1/12449",
+    "game": "H1Z1",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel i3 Dual-Core with Hyper-Threading (required)",
+        "ram": "4 GB",
+        "video_card": "nVidia GeForce GTX 275 series or higher"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/helldivers-2/22862",
+    "game": "HELLDIVERS 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i7-4790K or AMD Ryzen 5 1500X",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 1050 Ti or AMD Radeon RX 470"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/hitman/13085",
+    "game": "HITMAN",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel CPU Core i5-2500K 3.3GHz / AMD CPU Phenom II X4 940",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 660 / Radeon HD 7870"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/hogwarts-legacy/20264",
+    "game": "Hogwarts Legacy",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-6600 (3.3Ghz) or AMD Ryzen 5 1400 (3.2Ghz)",
+        "ram": "16 GB",
+        "video_card": "NVIDIA GeForce GTX 960 4GB or AMD Radeon RX 470 4GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/hollow-knight-silksong/18551",
+    "game": "Hollow Knight Silksong",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Duo E5200",
+        "ram": "4 GB",
+        "video_card": "GeForce 9800GTX+ (1GB)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/hollow-knight/15499",
+    "game": "Hollow Knight",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Duo E5200",
+        "ram": "4 GB",
+        "video_card": "GeForce 9800GTX (1GB)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/hunt-showdown-1896/17575",
+    "game": "Hunt: Showdown 1896",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel CPU 7th Gen 7700 / AMD Ryzen 5 2600",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GTX 1650 Super or AMD Radeon RX 5500 XT, with a minimum of 4GB of VRAM"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/insurgency-sandstorm/15479",
+    "game": "Insurgency: Sandstorm",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-4440 (3.10GHz)/AMD FX-6300 (3.50GHz)",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 760/AMD Radeon HD 7970"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/islands-of-nyne-battle-royale/17265",
+    "game": "Islands of Nyne: Battle Royale",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-2500K CPU",
+        "ram": "12 GB",
+        "video_card": "Geforce GTX 660 or AMD Radeon HD 7850"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/job-simulator/13241",
+    "game": "Job Simulator",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel i5-4590 / AND FX 8350 equivalent or greater",
+        "ram": "4 GB",
+        "video_card": "NVIDIA GeForce GTX 970 / AMD Radeon R9 290 equivalent or greater"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/killing-floor-3/22775",
+    "game": "Killing Floor 3",
+    "requirements": {
+      "minimum": {
+        "cpu": "AMD Ryzen 5 2600 or Intel Core i7-4790",
+        "ram": "16 GB",
+        "video_card": "NVIDIA GeForce GTX 1060, AMD Radeon RX 480 or or Intel Arc A580"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/league-of-legends/10933",
+    "game": "League of Legends",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-530 / AMD A6-3650",
+        "ram": "2 GB",
+        "video_card": "NVidia GeForce 9600GT / AMD Radeon HD 6570 / Intel HD 4600 Integrated Graphics (DirectX 10)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/lego-batman-2-dc-super-heroes/11382",
+    "game": "LEGO Batman 2 DC Super Heroes",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Duo 2 GHz or AMD Athlon 64 X2 3800+",
+        "ram": "1 GB",
+        "video_card": "NVIDIA 7600, 7800, 8xxx or better, ATI 1950 or better"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/lego-batman-3-beyon/12379",
+    "game": "LEGO Batman 3: Beyond Gotham",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Duo or equivalent AMD dual core CPU",
+        "ram": "2 GB",
+        "video_card": "NVIDIA GeForce 7600GS or ATI Radeon 1950, 256 Mb RAM"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/lego-batman/12095",
+    "game": "LEGO Batman",
+    "requirements": {
+      "minimum": {
+        "cpu": "Pentium 3 or Athlon XP",
+        "ram": "256 MB RAM, 512 MB RAM required for Windows Vista and above",
+        "video_card": "128 MB with Shader Model 2.0 capability (NVIDIA GeForce FX 5200 or ATI Radeon 9500)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/lego-star-wars-the-complete-saga/15966",
+    "game": "LEGO Star Wars - The Complete Saga",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel P3 1.0GHz or AMD Athlon XP or higher",
+        "ram": "256 MB of RAM, 512MB required for Vista",
+        "video_card": "128MB Graphics card with Shader Model 2.0 Capability"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/lethal-company/22974",
+    "game": "Lethal Company",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-7400 CPU @ 3.00GHz",
+        "video_card": "NVIDIA GForce GTX 1050"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/life-is-strange-2/16078",
+    "game": "Life is Strange 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-2100 (3.1GHz) or AMD Phenom X4 945 (3.0GHz)",
+        "ram": "4 GB",
+        "video_card": "Nvidia GeForce GTX 650 2GB or AMD Radeon HD 7770 2GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/life-is-strange-before-the-storm/16126",
+    "game": "Life is Strange: Before The Storm",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-2100 (3.1GHz) or AMD Phenom X4 945 (3.0GHz)",
+        "ram": "3 GB",
+        "video_card": "AMD Radeon R7 250 or NVIDIA Geforce GTX 650"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/mad-max/12804",
+    "game": "Mad Max",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-650, 3.2 GHz or AMD Phenom II X4 965, 3.4 Ghz",
+        "ram": "6 GB",
+        "video_card": "NVIDIA GeForce GTX 660ti (2 GB Memory or higher) or AMD Radeon HD 7870 (2 GB Memory or higher)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/madden-nfl-19/17958",
+    "game": "Madden NFL 19",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-4350, FX-4330, or equivalent",
+        "ram": "8 GB",
+        "video_card": "NVIDIA Geforce GTX 660, AMD Radeon RX 460"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/marvels-spider-man-2/25678",
+    "game": "Marvel&#x27;s Spider-Man 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-8100 or AMD Ryzen 3 3100",
+        "ram": "16 GB",
+        "video_card": "NVIDIA GeForce GTX 1650 or AMD Radeon RX 5500 XT"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/mass-effect-andromeda/13162",
+    "game": "Mass Effect: Andromeda",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5 3570 or AMD FX-6350",
+        "ram": "8 GB",
+        "video_card": "Nvidia GTX 660 2GB, AMD Radeon 7850 2GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/mega-man-11/17850",
+    "game": "Mega Man 11",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-3470 3.20GHz or AMD equivalent or better",
+        "ram": "4 GB",
+        "video_card": "GeForce GTX 650"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/metal-gear-online-cloaked-in-silence/13151",
+    "game": "Metal Gear Online - CLOAKED IN SILENCE",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-4460 (3.40 GHz) or better; Quad-core or better",
+        "ram": "4 GB",
+        "video_card": "NVIDIA GeForce GTX 650 (2GB) or better (DirectX 11 card Required)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/metal-gear-solid-snake-eater/25909",
+    "game": "METAL GEAR SOLID: SNAKE EATER",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel i5-8600 or AMD Ryzen 5 3600",
+        "ram": "16 GB",
+        "video_card": "RTX 2060 Super (8GB)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/minecraft/11356",
+    "game": "Minecraft",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-3210 3.2 GHz / AMD A8-7600 APU 3.1 GHz or equivalent",
+        "ram": "2 GB",
+        "video_card": "Integrated: Intel HD Graphics 4000 (Ivy Bridge) or AMD Radeon R5 series (Kaveri line) with OpenGL 4.41Discrete: Nvidia GeForce 400 Series or AMD Radeon HD 7000 series with OpenGL 4.4"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/mirrors-edge-catalyst/13155",
+    "game": "Mirror&#x27;s Edge Catalyst",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel i3-3250 / AMD FX-6350",
+        "ram": "6 GB",
+        "video_card": "Nvidia GeForce GTX 650 Ti 2GB or better / AMD Radeon R9 270x or better"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/monster-hunter-world/17493",
+    "game": "Monster Hunter: World",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-4460, 3.20GHz or AMD FX-6300",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 760 or AMD Radeon R7 260x (VRAM 2GB)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/mordheim-city-of-the-damned/12390",
+    "game": "Mordheim: City of the Damned",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "4096 MB",
+        "video_card": "1024 MB DirectX 9.0c compatible AMD Radeon HD 5850/NVIDIA GeForce GTX 460 or higher"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/muse-dash/18920",
+    "game": "Muse Dash",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core™ Duo or faster",
+        "ram": "2 GB",
+        "video_card": "DirectX® 9 Compatible Graphics Card"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/need-for-speed-2016/13109",
+    "game": "Need For Speed (2016)",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-4130 or equivalent with 4 hardware threads",
+        "ram": "6 GB",
+        "video_card": "NVIDIA GeForce GTX 750 Ti 2GB, AMD Radeon HD 7850 2GB, or equivalent DX11 compatible GPU with 2GB of memory"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/need-for-speed-payback/16139",
+    "game": "Need for Speed Payback",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel i3 6300 @ 3.8GHz or AMD FX 8150 @ 3.6GHz with 4 hardware threads",
+        "ram": "6 GB",
+        "video_card": "Nvidia GeForce GTX 750 Ti, AMD Radeon HD 7850, or equivalent DX11 compatible GPU with 2GB of memory"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/need-for-speed-rivals/11870",
+    "game": "Need for Speed: Rivals",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel 2.4 GHz Core 2 Duo, AMD 2.6 GHz Athlon X2",
+        "ram": "4 GB",
+        "video_card": "AMD Radeon HD 3870 512Mb or better, NVIDIA GeForce 8800 GT 512 Mb or better, Intel HD 4000 integrated 512Mb or better"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/ni-no-kuni-2-revenant-kingdom/15415",
+    "game": "Ni No Kuni 2: Revenant Kingdom",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-4460 / AMD FX-6300",
+        "ram": "4 GB",
+        "video_card": "NVIDIA GeForce GTX 750 Ti / AMD Radeon R7 260x (VRAM 2GB or higher)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/no-mans-sky/13130",
+    "game": "No Man&#x27;s Sky",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3",
+        "ram": "8 GB",
+        "video_card": "nVidia GTX 480, AMD Radeon 7870"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/okami-hd/16820",
+    "game": "Okami HD",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel® Core™ i5-2500,3.3GHz",
+        "ram": "2 GB",
+        "video_card": "NVIDIA® GeForce® GTX 470"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/overwatch/12955",
+    "game": "Overwatch",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3 or AMD Phenom X3 8650",
+        "ram": "4 GB",
+        "video_card": "Nvidia GeForce GTX 460, ATI Radeon HD 4850, or Intel HD Graphics 4400"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/palworld/22894",
+    "game": "Palworld",
+    "requirements": {
+      "minimum": {
+        "cpu": "Core i5-3570K 3.4 GHz 4 Core",
+        "ram": "16 GB",
+        "video_card": "GeForce GTX 1050 (2GB)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/persona5-the-phantom-x/27395",
+    "game": "Persona 5: The Phantom X",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel® Core™i3-7300",
+        "ram": "8 GB",
+        "video_card": "NVIDIA® Geforce® GTX 750 Ti 2G"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/pillars-of-eternity-2/13482",
+    "game": "Pillars of Eternity 2: Deadfire",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-2100T @ 2.50 GHz / AMD Phenom II X3 B73",
+        "ram": "4 GB",
+        "video_card": "ATI Radeon HD 4850 or NVIDIA GeForce 9600 GT"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/plants-vs-zombies-garden-warfare-2/13091",
+    "game": "Plants vs Zombies Garden Warfare 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel i5 650, AMD Phenom X4 9850",
+        "ram": "4 GB",
+        "video_card": "NVIDIA GeForce GT 640, AMD Radeon HD 7730"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/plants-vs-zombies-garden-warfare/12191",
+    "game": "Plants vs Zombies Garden Warfare",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Duo or AMD Athlon 64 X2 3.0 GHz",
+        "ram": "4 GB",
+        "video_card": "NVIDIA GeForce 8800GT or AMD/ATI Radeon HD 5750"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/portal/10668",
+    "game": "Portal",
+    "requirements": {
+      "minimum": {
+        "cpu": "1.7 GHz Processor",
+        "ram": "512 MB",
+        "video_card": "NVIDIA GeForce3+ / ATI Radeon 8500+"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/praey-for-the-gods/17284",
+    "game": "Praey for the Gods",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel CPU Core i5-2500K 3.3GHz, AMD CPU Phenom II X4 940.",
+        "ram": "6 GB",
+        "video_card": "Nvidia GeForce GTX 660 or AMD Radeon HD 7870"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/project-cars-2/13481",
+    "game": "Project CARS 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "3.5 GHz Intel Core i7 3700, 4.0 GHz AMD FX-8350",
+        "ram": "8 GB",
+        "video_card": "GTX680 or equivalent"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/rage-2/17855",
+    "game": "Rage 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-3570 or AMD Ryzen 3 1300X",
+        "ram": "8 GB",
+        "video_card": "Nvidia GTX 780 3GB or AMD R9 280 3GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/realm-royale/17879",
+    "game": "Realm Royale",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-2320 CPU @ 3.00 GHz (4 CPUs), ~3.0GHz",
+        "ram": "6 GB",
+        "video_card": "NVIDIA GeForce GTX 555"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/red-dead-redemption-2/16908",
+    "game": "Red Dead Redemption 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-2500K / AMD FX-6300",
+        "ram": "8 GB",
+        "video_card": "Nvidia GeForce GTX 770 2GB / AMD Radeon R9 280"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/resident-evil-2-biohazard-re2/17954",
+    "game": "RESIDENT EVIL 2 / BIOHAZARD RE:2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel® Core™ i5-4460, 2.70GHz or AMD FX™-6300 or better",
+        "ram": "8 GB",
+        "video_card": "NVIDIA® GeForce® GTX 760 or AMD Radeon™ R7 260x with 2GB Video RAM"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/return-of-the-obra-dinn/18277",
+    "game": "Return of the Obra Dinn",
+    "requirements": {
+      "minimum": {
+        "cpu": "2 GHz Intel i5 or better",
+        "ram": "4 GB",
+        "video_card": "Discrete GPU"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/ring-of-elysium/17807",
+    "game": "Ring of Elysium",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel i3 8130U(2Cores, 2.3GHz) or equivalent",
+        "ram": "4 GB",
+        "video_card": "NVIDIA GeForce GT 730 or equivalent"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/river-city-girls/19106",
+    "game": "River City Girls",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel(R) Core 2 Duo E7500",
+        "ram": "4 GB",
+        "video_card": "NVIDIA GeForce GTX 750 or equivalent"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/road-redemption/12752",
+    "game": "Road Redemption",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "4 GB",
+        "video_card": "DirectX 9-compatible graphics card with at least 512MB of video memory"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/rocket-league/12743",
+    "game": "Rocket League",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "4 GB",
+        "video_card": "NVIDIA GeForce 760, AMD Radeon R7 270X, or better"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/sherlock-holmes-crimes-and-punishments/12347",
+    "game": "Sherlock Holmes: Crimes and Punishments",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "2048 MB RAM",
+        "video_card": "256 MB 100% DIRECTX 9 COMPATIBLE AMD RADEON HD 3850/NVIDIA GEFORCE 8600 GTS OR HIGHER"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/sid-meier-s-civilization-vii/24229",
+    "game": "Sid Meier&#x27;s Civilization VII",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-10100 / AMD Ryzen 3 1200",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GTX 1050 / AMD RX 460 / Intel Arc A380"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/soulcalibur-6/17869",
+    "game": "SoulCalibur 6",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-4160 3.6 GHz or AMD Phenom II X4 965 3.4 GHz",
+        "ram": "6 GB",
+        "video_card": "2 GB GeForce GTX 660 or Radeon R7 370"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/space-hulk-deathwing-enhanced-edition/17822",
+    "game": "Space Hulk: Deathwing - Enhanced Edition",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-2400/AMD FX-8320",
+        "ram": "8 GB",
+        "video_card": "2 GB, DirectX 11, AMD Radeon HD 7870/NVIDIA GeForce GTX 660"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/space-hulk-tactics/17859",
+    "game": "Space Hulk: Tactics",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-3220 (3.3 GHz)/AMD FX-4200 (3.3 GHz)",
+        "ram": "8 GB",
+        "video_card": "2 GB, GeForce GTX 660/Radeon R7 370"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/spintires-mudrunner/16642",
+    "game": "MudRunner",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel® Pentium Dual Core 2.0GHz or equivalent",
+        "ram": "2 GB",
+        "video_card": "NVIDIA GeForce 9600 GT or equivalent"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/star-wars-battlefront-2/16235",
+    "game": "Star Wars Battlefront 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "AMD FX-6350 or Intel Core i5 6600K.",
+        "ram": "8 GB",
+        "video_card": "AMD Radeon HD 7850 2GB or NVIDIA GeForce GTX 660 2GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/star-wars-battlefront-2015-alpha/12732",
+    "game": "Star Wars Battlefront 2015",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-6300T or equivalent",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 660 / ATI Radeon HD 7850 with 2 GB of Video Memory"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/star-wars-dark-forces/17768",
+    "game": "STAR WARS - Dark Forces",
+    "requirements": {
+      "minimum": {
+        "cpu": "486 or higher",
+        "ram": "16 MB",
+        "video_card": "DirectX"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/star-wars-empire-at-war/10418",
+    "game": "Star Wars: Empire at War",
+    "requirements": {
+      "minimum": {
+        "cpu": "Pentium III or Athlon equivalent",
+        "ram": "256 MB",
+        "video_card": "32 MB video card with Hardware T&L capability (GeForce2+ / ATI Radeon 7200+)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/star-wars-jedi-fallen-order/18286",
+    "game": "Star Wars Jedi: Fallen Order",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-3220 / AMD FX-6100",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 650 / AMD Radeon HD 7750"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/star-wars-jedi-knight-dark-forces-ii/17769",
+    "game": "STAR WARS Jedi Knight: Dark Forces II",
+    "requirements": {
+      "minimum": {
+        "cpu": "Pentium 90",
+        "ram": "16 MB",
+        "video_card": "DirectX"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/star-wars-the-force-unleashed-ii/11048",
+    "game": "Star Wars: The Force Unleashed II",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Duo 2.4 GHz or AMD Athlon X2 5200+",
+        "ram": "2 GB",
+        "video_card": "ATI Radeon HD 2600 / NVIDIA GeForce 8600 GT or better with 256 MB of graphics memory with support for Shader 3.0"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/star-wars-the-old-republic/11174",
+    "game": "Star Wars: The Old Republic",
+    "requirements": {
+      "minimum": {
+        "cpu": "AMD Athlon 64 X2 Dual-Core 4000+ or better/Intel Core 2 Duo 2.0GHz or better",
+        "ram": "3 GB",
+        "video_card": "Intel HD 3000 or better/AMD Radeon HD 7450/Nvidia GeForce 610"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/starfield/17922",
+    "game": "Starfield",
+    "requirements": {
+      "minimum": {
+        "cpu": "AMD Ryzen 5 2600X, Intel Core i7-6800K",
+        "ram": "16 GB",
+        "video_card": "AMD Radeon RX 5700, NVIDIA GeForce 1070 Ti"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/starfighter-origins/15893",
+    "game": "Starfighter Origins",
+    "requirements": {
+      "minimum": {
+        "cpu": "i3, i5/ i7 or similar AMD",
+        "ram": "2 GB",
+        "video_card": "Nvidea 750 or AMD Equivillant"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/starforge/11633",
+    "game": "StarForge",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Dual-Core 2.4 GHz or 2.7 GHz AMD Athlon 64X2",
+        "ram": "3 GB",
+        "video_card": "NVIDIA GeForce 8800GT or AMD Radeon HD 3830 or Intel HD Graphics 4000 with 512 MB VRAM"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/street-fighter-30th-anniversary-collection/17825",
+    "game": "Street Fighter 30th Anniversary Collection",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel i3 @ 3.0GHz or AMD equivalent.",
+        "ram": "4 GB",
+        "video_card": "Intel HD 4440"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/styx-shards-of-darkness/13365",
+    "game": "Styx: Shards of Darkness",
+    "requirements": {
+      "minimum": {
+        "cpu": "AMD FX-8320 (3,5GHz) / Intel i5-5675 (3,1GHz)",
+        "ram": "8 GB",
+        "video_card": "AMD Radeon R7 370 / Nvidia Geforce GTX 570"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/team-fortress-2/10667",
+    "game": "Team Fortress 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "512 MB",
+        "video_card": "Info"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/the-elder-scrolls-v-skyrim/11231",
+    "game": "The Elder Scrolls V: Skyrim",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "2 GB",
+        "video_card": "DirectX 9.0c compliant video card with 512 MB of RAM - NVIDIA GeForce 7600 GT & ATI Radeon X1800."
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/the-last-of-us-part-1/22138",
+    "game": "The Last of Us Part 1",
+    "requirements": {
+      "minimum": {
+        "cpu": "AMD Ryzen 5 1500X, Intel Core i7-4770K",
+        "ram": "16 GB",
+        "video_card": "AMD Radeon RX 470 (4 GB), AMD Radeon RX 6500 XT (4 GB), NVIDIA GeForce GTX 970 (4 GB), NVIDIA GeForce 1050 Ti (4 GB)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/the-outer-worlds/18380",
+    "game": "The Outer Worlds",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-3225 or AMD Phenom II X6 1100T",
+        "ram": "4 GB",
+        "video_card": "Nvidia GeForce GTX 650 Ti or AMD Radeon HD 7850"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/the-sims-4-island-living/18922",
+    "game": "The Sims 4: Island Living",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Duo E4300 or AMD Athlon 64 X2 4000+ (2.0 GHz Dual Core required if using integrated graphics)",
+        "ram": "2 GB",
+        "video_card": "NVIDIA GeForce 6600 or ATI Radeon X1300 or Intel GMA X4500"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/the-sims-4/12305",
+    "game": "The Sims 4",
+    "requirements": {
+      "minimum": {
+        "cpu": "3.3 GHz Intel Core i3-3220 (2 cores, 4 threads), AMD Ryzen 3 1200 3.1 GHz (4 cores) or better",
+        "ram": "4 GB",
+        "video_card": "128 MB of Video RAM and support for Pixel Shader 3.0. Supported Video Cards: NVIDIA GeForce 6600 or better, ATI Radeon X1300 or better, Intel GMA X4500 or better"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/the-surge/15721",
+    "game": "The Surge",
+    "requirements": {
+      "minimum": {
+        "cpu": "AMD FX-8320 (3,5 GHz) / Intel i5-4690K (3,5 GHz)",
+        "ram": "8 GB",
+        "video_card": "1 GB, AMD Radeon R7 360 / NVIDIA GeForce GTX 560 Ti"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/the-witcher-3-wild-hunt-game-of-the-year-edition/14077",
+    "game": "The Witcher 3: Wild Hunt - Game of the Year Edition",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel CPU Core i5-2500K 3.3GHz / AMD CPU Phenom II X4 940",
+        "ram": "6 GB",
+        "video_card": "Nvidia GPU GeForce GTX 660 / AMD GPU Radeon HD 7870"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/the-witcher-3-wild-hunt/12446",
+    "game": "The Witcher 3: Wild Hunt",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel CPU Core i5-2500K 3.3GHz / AMD CPU Phenom II X4 940",
+        "ram": "6 GB",
+        "video_card": "Nvidia GPU GeForce GTX 660 / AMD GPU Radeon HD 7870"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/the-witness/13058",
+    "game": "The Witness",
+    "requirements": {
+      "minimum": {
+        "cpu": "Info",
+        "ram": "4 GB",
+        "video_card": "Intel HD 4000 series"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/titanfall-2/13171",
+    "game": "Titanfall 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-3600t or equivalent",
+        "ram": "8 GB",
+        "video_card": "NVIDIA Geforce GTX 660 2GB, AMD Radeon HD 7850 2GB"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/titanfall/11968",
+    "game": "Titanfall",
+    "requirements": {
+      "minimum": {
+        "cpu": "AMD Athlon X2 2.8 GHz or Intel Core 2 Duo 2.4 GHz",
+        "ram": "4 GB",
+        "video_card": "512MB VRAM, Radeon HD 4770 or GeForce 8800GT"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/tom-clancys-rainbow-six-siege-beta/12864",
+    "game": "Tom Clancy&#x27;s Rainbow Six: Siege",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3 560 @ 3.3GHz or better, AMD Phenom II X4 945 @ 3.0Ghz or better",
+        "ram": "6 GB",
+        "video_card": "NVIDIA GeForce GTX 460, AMD Radeon HD 5770, And DX11 cards with 1GB VRAM"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/tom-clancys-the-division/13063",
+    "game": "Tom Clancy&#x27;s The Division",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-2400 | AMD FX-6100, or better",
+        "ram": "6 GB",
+        "video_card": "NVIDIA GeForce GTX 560 with 2 GB VRAM (current equivalent NVIDIA GeForce GTX 760) | AMD Radeon HD 7770 with 2 GB VRAM, or better"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/total-war-warhammer-2/15603",
+    "game": "Total War: Warhammer 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel® Core™ 2 Duo 3.0Ghz",
+        "ram": "5 GB",
+        "video_card": "NVIDIA GTX 460 1GB | AMD Radeon HD 5770 1GB | Intel HD4000 @720p"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/totally-reliable-delivery-service/18940",
+    "game": "Totally Reliable Delivery Service",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5 2500K or equivalent",
+        "ram": "4 GB",
+        "video_card": "GeForce GTX 560, Radeon HD 5870 or newer"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/valorant/19638",
+    "game": "VALORANT",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Duo E8400 / AMD Athlon 200GE",
+        "ram": "4 GB",
+        "video_card": "Intel HD 4000 / Radeon R5 200"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/vampire-the-masquerade-bloodlines-2/18638",
+    "game": "Vampire: The Masquerade - Bloodlines 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-8350K | AMD Ryzen 3 3300X",
+        "ram": "8 GB",
+        "video_card": "NVIDIA GeForce GTX 1060 (6GB) | AMD Radeon RX 480 (8GB) | Intel Arc A580 (8GB, Resizable BAR enabled) | AMD Radeon 780M"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/vampyr/13550",
+    "game": "Vampyr",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i3-2130 (3.4 GHz)/AMD FX-4100 (3.6 GHz)",
+        "ram": "8 GB",
+        "video_card": "2 GB, GeForce GTX 660/Radeon R7 370"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/wargame-red-dragon/12016",
+    "game": "Wargame: Red Dragon",
+    "requirements": {
+      "minimum": {
+        "cpu": "Dual Core 2.5 GHz",
+        "ram": "2 GB",
+        "video_card": "256 MB ATI Radeon x1800 GTO/ NVIDIA GeForce 7600 GT/ Intel HD 3000"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/what-remains-of-edith-finch/15243",
+    "game": "What Remains of Edith Finch",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel i3 2125 3.30 GHz or later",
+        "ram": "2 GB",
+        "video_card": "GeForce GTX 750/AMD Radeon 7790 or later"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/world-of-tanks/11129",
+    "game": "World of Tanks 2.0",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-3330 / AMD FX-6300",
+        "ram": "4 GB",
+        "video_card": "NVIDIA GeForce GTX 460 / AMD Radeon HD 8770, 1280x768 screen resolution"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/world-of-warcraft/10207",
+    "game": "World of Warcraft",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core i5-760 or AMD FX-8100 or later",
+        "ram": "4 GB RAM (8GB for integrated graphics such as Intel HD Graphics)",
+        "video_card": "NVIDIA GeForce GTX 560 2GB or AMD Radeon HD 7850 2GB or Intel HD Graphics 530 (45W)"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/world-of-warships-anniversary-party/26275",
+    "game": "World of Warships - Anniversary Party Favor",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel® Core™ i3-3210 3.2 GHz, AMD Athlon™ X4 970 Quad Core Processor 3,8 GHz",
+        "ram": "6 GB",
+        "video_card": "1280×720; NVIDIA® GeForce® GT 640, AMD Radeon™ R7 240, Intel® UHD 630, 2GB VRAM"
+      },
+      "recommended": null
+    }
+  },
+  {
+    "source": "systemrequirementslab",
+    "url": "https://www.systemrequirementslab.com/cyri/requirements/xcom-2/13025",
+    "game": "XCOM 2",
+    "requirements": {
+      "minimum": {
+        "cpu": "Intel Core 2 Duo E4700 2.6 GHz or AMD Phenom 9950 Quad Core 2.6 GHz",
+        "ram": "4 GB",
+        "video_card": "1GB ATI Radeon HD 5770, 1GB NVIDIA GeForce GTX 460 or better"
       },
       "recommended": null
     }
