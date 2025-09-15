@@ -222,12 +222,14 @@ form.addEventListener('submit', async (e) => {
     let errorMessage = 'Bir hata oluştu: ' + err.message;
     
     // Provide more specific error messages
-    if (err.message.includes('proxy')) {
-      errorMessage = 'Proxy servisleri çalışmıyor. Lütfen daha sonra tekrar deneyin.';
+    if (err.message.includes('backend')) {
+      errorMessage = 'Backend sunucusuna bağlanılamadı. Lütfen sunucunun ve ngrok tünelinin çalıştığından emin olun.';
     } else if (err.message.includes('Steam API')) {
-      errorMessage = 'Steam API hatası. Lütfen Steam ID\'nizi kontrol edin.';
+      errorMessage = 'Steam API hatası. Lütfen Steam ID\'nizi kontrol edin ve profilinizin herkese açık olduğundan emin olun.';
     } else if (err.message.includes('timeout')) {
       errorMessage = 'İstek zaman aşımına uğradı. Lütfen tekrar deneyin.';
+    } else if (err.message.includes('oyun bulunamadı')) {
+      errorMessage = err.message; // Use the specific message from fetchGames
     }
     
     setStatus(errorMessage);
@@ -236,206 +238,39 @@ form.addEventListener('submit', async (e) => {
   showLoader(false);
 });
 
-// More reliable proxy services with better error handling
-const PROXY_SERVICES = [
-  'https://api.allorigins.win/get?url=',
-  'https://corsproxy.io/?',
-  'https://api.codetabs.com/v1/proxy?quest=',
-  'https://thingproxy.freeboard.io/fetch/',
-  'https://cors-anywhere.herokuapp.com/',
-  'https://cors.bridged.cc/',
-  'https://api.codetabs.com/v1/proxy?quest='
-];
-
-// Track proxy health to avoid repeatedly trying failed proxies
-const proxyHealth = new Map();
-const MAX_FAILURES = 3;
-
-async function fetchWithProxy(url, proxyIndex = 0, retryCount = 0) {
-  // Skip proxies that have failed too many times
-  if (proxyHealth.get(proxyIndex) >= MAX_FAILURES) {
-    if (proxyIndex < PROXY_SERVICES.length - 1) {
-      return await fetchWithProxy(url, proxyIndex + 1, 0);
-    } else {
-      throw new Error('Tüm proxy servisleri başarısız oldu.');
-    }
-  }
-  
-  if (proxyIndex >= PROXY_SERVICES.length) {
-    throw new Error('Tüm proxy servisleri başarısız oldu.');
-  }
-  
-  const proxyUrl = PROXY_SERVICES[proxyIndex] + encodeURIComponent(url);
-  
-  // Update status to show which proxy is being used
-  if (proxyIndex > 0) {
-    setStatus(`Proxy ${proxyIndex + 1} deneniyor...`);
-  }
-  
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000); // Reduced timeout to 15 seconds
-    
-    const res = await fetch(proxyUrl, { 
-      signal: controller.signal,
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-      }
-    });
-    
-    clearTimeout(timeoutId);
-    
-    // Handle rate limiting with exponential backoff
-    if (res.status === 429) {
-      const retryAfter = res.headers.get('Retry-After');
-      const delay = retryAfter ? parseInt(retryAfter) * 1000 : Math.pow(2, retryCount) * 2000; // Increased base delay
-      
-      if (retryCount < 2) { // Reduced max retries
-        await sleep(delay);
-        return await fetchWithProxy(url, proxyIndex, retryCount + 1);
-      } else {
-        // Mark this proxy as failed and try next
-        proxyHealth.set(proxyIndex, (proxyHealth.get(proxyIndex) || 0) + 1);
-        if (proxyIndex < PROXY_SERVICES.length - 1) {
-          return await fetchWithProxy(url, proxyIndex + 1, 0);
-        } else {
-          throw new Error('Rate limit exceeded on all proxies');
-        }
-      }
-    }
-    
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-    }
-    
-    const data = await res.json();
-    
-    // Reset failure count on success
-    proxyHealth.set(proxyIndex, 0);
-    
-    // Handle different proxy response formats
-    if (data.contents) {
-      // allorigins.win format
-      return JSON.parse(data.contents);
-    } else if (data.response) {
-      // Direct Steam API response
-      return data;
-    } else {
-      // Try to parse as direct response
-      return data;
-    }
-  } catch (error) {
-    // Mark proxy as failed
-    proxyHealth.set(proxyIndex, (proxyHealth.get(proxyIndex) || 0) + 1);
-    
-    // If it's a network error and we haven't exceeded retries, try again
-    if (retryCount < 1 && (error.name === 'TypeError' || error.message.includes('fetch'))) {
-      await sleep(Math.pow(2, retryCount) * 2000);
-      return await fetchWithProxy(url, proxyIndex, retryCount + 1);
-    }
-    
-    if (proxyIndex < PROXY_SERVICES.length - 1) {
-      return await fetchWithProxy(url, proxyIndex + 1, 0);
-    } else {
-      throw error;
-    }
-  }
-}
-
 async function fetchGames(steamid) {
-  // Try backend first if online
-  if (backendOnline) {
-    try {
-      const response = await fetch(`${BACKEND_URL}/api/steam/games/${steamid}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        return data.games || [];
-      } else {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Backend error');
-      }
-    } catch (error) {
-      setBackendStatus(false);
-      // Fall through to proxy method
-    }
+  const response = await fetch(`${BACKEND_URL}/api/steam/games/${steamid}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({ error: 'Bilinmeyen bir backend hatası oluştu.' }));
+    throw new Error(errorData.error || 'Backend error');
   }
-  
-  // Fallback to proxy method
-  const steamUrl = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${API_KEY}&steamid=${steamid}&include_appinfo=1&include_played_free_games=1`;
-  
-  try {
-    const parsed = await fetchWithProxy(steamUrl);
-    
-    if (!parsed.response) {
-      throw new Error('Steam API yanıtında response bulunamadı.');
-    }
-    
-    if (parsed.response.error) {
-      throw new Error(`Steam API hatası: ${parsed.response.error.error_desc || 'Bilinmeyen hata'}`);
-    }
-    
-    // Check if games array exists and has content
-    const games = parsed.response.games || [];
-    
-    return games;
-  } catch (error) {
-    console.error('Steam API fetch failed:', error);
-    throw new Error(`Oyunlar alınamadı: ${error.message}`);
+
+  const data = await response.json();
+  if (!data.games || data.games.length === 0) {
+    throw new Error('Kütüphanede oyun bulunamadı veya profil gizli.');
   }
+  return data.games;
 }
 
 async function fetchGameDetails(appid) {
-  // Try backend first if online
-  if (backendOnline) {
-    try {
-      const response = await fetch(`${BACKEND_URL}/api/steam/game/${appid}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        return data.data.pc_requirements?.minimum || '';
-      } else {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Backend error');
-      }
-    } catch (error) {
-      // Fall through to proxy method
-    }
+  const response = await fetch(`${BACKEND_URL}/api/steam/game/${appid}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  });
+
+  if (!response.ok) {
+    // Don't throw for a single game, just return null to not stop the whole process.
+    console.error(`Oyun detayı alınamadı (appid: ${appid}). Sunucu yanıtı: ${response.status}`);
+    return null;
   }
-  
-  // Fallback to proxy method
-  const steamUrl = `https://store.steampowered.com/api/appdetails?appids=${appid}&l=turkish`;
-  
-  try {
-    const parsed = await fetchWithProxy(steamUrl);
-    
-    if (!parsed[appid] || !parsed[appid].success) {
-      throw new Error('Game details not available');
-    }
-    
-    return parsed[appid].data.pc_requirements?.minimum || '';
-  } catch (error) {
-    // If it's a rate limit or CORS error, don't throw - just return null
-    if (error.message.includes('429') || 
-        error.message.includes('CORS') || 
-        error.message.includes('Rate limit') ||
-        error.message.includes('proxy')) {
-      return null;
-    }
-    
-    throw error;
-  }
+
+  const data = await response.json();
+  // Return the requirements string, or an empty string if not available
+  return data.data?.pc_requirements?.minimum || '';
 }
 
 function parseRequirements(minReqStr) {
@@ -681,7 +516,6 @@ function sleep(ms) {
 function clearCache() {
   gameDetailsCache.clear();
   cachedHardware = null; // Reset hardware detection cache
-  proxyHealth.clear(); // Reset proxy health tracking
 }
 
 // Test function to debug Steam API - can be called from browser console
@@ -692,21 +526,6 @@ window.testSteamAPI = async function(steamid) {
   } catch (error) {
     return null;
   }
-};
-
-// Test proxy connectivity
-window.testProxies = async function() {
-  const testUrl = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=test&steamid=76561198000000000&include_appinfo=1';
-  
-  for (let i = 0; i < PROXY_SERVICES.length; i++) {
-    try {
-      const result = await fetchWithProxy(testUrl, i);
-      return i;
-    } catch (error) {
-      // Continue to next proxy
-    }
-  }
-  return -1;
 };
 
 // Clear cache when form is submitted

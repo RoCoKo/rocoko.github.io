@@ -8,6 +8,8 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors({
   origin: ['https://rocoko.github.io', 'http://localhost:3000'],
+  methods: ['GET', 'OPTIONS'], // Allow GET and OPTIONS methods
+  allowedHeaders: ['Content-Type'], // Allow Content-Type header
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
